@@ -1,0 +1,27 @@
+.options {
+    display: none;
+
+}
+
+.select-option {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.advanced-options {
+    margin-top: 20px;
+    .open-option {
+        display: block;
+    }
+}
+
+.search-form {
+    form {
+        position: relative;
+        span {
+            position: absolute;
+            right: 15px;
+            transform: translateY(50%);
+        }
+    }
+}

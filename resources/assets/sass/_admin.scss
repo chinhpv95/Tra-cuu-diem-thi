@@ -1,0 +1,41 @@
+.custom-table {
+    tbody {
+        tr {
+            td {
+                border: none;
+            }
+        }
+    }
+}
+
+.container {
+    margin-top: 30px;
+}
+
+.upload-file {
+    margin-bottom: 20px;
+    input {
+        float: left;
+        margin-top: 5px;
+    }
+}
+
+.manager {
+    border: none;
+    li {
+        margin-bottom: 0;
+        float: none;
+        a {
+            border: none;
+            margin-right: 0;
+            &:hover {
+                border: none;
+            }
+        }
+        &.active {
+            a, a:focus, a:hover {
+                border: none;
+            }
+        }
+    }
+}

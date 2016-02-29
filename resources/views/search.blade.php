@@ -5,7 +5,7 @@
 @endsection
 
 @section('head.style')
-    <link rel="stylesheet" href="{{ url('/') }}/css/app.css"/>
+    <link rel="stylesheet" href="{{ url('/') }}/assets/css/style.css"/>
 @endsection
 
 @section('body')
@@ -33,7 +33,7 @@
 @endsection
 
 @section('body.script')
-    {{ Html::script('js/bootstrap.min.js', array('async' => 'async')) }}
-    {{ HTML::script('js/jquery.min.js', array('async' => 'async')) }}
-    {{ HTML::script('js/main.js', array('async' => 'async')) }}
+    {{ Html::script('assets/js/jquery.min.js', array('async' => 'async')) }}
+    {{ Html::script('assets/js/bootstrap.min.js', array('async' => 'async')) }}
+    {{ Html::script('assets/js/main.js', array('async' => 'async')) }}
 @endsection

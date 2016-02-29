@@ -1,16 +1,4 @@
 @import "bootstrap";
-
-.options {
-    display: none;
-}
-
-.select-option {
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-.advanced-options {
-    .open-option {
-        display: block;
-    }
-}
+@import "search";
+@import "admin";
+@import "login";
