@@ -69,14 +69,82 @@
                         </form>
                     </div>
                     <div id="manager" class="tab-pane fade">
-                        <div class="add-user">
-                            <a class="btn btn-primary" href="#" role="button">Add User</a>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                            Tạo thành viên mới
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Tạo tài khoản</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="form-horizontal" action='' method="POST">
+                                            <fieldset>
+                                                <div class="control-group">
+                                                    <!-- Username -->
+                                                    <label class="control-label"  for="username">Username</label>
+                                                    <div class="controls">
+                                                        <input type="text" id="username" name="username" placeholder="" class="form-control">
+                                                        <p class="help-block">Username can contain any letters or numbers, without spaces</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="control-group">
+                                                    <!-- E-mail -->
+                                                    <label class="control-label" for="email">E-mail</label>
+                                                    <div class="controls">
+                                                        <input type="text" id="email" name="email" placeholder="" class="form-control">
+                                                        <p class="help-block">Please provide your E-mail</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="control-group">
+                                                    <!-- Password-->
+                                                    <label class="control-label" for="password">Password</label>
+                                                    <div class="controls">
+                                                        <input type="password" id="password" name="password" placeholder="" class="form-control">
+                                                        <p class="help-block">Password should be at least 4 characters</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="control-group">
+                                                    <!-- Password -->
+                                                    <label class="control-label"  for="password_confirm">Password (Confirm)</label>
+                                                    <div class="controls">
+                                                        <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="form-control">
+                                                        <p class="help-block">Please confirm password</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="control-group">
+                                                    <div class="controls">
+                                                        <label class="radio-inline"><input type="radio" name="optradio">Quản trị</label>
+                                                        <label class="radio-inline"><input type="radio" name="optradio">Giáo viên</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="control-group">
+                                                    <!-- Button -->
+                                                    <div class="controls">
+                                                        <button class="btn btn-success">Register</button>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="list-user">
-                            <ul>
-                                <li></li>
-                            </ul>
-                        </div>
+                        {{--<div class="list-user">--}}
+                            {{--<ul>--}}
+                                {{--<li></li>--}}
+                            {{--</ul>--}}
+                        {{--</div>--}}
                     </div>
                 </div>
             </div>

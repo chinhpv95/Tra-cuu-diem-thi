@@ -10,14 +10,18 @@
 
 .advanced-options {
     margin-top: 20px;
+    text-align: center;
     .open-option {
         display: block;
     }
 }
 
 .search-form {
+    margin-top: 150px !important;
     form {
         position: relative;
+        max-width: 580px;
+        margin: auto;
         span {
             position: absolute;
             right: 15px;
