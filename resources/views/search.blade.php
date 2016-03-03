@@ -6,6 +6,11 @@
 
 @section('head.style')
     <link rel="stylesheet" href="{{ url('/') }}/assets/css/style.css"/>
+    <link rel="stylesheet" href="{{ url('/') }}/assets/css/jquery-ui.css">
+
+    <link rel="stylesheet" href="{{ url('/') }}/assets/css/autocomplete.css">
+
+
 @endsection
 
 @section('body')
@@ -35,5 +40,10 @@
 @section('body.script')
     {{ Html::script('assets/js/jquery.min.js', array('async' => 'async')) }}
     {{ Html::script('assets/js/bootstrap.min.js', array('async' => 'async')) }}
+    <script type="text/javascript" src="{{ url('/') }}/assets/js/jquery-ui.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="{{ url('/') }}/assets/js/jquery.ui.autocomplete.html.js"></script>
+
+    <script type="text/javascript" src="{{ url('/') }}/assets/js/autocomplete.js"></script>
     {{ Html::script('assets/js/main.js', array('async' => 'async')) }}
 @endsection
