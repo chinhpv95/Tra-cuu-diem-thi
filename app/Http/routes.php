@@ -20,11 +20,16 @@ Route::get('admin', [
     'as' => 'admin',
     'uses' => 'AdminController@index'
 ]);
-
+/*
 Route::get('login', [
     'as' => 'login',
     'uses' => 'LoginController@index'
 ]);
+
+Route::post('login', [
+    'as' => 'login',
+    'uses' => 'LoginController@index'
+]);*/
 
 /*
 |--------------------------------------------------------------------------
@@ -39,4 +44,10 @@ Route::get('login', [
 
 Route::group(['middleware' => ['web']], function () {
     //
+});
+
+Route::group(['middleware' => 'web'], function () {
+    Route::auth();
+
+    Route::get('/home', 'HomeController@index');
 });
