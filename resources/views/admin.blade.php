@@ -83,7 +83,8 @@
                                         <h4 class="modal-title" id="myModalLabel">Tạo tài khoản</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <form class="form-horizontal" action='' method="POST">
+                                        <form class="form-horizontal" action='{{ url('/admin/addUser') }}' method="POST">
+                                        
                                             <fieldset>
                                                 <div class="control-group">
                                                     <!-- Username -->
@@ -123,8 +124,8 @@
 
                                                 <div class="control-group">
                                                     <div class="controls">
-                                                        <label class="radio-inline"><input type="radio" name="optradio">Quản trị</label>
-                                                        <label class="radio-inline"><input type="radio" name="optradio">Giáo viên</label>
+                                                        <label class="radio-inline"><input type="radio" name="role" value="1">Quản trị</label>
+                                                        <label class="radio-inline"><input type="radio" name="role" value="0">Giáo viên</label>
                                                     </div>
                                                 </div>
 
