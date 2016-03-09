@@ -160,6 +160,8 @@ return [
          * HTML Service Providers...
          */
         'Collective\Html\HtmlServiceProvider',
+
+        'Maatwebsite\Excel\ExcelServiceProvider',
     ],
 
     /*
@@ -207,6 +209,8 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
         'Form'      => 'Collective\Html\FormFacade',
         'Html'      => 'Collective\Html\HtmlFacade',
+
+        'Excel' => 'Maatwebsite\Excel\Facades\Excel',
     ],
 
 ];

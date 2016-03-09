@@ -23,7 +23,10 @@
                     <div id="home" class="tab-pane fade in active">
                         <div class="upload-file">
                             <p>Chọn file excel để import vào cơ sở dữ liệu</p>
-                            <?php echo Form::file('xls'); ?>
+                            <?php
+                                echo Form::open(array('url'=>'admin/getExcel','method'=>'POST', 'files'=>true));
+                                echo Form::file('xls'); 
+                                ?>
                             <button class="btn btn-primary" type="submit">Import</button>
                         </div>
                         <form action="{{ route('admin') }}" data-toggle="validator" method="POST">
