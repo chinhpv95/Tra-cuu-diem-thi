@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 06, 2016 at 01:39 PM
+-- Generation Time: Mar 09, 2016 at 11:33 AM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -23,18 +23,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `class`
+-- Table structure for table `classes`
 --
 
-CREATE TABLE `class` (
-  `class_id` int(3) NOT NULL,
+CREATE TABLE `classes` (
+  `class_id` int(3) UNSIGNED NOT NULL,
   `year_id` int(2) NOT NULL,
   `semester_id` int(1) NOT NULL,
   `class_name` varchar(100) DEFAULT NULL,
   `class_code` varchar(100) DEFAULT NULL,
   `link` varchar(100) DEFAULT NULL,
-  `user_id` int(3) NOT NULL
+  `user_id` int(3) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `classes`
+--
+
+INSERT INTO `classes` (`class_id`, `year_id`, `semester_id`, `class_name`, `class_code`, `link`, `user_id`) VALUES
+(16, 1, 1, 'Mạng máy tính', 'INT 2202 1', NULL, 2),
+(17, 1, 1, 'Mạng máy tính', 'INT 2202 1', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -95,10 +103,17 @@ CREATE TABLE `password_resets` (
 
 CREATE TABLE `semesters` (
   `semester_id` int(1) NOT NULL,
-  `year_id` int(10) NOT NULL,
+  `year_id` int(2) NOT NULL,
   `semester_name` varchar(100) DEFAULT NULL,
   `active` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `semesters`
+--
+
+INSERT INTO `semesters` (`semester_id`, `year_id`, `semester_name`, `active`) VALUES
+(1, 1, 'hoc_ky_2', 1);
 
 -- --------------------------------------------------------
 
@@ -107,7 +122,8 @@ CREATE TABLE `semesters` (
 --
 
 CREATE TABLE `users` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` int(3) UNSIGNED NOT NULL,
+  `isAdmin` tinyint(1) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -120,8 +136,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'hung', 'hung@gmail.com', '$2a$10$gsBCOnPTHlfkl5Dc15GSp.KvgCqagyT2WwWjb.mYw/vXumGR715Ke', NULL, NULL, NULL);
+INSERT INTO `users` (`id`, `isAdmin`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 1, 'hung', 'hung@gmail.com', '$2a$10$gsBCOnPTHlfkl5Dc15GSp.KvgCqagyT2WwWjb.mYw/vXumGR715Ke', 'faxAdKflDiY4dtqbYPcd6O4XQWDNhyccFxGiuGpsZGz80K2jfMfVe6NNSceB', NULL, '2016-03-06 06:15:35'),
+(2, 0, 'Trần Trúc Mai', 'maitt@vnu.edu.vn', '$2y$10$Y3iYsJHMFSJZJtUDRVbPveTzrZ00BU8ZQmGCfKYX1I8aAtIQoPY1i', NULL, '2016-03-09 01:20:12', '2016-03-09 01:20:12');
 
 -- --------------------------------------------------------
 
@@ -136,17 +153,24 @@ CREATE TABLE `years` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Dumping data for table `years`
+--
+
+INSERT INTO `years` (`year_id`, `year_name`, `active`) VALUES
+(1, '2015-2016', 1);
+
+--
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `class`
+-- Indexes for table `classes`
 --
-ALTER TABLE `class`
+ALTER TABLE `classes`
   ADD PRIMARY KEY (`class_id`),
   ADD KEY `fk_semester_id` (`semester_id`),
   ADD KEY `fk_class_year_id` (`year_id`),
-  ADD KEY `fk_class_user` (`user_id`);
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `login`
@@ -186,10 +210,10 @@ ALTER TABLE `years`
 --
 
 --
--- AUTO_INCREMENT for table `class`
+-- AUTO_INCREMENT for table `classes`
 --
-ALTER TABLE `class`
-  MODIFY `class_id` int(3) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `classes`
+  MODIFY `class_id` int(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `login`
 --
@@ -199,26 +223,26 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT for table `semesters`
 --
 ALTER TABLE `semesters`
-  MODIFY `semester_id` int(1) NOT NULL AUTO_INCREMENT;
+  MODIFY `semester_id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `years`
 --
 ALTER TABLE `years`
-  MODIFY `year_id` int(2) NOT NULL AUTO_INCREMENT;
+  MODIFY `year_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `class`
+-- Constraints for table `classes`
 --
-ALTER TABLE `class`
-  ADD CONSTRAINT `fk_class_user` FOREIGN KEY (`user_id`) REFERENCES `login` (`user_id`) ON UPDATE CASCADE,
+ALTER TABLE `classes`
+  ADD CONSTRAINT `classes_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `fk_class_year_id` FOREIGN KEY (`year_id`) REFERENCES `years` (`year_id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_semester_id` FOREIGN KEY (`semester_id`) REFERENCES `semesters` (`semester_id`) ON UPDATE CASCADE;
 

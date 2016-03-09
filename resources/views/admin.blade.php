@@ -29,7 +29,7 @@
                                 ?>
                             <button class="btn btn-primary" type="submit">Import</button>
                         </div>
-                        <form action="{{ route('admin') }}" data-toggle="validator" method="POST">
+                        <form action="{{ route('getClass') }}" data-toggle="validator" method="POST">
                             <table class="table custom-table">
                                 <tbody>
                                 <tr>
@@ -41,7 +41,7 @@
                                 <tr>
                                     <?php
                                     echo '<td>' . Form::label('semester', 'Học kì:') . '</td>';
-                                    echo '<td>' . Form::select('select-semester', array(
+                                    echo '<td>' . Form::select('semester-input', array(
                                             'hoc_ky_1' => 'Học kỳ I',
                                             'hoc_ky_phu_1' => 'Học kỳ phụ I',
                                             'hoc_ky_2' => 'Học kỳ II',
@@ -53,7 +53,7 @@
                                 <tr>
                                     <?php
                                     echo '<td>' . Form::label('class', 'Tên môn học') . '</td>';
-                                    echo '<td>' . Form::text('class-input') . '</td>';
+                                    echo '<td>' . Form::text('class-name-input') . '</td>';
                                     ?>
                                 </tr>
                                 <tr>
@@ -64,9 +64,19 @@
                                 </tr>
                                 <tr>
                                     <?php
-                                    echo '<td></td><td><a class="btn btn-primary" href="#" role="button">Submit</a></td>';
+                                    echo '<td>' . Form::label('teacher', 'Giáo viên') . '</td>';
+                                    echo '<td>' . Form::text('teacher-input') . '</td>';
                                     ?>
                                 </tr>
+                                
+                                <tr>
+
+                                    <?php
+
+                                    echo '<td></td><td><a class="btn btn-primary" href= "admin/getClass" role="button" type="submit">Submit</a></td>';
+                                    ?>
+                                </tr>
+
                                 </tbody>
                             </table>
                         </form>

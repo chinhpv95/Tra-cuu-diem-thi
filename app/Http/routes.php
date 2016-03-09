@@ -50,5 +50,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/admin', ['as' => 'admin', 'uses' => 'AdminController@index']);
     Route::post('/admin/addUser', ['as' => 'addUser', 'uses' => 'AdminController@addUser']);
     Route::post('/admin/getExcel', ['as' => 'getExcel', 'uses' => 'AdminController@getExcel']);
+    Route::post('/admin/getClass', ['as' => 'getClass', 'uses' => 'AdminController@getClass']);
+    Route::get('/admin/getClass', ['as' => 'getClass', 'uses' => 'AdminController@getClass']);
 
 });
