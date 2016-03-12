@@ -67,4 +67,7 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/download/{class_id}', ['as' => 'downLoad', 'uses' => 'AdminController@downLoad' ]);
     Route::post('/download/{class_id}', ['as' => 'downLoad', 'uses' => 'AdminController@downLoad']);
+
+    Route::get('/delete/{user_id}', ['as' => 'delete', 'uses' => 'AdminController@delete' ]);
+    Route::post('/delete/{user_id}', ['as' => 'delete', 'uses' => 'AdminController@delete']);
 });

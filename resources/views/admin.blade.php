@@ -16,7 +16,8 @@
                     <div class="navbar-header">
 
                         <!-- Collapsed Hamburger -->
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#app-navbar-collapse">
                             <span class="sr-only">Toggle Navigation</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -38,12 +39,14 @@
                                 <li><a href="{{ url('/register') }}">Register</a></li>
                             @else
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                       aria-expanded="false">
                                         {{ Auth::user()->name }} <span class="caret"></span>
                                     </a>
 
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                                        <li><a href="{{ url('/logout') }}"><i
+                                                    class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                                     </ul>
                                 </li>
                             @endif
@@ -54,9 +57,15 @@
 
 
             @if(Session::has('flash_message'))
-            <div class="alert alert-success">
-            {{ Session::get('flash_message') }}
-            </div>
+                <div class="alert alert-success">
+                    {{ Session::get('flash_message') }}
+                </div>
+            @endif
+
+            @if(Session::has('delete_message'))
+                <div class="alert alert-success">
+                    {{ Session::get('delete_message') }}
+                </div>
             @endif
 
 
@@ -234,8 +243,13 @@
                             <ul class="list-group">
                                 <?php
                                 $users = App\User::where('role', '=', '1')->orwhere('role', '=', '2')->get();
-                                foreach( $users as $user ) {
-                                    echo '<li class="list-group-item">' . $user['name'] . '</li>';
+                                foreach ($users as $user) {
+                                    echo '<li class="list-group-item"><span>' . $user['name'] . '</span>';
+                                    $urlDelete = route('delete', ['user_id' => $user['id']]);
+                                    echo Form::open(array('url' => $urlDelete, 'method' => 'POST', 'files' => true));
+                                    echo Form::submit('Delete');
+                                    echo Form::close();
+                                    echo '</li>';
                                 }
                                 ?>
                             </ul>
@@ -245,24 +259,24 @@
                 </div>
             </div>
             <?php } else {
-            $teacher_class = App\Classes::where('user_id', '=', Auth::user()->id)->get();
-            echo '<ul class="list-group control-group list-classes">';
-                foreach( $teacher_class as $index ) {
+                $teacher_class = App\Classes::where('user_id', '=', Auth::user()->id)->get();
+                echo '<ul class="list-group control-group list-classes">';
+                foreach ($teacher_class as $index) {
                     echo '<li class="list-group-item"><span>' . $index['class_name'] . ' (' . $index['class_code'] . ')</span>';
-                    $urlUpload = route('upLoad', ['class_id' => $index['class_id']] );
-                
-                     echo Form::open(array('url'=> $urlUpload ,'method'=>'POST', 'files'=>true));
-                                echo Form::file('link'); 
-                                echo Form::submit('Upload');
-                                echo Form::close();
+                    $urlUpload = route('upLoad', ['class_id' => $index['class_id']]);
 
-                    $urlDownload = route('downLoad', ['class_id' => $index['class_id']] ); 
-                    echo Form::open(array('url'=> $urlDownload ,'method'=>'POST', 'files'=>true));
-                        echo Form::submit('Download');
-                        echo Form::close();
+                    echo Form::open(array('url' => $urlUpload, 'method' => 'POST', 'files' => true));
+                    echo Form::file('link');
+                    echo Form::submit('Upload');
+                    echo Form::close();
+
+                    $urlDownload = route('downLoad', ['class_id' => $index['class_id']]);
+                    echo Form::open(array('url' => $urlDownload, 'method' => 'POST', 'files' => true));
+                    echo Form::submit('Download');
+                    echo Form::close();
                 }
-                
-            echo '</ul>';
+
+                echo '</ul>';
             } ?>
 
         </div>

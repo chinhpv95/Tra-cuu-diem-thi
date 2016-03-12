@@ -101,7 +101,7 @@ class AdminController extends Controller
       //var_dump($file);
 
       $filename = $file->getClientOriginalName();
-      $destinationPath = app_path()."\storage\\";
+      $destinationPath = base_path()."\public\\";
       $file->move($destinationPath, $filename);
 
 
@@ -120,5 +120,12 @@ class AdminController extends Controller
     public function download($class_id){
       $class = Classes::find($class_id);
       return Response::download($class->link);
+    }
+
+    public function delete($user_id) {
+        User::where('id', $user_id)->delete();
+        Session::flash('delete_message', 'Delete successfully!');
+
+        return  redirect()->back();
     }
 }
