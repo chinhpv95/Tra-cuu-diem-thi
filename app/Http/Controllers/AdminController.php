@@ -113,8 +113,12 @@ class AdminController extends Controller
 
 
       Session::flash('flash_message', 'File uploaded!');
-      //Response::download($destinationPath . $filename);
 
         return  redirect()->back();
+    }
+
+    public function download($class_id){
+      $class = Classes::find($class_id);
+      return Response::download($class->link);
     }
 }

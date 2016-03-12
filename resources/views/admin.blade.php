@@ -249,12 +249,17 @@
             echo '<ul class="list-group control-group list-classes">';
                 foreach( $teacher_class as $index ) {
                     echo '<li class="list-group-item"><span>' . $index['class_name'] . ' (' . $index['class_code'] . ')</span>';
-                    $url = route('upLoad', ['class_id' => $index['class_id']] );
-                    echo $url;
-                     echo Form::open(array('url'=> $url ,'method'=>'POST', 'files'=>true));
+                    $urlUpload = route('upLoad', ['class_id' => $index['class_id']] );
+                
+                     echo Form::open(array('url'=> $urlUpload ,'method'=>'POST', 'files'=>true));
                                 echo Form::file('link'); 
                                 echo Form::submit('Upload');
                                 echo Form::close();
+
+                    $urlDownload = route('downLoad', ['class_id' => $index['class_id']] ); 
+                    echo Form::open(array('url'=> $urlDownload ,'method'=>'POST', 'files'=>true));
+                        echo Form::submit('Download');
+                        echo Form::close();
                 }
                 
             echo '</ul>';
