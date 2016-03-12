@@ -32,10 +32,10 @@ Route::post('result', [
 //    'uses' => 'LoginController@index'
 //]);
 
-Route::post('login', [
-    'as' => 'login',
-    'uses' => 'LoginController@index'
-]);
+//Route::post('login', [
+//    'as' => 'login',
+//    'uses' => 'LoginController@index'
+//]);
 
 /*
 |--------------------------------------------------------------------------

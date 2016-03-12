@@ -43,3 +43,24 @@
         margin-bottom: 20px;
     }
 }
+
+.list-classes {
+    li {
+        span {
+            float: left;
+            min-width: 250px;
+            margin-top: 7px;
+            position: relative;
+        }
+        form {
+            display: table;
+            input {
+                display: inline-block;
+                vertical-align: middle;
+            }
+            input[type="file"] {
+                min-width: 200px;
+            }
+        }
+    }
+}

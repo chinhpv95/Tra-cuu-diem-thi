@@ -11,10 +11,53 @@
 @section('body')
     <div class="container">
         <div class="row">
+            <nav class="navbar navbar-default">
+                <div class="container">
+                    <div class="navbar-header">
+
+                        <!-- Collapsed Hamburger -->
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                            <span class="sr-only">Toggle Navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                        <!-- Branding Image -->
+                        <a class="navbar-brand" href="{{ url('/') }}">
+                            Home
+                        </a>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                        <!-- Right Side Of Navbar -->
+                        <ul class="nav navbar-nav navbar-right">
+                            <!-- Authentication Links -->
+                            @if (Auth::guest())
+                                <li><a href="{{ url('/login') }}">Login</a></li>
+                                <li><a href="{{ url('/register') }}">Register</a></li>
+                            @else
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                        {{ Auth::user()->name }} <span class="caret"></span>
+                                    </a>
+
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                                    </ul>
+                                </li>
+                            @endif
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <?php if( Auth::user()->role != 2 ) { ?>
             <div class="col-sm-3">
                 <ul class="nav nav-tabs manager">
                     <li class="active"><a data-toggle="tab" href="#home">Cập nhật danh sach</a></li>
+                    <?php if( Auth::user()->role == 0 ) { ?>
                     <li><a data-toggle="tab" href="#manager">Quản lý</a></li>
+                    <?php } ?>
                 </ul>
             </div>
 
@@ -92,6 +135,7 @@
                             </table>
                         </form>
                     </div>
+                    <?php if( Auth::user()->role == 0 ) { ?>
                     <div id="manager" class="tab-pane fade">
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
@@ -188,8 +232,18 @@
                             </ul>
                         </div>
                     </div>
+                    <?php } ?>
                 </div>
             </div>
+            <?php } else {
+            $teacher_class = App\Classes::where('user_id', '=', Auth::user()->id)->get();
+            echo '<ul class="list-group control-group list-classes">';
+                foreach( $teacher_class as $index ) {
+                    echo '<li class="list-group-item"><span>' . $index['class_name'] . ' (' . $index['class_code'] . ')</span>';
+                    echo '<form action="" method="post" class="controls"><input type="file"><input class="btn btn-primary" type="submit" name="upload" value="Upload"></form></li>';
+                }
+            echo '</ul>';
+            } ?>
         </div>
     </div>
 @endsection
