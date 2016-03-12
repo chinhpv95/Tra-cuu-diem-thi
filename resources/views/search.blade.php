@@ -55,7 +55,7 @@
             foreach ($result as $index) {
                 echo '<li class="class_result list-group-item">';
                 if (isset($index['link'])) {
-                    echo '<a href="' . $index['link'] . '" target="_blank">' . $index['class_name'] . ' (' . $index['class_code'] . ')</a>';
+                    echo '<a href="' . url('storage') .'/'. $index["link"]. '" target="_blank">' . $index['class_name'] . ' (' . $index['class_code'] . ')</a>';
                 } else {
                     echo $index['class_name'] . ' (' . $index['class_code'] . ')';
                 }

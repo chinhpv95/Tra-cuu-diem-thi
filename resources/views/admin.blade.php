@@ -45,8 +45,10 @@
                                     </a>
 
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href="{{ url('/logout') }}"><i
-                                                    class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                                        <?php $user_id = Auth::user()->id; ?>
+                                        <li><a href="{{ url('/logout') }}"><span
+                                                    class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+                                        <li><a href="{{ route('profile', ['email' => $user_id]) }}"><span class="glyphicon glyphicon-user"></span>Profile</a></li>
                                     </ul>
                                 </li>
                             @endif

@@ -26,7 +26,6 @@ Route::post('result', [
     'uses' => 'SearchController@result'
 ]);
 
-
 //Route::get('login', [
 //    'as' => 'login',
 //    'uses' => 'LoginController@index'
@@ -62,12 +61,17 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/admin/getClass', ['as' => 'getClass', 'uses' => 'AdminController@getClass']);
     Route::get('/admin/getClass', ['as' => 'getClass', 'uses' => 'AdminController@getClass']);
 
-    Route::get('/upload/{class_id}', ['as' => 'upLoad', 'uses' => 'AdminController@upLoad' ]);
+    Route::get('/upload/{class_id}', ['as' => 'upLoad', 'uses' => 'AdminController@upLoad']);
     Route::post('/upload/{class_id}', ['as' => 'upLoad', 'uses' => 'AdminController@upLoad']);
 
-    Route::get('/download/{class_id}', ['as' => 'downLoad', 'uses' => 'AdminController@downLoad' ]);
+    Route::get('/download/{class_id}', ['as' => 'downLoad', 'uses' => 'AdminController@downLoad']);
     Route::post('/download/{class_id}', ['as' => 'downLoad', 'uses' => 'AdminController@downLoad']);
 
-    Route::get('/delete/{user_id}', ['as' => 'delete', 'uses' => 'AdminController@delete' ]);
+    Route::get('/delete/{user_id}', ['as' => 'delete', 'uses' => 'AdminController@delete']);
     Route::post('/delete/{user_id}', ['as' => 'delete', 'uses' => 'AdminController@delete']);
+
+    Route::any('/profile/{user_id}', ['as' => 'profile', 'uses' => 'AdminController@profile']);
+    Route::any('profile/updateName', ['as' => 'updateName', 'uses' => 'AdminController@updateName']);
+    Route::any('profile/updateEmail', ['as' => 'updateEmail', 'uses' => 'AdminController@updateEmail']);
+    Route::any('profile/updatePassword', ['as' => 'updatePassword', 'uses' => 'AdminController@updatePassword']);
 });

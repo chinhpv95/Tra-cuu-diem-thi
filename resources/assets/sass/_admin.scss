@@ -64,3 +64,13 @@
         }
     }
 }
+
+.navbar-right {
+    .dropdown-menu {
+        a {
+            span {
+                margin-right: 10px;
+            }
+        }
+    }
+}
