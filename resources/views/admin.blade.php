@@ -51,6 +51,15 @@
                     </div>
                 </div>
             </nav>
+
+
+            @if(Session::has('flash_message'))
+            <div class="alert alert-success">
+            {{ Session::get('flash_message') }}
+            </div>
+            @endif
+
+
             <?php if( Auth::user()->role != 2 ) { ?>
             <div class="col-sm-3">
                 <ul class="nav nav-tabs manager">
@@ -240,10 +249,17 @@
             echo '<ul class="list-group control-group list-classes">';
                 foreach( $teacher_class as $index ) {
                     echo '<li class="list-group-item"><span>' . $index['class_name'] . ' (' . $index['class_code'] . ')</span>';
-                    echo '<form action="" method="post" class="controls"><input type="file"><input class="btn btn-primary" type="submit" name="upload" value="Upload"></form></li>';
+                    $url = route('upLoad', ['class_id' => $index['class_id']] );
+                    echo $url;
+                     echo Form::open(array('url'=> $url ,'method'=>'POST', 'files'=>true));
+                                echo Form::file('link'); 
+                                echo Form::submit('Upload');
+                                echo Form::close();
                 }
+                
             echo '</ul>';
             } ?>
+
         </div>
     </div>
 @endsection

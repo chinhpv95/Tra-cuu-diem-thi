@@ -62,4 +62,6 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/admin/getClass', ['as' => 'getClass', 'uses' => 'AdminController@getClass']);
     Route::get('/admin/getClass', ['as' => 'getClass', 'uses' => 'AdminController@getClass']);
 
+    Route::get('/upload/{class_id}', ['as' => 'upLoad', 'uses' => 'AdminController@upLoad' ]);
+    Route::post('/upload/{class_id}', ['as' => 'upLoad', 'uses' => 'AdminController@upLoad']);
 });

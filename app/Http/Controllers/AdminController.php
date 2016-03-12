@@ -7,8 +7,10 @@ use App\Year;
 use App\Semester;
 use App\User;
 use Illuminate\Http\Request;
-use Input;
 use Excel;
+use Illuminate\Support\Facades\Input;
+use Response;
+use Session;
 
 
 class AdminController extends Controller
@@ -92,5 +94,27 @@ class AdminController extends Controller
             $classes['class_name']= $data['class-name-input'];
             $classes['teacher']= $data['teacher-input'];
             $this->addClass($classes);
+    }
+
+    public function upLoad($class_id){
+      $file = Input::file('link');
+      //var_dump($file);
+
+      $filename = $file->getClientOriginalName();
+      $destinationPath = app_path()."\storage\\";
+      $file->move($destinationPath, $filename);
+
+
+      //$class = Classes::where('class_id', '=', $class_id)->get()->first();
+      $class = Classes::find($class_id);
+      $class->link = $destinationPath . $filename;
+      $class->save();
+
+
+
+      Session::flash('flash_message', 'File uploaded!');
+      //Response::download($destinationPath . $filename);
+
+        return  redirect()->back();
     }
 }
