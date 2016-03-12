@@ -54,7 +54,7 @@
             <?php if( Auth::user()->role != 2 ) { ?>
             <div class="col-sm-3">
                 <ul class="nav nav-tabs manager">
-                    <li class="active"><a data-toggle="tab" href="#home">Cập nhật danh sach</a></li>
+                    <li class="active"><a data-toggle="tab" href="#home">Cập nhật danh sách</a></li>
                     <?php if( Auth::user()->role == 0 ) { ?>
                     <li><a data-toggle="tab" href="#manager">Quản lý</a></li>
                     <?php } ?>

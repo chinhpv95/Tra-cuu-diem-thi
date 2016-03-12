@@ -26,7 +26,7 @@ class AdminController extends Controller
             $user['name'] = $data['username'];
             $user['email'] = $data['email'];
             $user['password'] = bcrypt($data['password']);
-            $user['isAdmin'] = $data['role'];
+            $user['role'] = $data['role'];
            
          	$user->save();
         return redirect()->route('admin');
