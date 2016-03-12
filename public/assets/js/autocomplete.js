@@ -1,17 +1,17 @@
 /**
  * Created by daitd on 3/2/2016.
  */
-$(function() {
+$(document).ready(function() {
 
-    $("#topic_title").autocomplete({
-        source: "http://localhost/tra-cuu-diem-thi/resources/views/search.blade.php",
-        minLength: 2,
-        select: function(event, ui) {
-            var url = ui.item.id;
-            if(url != '#') {
-                location.href = '/blog/' + url;
-            }
-        },
+    $("#auto").autocomplete({
+        source: "autocomplete",
+        minLength: 1,
+        //select: function(event, ui) {
+        //    var url = ui.item.value;
+        //    if(url != '#') {
+        //        location.href = 'result';
+        //    }
+        //},
 
         html: true, // optional (jquery.ui.autocomplete.html.js required)
 

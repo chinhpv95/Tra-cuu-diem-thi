@@ -17,33 +17,61 @@
     <div class="container search-form">
         <div class="row">
             <div class="col-sm-12">
-                <form action="{{ route('search') }}" data-toggle="validator" method="POST">
-                    {!! csrf_field() !!}
-                    <input type="text" name="s" value="" placeholder="Enter subject code to search"
-                           class="form-control">
-                    <span class="glyphicon glyphicon-search"></span>
-                </form>
+                {{ Form::open(array('url' => 'result', 'method' => 'POST')) }}
+                {{ Form::text('auto', '', ['id' =>  'auto', 'class' => 'form-control', 'placeholder' =>  'Enter name'])}}
+                <button class="button expand" type="submit" name="search" value="search"><span
+                        class="glyphicon glyphicon-search"></span></button>
                 <div class="advanced-options">
-                    <p class="select-option">Advanced Options</p>
+                    <p class="select-option">Tìm kiếm nâng cao</p>
                     <div class="options">
-                        <?php echo Form::label('school-year', 'Năm học:', array('class' => 'awesome')); ?>
-                        <?php echo Form::select('select-year', array('1' => 'Năm học 2014-2015', '2' => 'Năm học 2015-2016')); ?>
-                        <?php echo Form::label('semester', 'Học Kỳ:', array('class' => 'awesome')); ?>
-                        <?php echo Form::select('select-semester', array('1' => 'Học kỳ 1', '2' => 'Học kỳ 2')); ?>
+                        <?php
+                        $years = App\Year::select('year_id', 'year_name')->get();
+                        $semesters = App\Semester::select('semester_id', 'semester_name')->get();
+                        ?>
+                        {{ Form::label('school-year', 'Năm học:', array('class' => 'awesome')) }}
+                            <select name="select-year">
+                                <?php
+                                foreach ($years as $year) {
+                                    echo '<option value="' . $year['year_id'] . '">' . $year['year_name'] . '</option>';
+                                }
+                                ?>
+                            </select>
+                            {{ Form::label('semester', 'Học Kỳ:', array('class' => 'awesome')) }}
+                            <select name="select-semester">
+                                <?php
+                                foreach ($semesters as $semester) {
+                                    echo '<option value="' . $semester['semester_id'] . '">' . $semester['semester_name'] . '</option>';
+                                }
+                                ?>
+                            </select>
                     </div>
                 </div>
+                {{ Form::close() }}
             </div>
         </div>
+        <?php
+        if (isset($_POST['search'])) {
+            echo '<ul class="list_result list-group">';
+            foreach ($result as $index) {
+                echo '<li class="class_result list-group-item">';
+                if (isset($index['link'])) {
+                    echo '<a href="' . $index['link'] . '" target="_blank">' . $index['class_name'] . ' (' . $index['class_code'] . ')</a>';
+                } else {
+                    echo $index['class_name'] . ' (' . $index['class_code'] . ')';
+                }
+                echo '</li>';
+            }
+            echo '</ul>';
+        }
+        ?>
     </div>
 @endsection
 
 @section('body.script')
     {{ Html::script('assets/js/jquery.min.js', array('async' => 'async')) }}
     {{ Html::script('assets/js/bootstrap.min.js', array('async' => 'async')) }}
-    <script type="text/javascript" src="{{ url('/') }}/assets/js/jquery-ui.min.js" type="text/javascript"></script>
-
-    <script type="text/javascript" src="{{ url('/') }}/assets/js/jquery.ui.autocomplete.html.js"></script>
-
-    <script type="text/javascript" src="{{ url('/') }}/assets/js/autocomplete.js"></script>
+    {{ Html::script('assets/js/jquery-ui.min.js', array('async' => 'async')) }}
     {{ Html::script('assets/js/main.js', array('async' => 'async')) }}
+    {{ Html::script('assets/js/autocomplete.js', array('async' => 'async')) }}
+    {{ Html::script('assets/js/jquery.ui.autocomplete.html.js', array('async' => 'async')) }}
 @endsection

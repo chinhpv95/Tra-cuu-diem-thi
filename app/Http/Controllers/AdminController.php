@@ -49,7 +49,7 @@ class AdminController extends Controller
 
        		//Tim Id cua user
        		$user = User::where('name', '=', $classes['teacher'])->get()->first();     
-       		$class['user_id'] = $user->id;  
+       		$class['user_id'] = $user->id;
 
        		$class->save();
 }
@@ -67,8 +67,8 @@ class AdminController extends Controller
         $highestRow    = $objWorksheet->getHighestRow();
         $highestColumn = $objWorksheet->getHighestColumn();
         $classes = array();
-        $classes['year_name'] = $data['year-input'];
-    	$classes['semester_name'] = $data['semester-input'];
+        $classes['year_name'] = $data['year-input-excel'];
+    	$classes['semester_name'] = $data['semester-input-excel'];
         for ($row = 2; $row <= $highestRow;++$row){
             $classes['class_code']=$objWorksheet->getCellByColumnAndRow(0, $row)->getValue();
             $classes['class_name']=$objWorksheet->getCellByColumnAndRow(1, $row)->getValue();

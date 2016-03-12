@@ -16,17 +16,26 @@ Route::any('/', [
     'uses' => 'SearchController@index'
 ]);
 
-
-/*
-Route::get('login', [
-    'as' => 'login',
-    'uses' => 'LoginController@index'
+Route::any('autocomplete', [
+    'as' => 'search_queries',
+    'uses' => 'SearchController@autoComplete'
 ]);
+
+Route::post('result', [
+    'as' => 'search_result',
+    'uses' => 'SearchController@result'
+]);
+
+
+//Route::get('login', [
+//    'as' => 'login',
+//    'uses' => 'LoginController@index'
+//]);
 
 Route::post('login', [
     'as' => 'login',
     'uses' => 'LoginController@index'
-]);*/
+]);
 
 /*
 |--------------------------------------------------------------------------
