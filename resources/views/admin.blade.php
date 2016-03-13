@@ -9,55 +9,54 @@
 @endsection
 
 @section('body')
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+
+                <!-- Collapsed Hamburger -->
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#app-navbar-collapse">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <!-- Branding Image -->
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    Home
+                </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                <!-- Right Side Of Navbar -->
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- Authentication Links -->
+                    @if (Auth::guest())
+                        <li><a href="{{ url('/login') }}">Login</a></li>
+                        <li><a href="{{ url('/register') }}">Register</a></li>
+                    @else
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-expanded="false">
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu">
+                                <?php $user_id = Auth::user()->id; ?>
+                                <li><a href="{{ url('/logout') }}"><span
+                                            class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+                                <li><a href="{{ route('profile', ['email' => $user_id]) }}"><span
+                                            class="glyphicon glyphicon-user"></span>Profile</a></li>
+                            </ul>
+                        </li>
+                    @endif
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div class="container">
         <div class="row">
-            <nav class="navbar navbar-default">
-                <div class="container">
-                    <div class="navbar-header">
-
-                        <!-- Collapsed Hamburger -->
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                                data-target="#app-navbar-collapse">
-                            <span class="sr-only">Toggle Navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-
-                        <!-- Branding Image -->
-                        <a class="navbar-brand" href="{{ url('/') }}">
-                            Home
-                        </a>
-                    </div>
-
-                    <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                        <!-- Right Side Of Navbar -->
-                        <ul class="nav navbar-nav navbar-right">
-                            <!-- Authentication Links -->
-                            @if (Auth::guest())
-                                <li><a href="{{ url('/login') }}">Login</a></li>
-                                <li><a href="{{ url('/register') }}">Register</a></li>
-                            @else
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                       aria-expanded="false">
-                                        {{ Auth::user()->name }} <span class="caret"></span>
-                                    </a>
-
-                                    <ul class="dropdown-menu" role="menu">
-                                        <?php $user_id = Auth::user()->id; ?>
-                                        <li><a href="{{ url('/logout') }}"><span
-                                                    class="glyphicon glyphicon-log-out"></span>Logout</a></li>
-                                        <li><a href="{{ route('profile', ['email' => $user_id]) }}"><span class="glyphicon glyphicon-user"></span>Profile</a></li>
-                                    </ul>
-                                </li>
-                            @endif
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-
-
             @if(Session::has('flash_message'))
                 <div class="alert alert-success">
                     {{ Session::get('flash_message') }}
@@ -85,61 +84,74 @@
                 <div class="tab-content">
                     <div id="home" class="tab-pane fade in active">
                         <div class="upload-file">
-                            <p>Chọn file excel để import vào cơ sở dữ liệu</p>
+                            <h3>Chọn file excel để import vào cơ sở dữ liệu</h3>
                             <?php
                             echo Form::open(array('url' => 'admin/getExcel', 'method' => 'POST', 'files' => true));
-                            echo '<td>' . Form::label('year', 'Năm học:') . '</td>';
-                            echo '<td>' . Form::text('year-input-excel') . '</td>';
-                            echo '<td>' . Form::label('semester', 'Học kì:') . '</td>';
-                            echo '<td>' . Form::select('semester-input-excel', array(
-                                    'hoc_ky_1' => 'Học kỳ I',
-                                    'hoc_ky_phu_1' => 'Học kỳ phụ I',
-                                    'hoc_ky_2' => 'Học kỳ II',
-                                    'hoc_ky_phu_2' => 'Học kỳ phụ II',
-                                    'hoc_ky_he' => 'Học kỳ hè'
-                                )) . '</td>';
+                            $years = App\Year::select('year_id', 'year_name')->get();
+                            $semesters = App\Semester::select('semester_id', 'semester_name')->get();
+                            ?>
+                            {{ Form::label('school-year', 'Năm học:', array('class' => 'awesome')) }}
+                            <select name="select-year-excel">
+                                <?php
+                                foreach ($years as $year) {
+                                    echo '<option value="' . $year['year_id'] . '">' . $year['year_name'] . '</option>';
+                                }
+                                ?>
+                            </select>
+                            {{ Form::label('semester', 'Học Kỳ:', array('class' => 'awesome')) }}
+                            <select name="select-semester-excel">
+                                <?php
+                                foreach ($semesters as $semester) {
+                                    echo '<option value="' . $semester['semester_id'] . '">' . $semester['semester_name'] . '</option>';
+                                }
+                                ?>
+                            </select>
+                            <?php
                             echo Form::file('xls');
                             echo '<button class="btn btn-primary" type="submit">Import</button>';
                             echo Form::close();
                             ?>
                         </div>
+                        <h3>Thêm lớp vào cơ sở dữ liệu bằng tay</h3>
                         <form action="{{ route('getClass') }}" data-toggle="validator" method="POST">
                             <table class="table custom-table">
                                 <tbody>
                                 <tr>
                                     <?php
-                                    echo '<td>' . Form::label('year', 'Năm học:') . '</td>';
-                                    echo '<td>' . Form::text('year-input') . '</td>';
+                                    echo '<td>' . Form::label('school-year', 'Năm học:', array('class' => 'awesome')) . '</td>';
+                                    echo '<td><select name="select-year">';
+                                    foreach ($years as $year) {
+                                        echo '<option value="' . $year['year_id'] . '">' . $year['year_name'] . '</option>';
+                                    }
+                                    echo '</select></td>';
                                     ?>
                                 </tr>
                                 <tr>
                                     <?php
-                                    echo '<td>' . Form::label('semester', 'Học kì:') . '</td>';
-                                    echo '<td>' . Form::select('semester-input', array(
-                                            'hoc_ky_1' => 'Học kỳ I',
-                                            'hoc_ky_phu_1' => 'Học kỳ phụ I',
-                                            'hoc_ky_2' => 'Học kỳ II',
-                                            'hoc_ky_phu_2' => 'Học kỳ phụ II',
-                                            'hoc_ky_he' => 'Học kỳ hè'
-                                        )) . '</td>';
+                                    echo '<td>' . Form::label('semester', 'Học Kỳ:', array('class' => 'awesome')) . '</td>';
+                                    echo '<td><select name="select-semester">';
+                                    foreach ($semesters as $semester) {
+                                        echo '<option value="' . $semester['semester_id'] . '">' . $semester['semester_name'] . '</option>';
+                                    }
+                                    echo '</select></td>';
                                     ?>
                                 </tr>
                                 <tr>
                                     <?php
                                     echo '<td>' . Form::label('class', 'Tên môn học') . '</td>';
-                                    echo '<td>' . Form::text('class-name-input') . '</td>';
+                                    echo '<td>' . Form::text('class-name-input', '', array('class' => 'form-control')) . '</td>';
                                     ?>
                                 </tr>
                                 <tr>
                                     <?php
                                     echo '<td>' . Form::label('class-code', 'Mã môn học') . '</td>';
-                                    echo '<td>' . Form::text('class-code-input') . '</td>';
+                                    echo '<td>' . Form::text('class-code-input', '', array('class' => 'form-control')) . '</td>';
                                     ?>
                                 </tr>
                                 <tr>
                                     <?php
                                     echo '<td>' . Form::label('teacher', 'Giáo viên') . '</td>';
-                                    echo '<td>' . Form::text('teacher-input') . '</td>';
+                                    echo '<td>' . Form::text('teacher-input', '', array('class' => 'form-control')) . '</td>';
                                     ?>
                                 </tr>
 
@@ -147,7 +159,7 @@
 
                                     <?php
 
-                                    echo '<td></td><td><a class="btn btn-primary" href= "admin/getClass" role="button" type="submit">Submit</a></td>';
+                                    echo '<td></td><td><button class="btn btn-primary" role="button" type="submit">Submit</button></td>';
                                     ?>
                                 </tr>
 
@@ -249,7 +261,7 @@
                                     echo '<li class="list-group-item"><span>' . $user['name'] . '</span>';
                                     $urlDelete = route('delete', ['user_id' => $user['id']]);
                                     echo Form::open(array('url' => $urlDelete, 'method' => 'POST', 'files' => true));
-                                    echo Form::submit('Delete');
+                                    echo Form::submit('Delete', array('class' => 'btn btn-primary'));
                                     echo Form::close();
                                     echo '</li>';
                                 }

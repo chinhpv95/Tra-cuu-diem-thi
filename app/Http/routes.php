@@ -71,7 +71,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/delete/{user_id}', ['as' => 'delete', 'uses' => 'AdminController@delete']);
 
     Route::any('/profile/{user_id}', ['as' => 'profile', 'uses' => 'AdminController@profile']);
-    Route::any('profile/updateName', ['as' => 'updateName', 'uses' => 'AdminController@updateName']);
-    Route::any('profile/updateEmail', ['as' => 'updateEmail', 'uses' => 'AdminController@updateEmail']);
-    Route::any('profile/updatePassword', ['as' => 'updatePassword', 'uses' => 'AdminController@updatePassword']);
+    Route::any('profile/{user_id}/updateName', ['as' => 'updateName', 'uses' => 'AdminController@updateName']);
+    Route::any('profile/{user_id}/updateEmail', ['as' => 'updateEmail', 'uses' => 'AdminController@updateEmail']);
+    Route::any('profile/{user_id}/updatePassword', ['as' => 'updatePassword', 'uses' => 'AdminController@updatePassword']);
 });

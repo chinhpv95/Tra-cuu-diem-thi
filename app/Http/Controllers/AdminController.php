@@ -46,17 +46,12 @@ class AdminController extends Controller
         $class['class_code'] = $classes['class_code'];
         $class['class_name'] = $classes['class_name'];
 
-        //Tim id cua nam
-        $year = Year::where('year_name', '=', $classes['year_name'])->get()->first();
-        $class['year_id'] = $year->year_id;
-
-        //Tim Id cua hoc ky
-        $semester = Semester::where('semester_name', '=', $classes['semester_name'])->get()->first();
-        $class['semester_id'] = $semester->semester_id;
-
         //Tim Id cua user
         $user = User::where('name', '=', $classes['teacher'])->get()->first();
         $class['user_id'] = $user->id;
+
+        $class['year_id'] = $classes['year_id'];
+        $class['semester_id'] = $classes['semester_id'];
 
         $class->save();
     }
@@ -75,8 +70,8 @@ class AdminController extends Controller
             $highestRow = $objWorksheet->getHighestRow();
             $highestColumn = $objWorksheet->getHighestColumn();
             $classes = array();
-            $classes['year_name'] = $data['year-input-excel'];
-            $classes['semester_name'] = $data['semester-input-excel'];
+            $classes['year_id'] = $data['select-year-excel'];
+            $classes['semester_id'] = $data['select-semester-excel'];
             for ($row = 2; $row <= $highestRow; ++$row) {
                 $classes['class_code'] = $objWorksheet->getCellByColumnAndRow(0, $row)->getValue();
                 $classes['class_name'] = $objWorksheet->getCellByColumnAndRow(1, $row)->getValue();
@@ -95,12 +90,13 @@ class AdminController extends Controller
     {
         $data = $request->all();
         $classes = array();
-        $classes['year_name'] = $data['year-input'];
-        $classes['semester_name'] = $data['semester-input'];
+        $classes['year_id'] = $data['select-year'];
+        $classes['semester_id'] = $data['select-semester'];
         $classes['class_code'] = $data['class-code-input'];
         $classes['class_name'] = $data['class-name-input'];
         $classes['teacher'] = $data['teacher-input'];
         $this->addClass($classes);
+        return redirect()->route('admin');
     }
 
     public function upLoad($class_id)
@@ -150,20 +146,21 @@ class AdminController extends Controller
         $data = $request->all();
         Auth::user()->where('id', '=', $user_id)->update(['name' => $data['username']]);
         Session::flash('update_message', 'Update successfully!');
-        return redirect()->route('profile/' . $user_id);
+        return redirect()->back();
     }
     public function updateEmail(Request $request, $user_id)
     {
         $data = $request->all();
         Auth::user()->where('id', '=', $user_id)->update(['email' => $data['email']]);
         Session::flash('update_message', 'Update successfully!');
-        return redirect()->route('profile/' . $user_id);
+        return redirect()->back();
     }
     public function updatePassword(Request $request, $user_id)
     {
         $data = $request->all();
-        Auth::user()->where('id', '=', $user_id)->update(['password' => $data['password']]);
+        $password = bcrypt($data['password']);
+        Auth::user()->where('id', '=', $user_id)->update(['password' => $password]);
         Session::flash('update_message', 'Update successfully!');
-        return redirect()->route('profile/' . $user_id);
+        return redirect()->back();
     }
 }

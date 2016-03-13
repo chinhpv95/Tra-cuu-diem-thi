@@ -3,41 +3,65 @@
         tr {
             td {
                 border: none;
+                vertical-align: middle;
+                select {
+                    width: 170px;
+                }
             }
         }
     }
 }
 
-.container {
-    margin-top: 30px;
-}
-
 .upload-file {
     margin-bottom: 20px;
     input {
-        margin-top: 5px;
+        margin-top: 10px;
+    }
+    select {
+        margin-right: 20px;
+    }
+    input[type="file"] {
+        cursor: pointer;
+        &:focus {
+            outline: none;
+        }
+    }
+    button {
+        margin-top: 20px;
     }
 }
 
 .manager {
     border: none;
     li {
-        margin-bottom: 0;
+        margin-bottom: 5px;
         float: none;
         a {
             border: none;
             margin-right: 0;
+            border-radius: 4px;
             &:hover {
                 border: none;
+                background-color: #337ab7;
+                color: #fff;
             }
         }
         &.active {
             a, a:focus, a:hover {
                 border: none;
+                background-color: #337ab7;
+                color: #fff;
             }
         }
     }
 }
+
+#manager {
+    button {
+        margin-bottom: 30px;
+    }
+}
+
 .form-horizontal {
     .radio-inline {
         margin-bottom: 20px;
@@ -70,6 +94,52 @@
         a {
             span {
                 margin-right: 10px;
+            }
+        }
+    }
+}
+
+.list-user {
+    .list-group {
+        .list-group-item {
+            vertical-align: middle;
+            > span {
+                width: 200px;
+                display: inline-block;
+            }
+            > form {
+                display: inline-block;
+            }
+        }
+    }
+}
+
+.navbar-default {
+    .navbar-nav {
+        > li {
+            > a.dropdown-toggle {
+                &:hover {
+                    color: #1dae84;
+                }
+            }
+        }
+        .dropdown-menu {
+            > li {
+                > a {
+                    padding: 10px 20px;
+                }
+            }
+        }
+        a {
+            &:hover {
+                color: #1dae84;
+            }
+        }
+    }
+    .container {
+        a {
+            &:hover {
+                color: #1dae84;
             }
         }
     }

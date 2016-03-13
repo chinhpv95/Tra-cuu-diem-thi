@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="{{ url('/') }}/assets/css/style.css"/>
     <link rel="stylesheet" href="{{ url('/') }}/assets/css/jquery-ui.css">
 
-    <link rel="stylesheet" href="{{ url('/') }}/assets/css/autocomplete.css">
-
 
 @endsection
 
@@ -29,21 +27,23 @@
                         $semesters = App\Semester::select('semester_id', 'semester_name')->get();
                         ?>
                         {{ Form::label('school-year', 'Năm học:', array('class' => 'awesome')) }}
-                            <select name="select-year">
-                                <?php
-                                foreach ($years as $year) {
-                                    echo '<option value="' . $year['year_id'] . '">' . $year['year_name'] . '</option>';
-                                }
-                                ?>
-                            </select>
-                            {{ Form::label('semester', 'Học Kỳ:', array('class' => 'awesome')) }}
-                            <select name="select-semester">
-                                <?php
-                                foreach ($semesters as $semester) {
-                                    echo '<option value="' . $semester['semester_id'] . '">' . $semester['semester_name'] . '</option>';
-                                }
-                                ?>
-                            </select>
+                        <select name="select-year">
+                            <option value="0">Chọn trong danh sách</option>
+                            <?php
+                            foreach ($years as $year) {
+                                echo '<option value="' . $year['year_id'] . '">' . $year['year_name'] . '</option>';
+                            }
+                            ?>
+                        </select>
+                        {{ Form::label('semester', 'Học Kỳ:', array('class' => 'awesome')) }}
+                        <select name="select-semester">
+                            <option value="0">Chọn trong danh sách</option>
+                            <?php
+                            foreach ($semesters as $semester) {
+                                echo '<option value="' . $semester['semester_id'] . '">' . $semester['semester_name'] . '</option>';
+                            }
+                            ?>
+                        </select>
                     </div>
                 </div>
                 {{ Form::close() }}
@@ -55,7 +55,7 @@
             foreach ($result as $index) {
                 echo '<li class="class_result list-group-item">';
                 if (isset($index['link'])) {
-                    echo '<a href="' . url('storage') .'/'. $index["link"]. '" target="_blank">' . $index['class_name'] . ' (' . $index['class_code'] . ')</a>';
+                    echo '<a href="' . url('storage') . '/' . $index["link"] . '" target="_blank">' . $index['class_name'] . ' (' . $index['class_code'] . ')</a>';
                 } else {
                     echo $index['class_name'] . ' (' . $index['class_code'] . ')';
                 }

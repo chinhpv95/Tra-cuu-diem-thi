@@ -83,7 +83,7 @@
                             <h4 class="modal-title" id="myModalLabel">Name</h4>
                         </div>
                         <div class="modal-body">
-                            <form class="form-horizontal" action='{{ url('/profile/updateName') }}'
+                            <form class="form-horizontal" action='{{ url('/profile/' . $data['id'] . '/updateName') }}'
                                   method="POST">
 
                                 <fieldset>
@@ -95,7 +95,7 @@
                                                    class="form-control" value="<?php echo $data['name']; ?>">
                                             <p class="help-block">Username can contain any letters or
                                                 numbers, without spaces</p>
-                                            <button class="btn btn-primary" role="button" type="submit">Submit</button>
+                                            <button class="btn btn-primary" role="button" type="submit">Update</button>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -114,7 +114,7 @@
                             <h4 class="modal-title" id="myModalLabel">Email</h4>
                         </div>
                         <div class="modal-body">
-                            <form class="form-horizontal" action='{{ url('/profile/updateEmail') }}'
+                            <form class="form-horizontal" action='{{ url('/profile/' . $data['id'] . '/updateEmail') }}'
                                   method="POST">
 
                                 <fieldset>
@@ -123,8 +123,9 @@
                                         <label class="control-label" for="email">Email</label>
                                         <div class="controls">
                                             <input type="text" id="email" name="email" placeholder=""
-                                                   class="form-control">
+                                                   class="form-control" value="<?php echo $data['email']; ?>">
                                             <p class="help-block">Please provide your E-mail</p>
+                                            <button class="btn btn-primary" role="button" type="submit">Update</button>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -143,7 +144,7 @@
                             <h4 class="modal-title" id="myModalLabel">Password</h4>
                         </div>
                         <div class="modal-body">
-                            <form class="form-horizontal" action='{{ url('/profile/updatePassword') }}'
+                            <form class="form-horizontal" action='{{ url('/profile/' . $data['id'] . '/updatePassword') }}'
                                   method="POST">
 
                                 <fieldset>
@@ -151,10 +152,11 @@
                                         <!-- Username -->
                                         <label class="control-label" for="password">Password</label>
                                         <div class="controls">
-                                            <input type="text" id="username" name="password" placeholder=""
-                                                   class="form-control">
+                                            <input type="password" id="username" name="password" placeholder=""
+                                                   class="form-control" value="<?php echo $data['password']; ?>">
                                             <p class="help-block">Password should be at least 4
                                                 characters</p>
+                                            <button class="btn btn-primary" role="button" type="submit">Update</button>
                                         </div>
                                     </div>
                                 </fieldset>
