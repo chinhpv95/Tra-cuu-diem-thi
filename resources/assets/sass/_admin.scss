@@ -71,19 +71,23 @@
 .list-classes {
     li {
         span {
-            float: left;
-            min-width: 250px;
-            margin-top: 7px;
+            display: inline-block;
+            vertical-align: middle;
+            min-width: 300px;
+            margin-top: 2px;
             position: relative;
         }
         form {
-            display: table;
+            display: inline-block;
             input {
                 display: inline-block;
                 vertical-align: middle;
             }
             input[type="file"] {
                 min-width: 200px;
+                &:focus {
+                    outline: none;
+                }
             }
         }
     }
@@ -142,5 +146,11 @@
                 color: #1dae84;
             }
         }
+    }
+}
+
+.list-classes {
+    input {
+        margin-right: 30px;
     }
 }

@@ -274,6 +274,7 @@
             </div>
             <?php } else {
                 $teacher_class = App\Classes::where('user_id', '=', Auth::user()->id)->get();
+                echo '<h3>Danh sách môn học</h3>';
                 echo '<ul class="list-group control-group list-classes">';
                 foreach ($teacher_class as $index) {
                     echo '<li class="list-group-item"><span>' . $index['class_name'] . ' (' . $index['class_code'] . ')</span>';
@@ -281,12 +282,12 @@
 
                     echo Form::open(array('url' => $urlUpload, 'method' => 'POST', 'files' => true));
                     echo Form::file('link');
-                    echo Form::submit('Upload');
+                    echo Form::submit('Upload', array('class' => 'btn btn-primary'));
                     echo Form::close();
 
                     $urlDownload = route('downLoad', ['class_id' => $index['class_id']]);
                     echo Form::open(array('url' => $urlDownload, 'method' => 'POST', 'files' => true));
-                    echo Form::submit('Download');
+                    echo Form::submit('Download', array('class' => 'btn btn-primary'));
                     echo Form::close();
                 }
 
