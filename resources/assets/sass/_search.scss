@@ -60,6 +60,14 @@
     }
 }
 
+.list_result {
+    li {
+        &:nth-child(2n) {
+            background-color: #e5e5e5;
+        }
+    }
+}
+
 /* scroll results */
 .ui-autocomplete {
     padding-right: 5px;
