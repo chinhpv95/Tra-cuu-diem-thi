@@ -235,9 +235,9 @@
                                                 <div class="control-group">
                                                     <div class="controls">
                                                         <label class="radio-inline"><input type="radio" name="role"
-                                                                                           value="1">Quản trị</label>
+                                                                                           value="1">Cán bộ</label>
                                                         <label class="radio-inline"><input type="radio" name="role"
-                                                                                           value="0">Giáo viên</label>
+                                                                                           value="2">Giáo viên</label>
                                                     </div>
                                                 </div>
 
