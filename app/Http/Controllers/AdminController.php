@@ -99,13 +99,11 @@ class AdminController extends Controller
         $messages = [
         'class-code-input.required' => 'Bắt buộc nhập Mã môn học!', 
         'class-name-input.required' => 'Bắt buộc nhập Tên môn học!', 
-        'teacher-input.required' => 'Bắt buộc nhập tên Giáo viên!', 
+        'teacher-input.required' => 'Bắt buộc nhập tên Giáo viên!',
+        'class-code-input.unique:classes' => 'Bắt buộc nhập Mã môn học!', 
+
     ];
-        $this->validate($request, [
-        'class-code-input' => 'required',
-        'class-name-input' => 'required',
-        'teacher-input' => 'required',
-        ], $messages);
+        
         $data = $request->all();
         $classes = array();
         $classes['year_id'] = $data['select-year'];
@@ -113,6 +111,14 @@ class AdminController extends Controller
         $classes['class_code'] = $data['class-code-input'];
         $classes['class_name'] = $data['class-name-input'];
         $classes['teacher'] = $data['teacher-input'];
+
+        $this->validate($request, [
+        'class-code-input' => 'required',
+        'class-name-input' => 'required',
+        'teacher-input' => 'required',
+
+        ], $messages);
+
         $this->addClass($classes);
         return redirect()->route('admin');
     }

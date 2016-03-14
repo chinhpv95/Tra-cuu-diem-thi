@@ -56,7 +56,7 @@
                                 <?php $user_id = Auth::user()->id; ?>
                                 <li><a href="{{ url('/logout') }}"><span
                                             class="glyphicon glyphicon-log-out"></span>Logout</a></li>
-                                <li><a href="{{ route('profile', ['email' => $user_id]) }}"><span
+                                <li><a href="{{ route('profile', ['user_id' => $user_id]) }}"><span
                                             class="glyphicon glyphicon-user"></span>Profile</a></li>
                             </ul>
                         </li>
@@ -80,13 +80,15 @@
             @endif
 
 
-            <?php if( Auth::user()->role != 2 ) { ?>
+            
             <div class="col-sm-3">
                 <ul class="nav nav-tabs manager">
-                    <li class="active"><a data-toggle="tab" href="#home">Cập nhật danh sách</a></li>
-                    <?php if( Auth::user()->role == 0 ) { ?>
+                    <?php if( Auth::user()->role == 1 ) { ?>
                     <li><a data-toggle="tab" href="#manager">Quản lý</a></li>
                     <?php } ?>
+                    <li class="active"><a data-toggle="tab" href="#home">Cập nhật danh sách</a></li>
+                    <li><a data-toggle="tab" href="#class">Cập nhật điểm</a></li>
+                    
                 </ul>
             </div>
 
@@ -177,7 +179,7 @@
                             </table>
                         </form>
                     </div>
-                    <?php if( Auth::user()->role == 0 ) { ?>
+                    <?php if( Auth::user()->role == 1 ) { ?>
                     <div id="manager" class="tab-pane fade">
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
@@ -245,9 +247,9 @@
                                                 <div class="control-group">
                                                     <div class="controls">
                                                         <label class="radio-inline"><input type="radio" name="role"
-                                                                                           value="1">Cán bộ</label>
+                                                                                           value="1">Quản trị viên</label>
                                                         <label class="radio-inline"><input type="radio" name="role"
-                                                                                           value="2">Giáo viên</label>
+                                                                                           value="2">Cán bộ</label>
                                                     </div>
                                                 </div>
 
@@ -270,28 +272,26 @@
                                 foreach ($users as $user) {
                                     echo '<li class="list-group-item"><span>' . $user['name'] . '</span>';
                                     $urlDelete = route('delete', ['user_id' => $user['id']]);
-                                    echo Form::open(array('class' => 'delete', 'url' => $urlDelete, 'method' => 'POST','style'=>'display:inline' ));
-                                    //echo Form::submit('Delete', array('class' => 'btn btn-primary',));
-?>
-    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete User" data-message="Are you sure you want to delete this user ?">
-        <i class="glyphicon glyphicon-trash"></i> Delete
-    </button>
-    <?php
-
+                                    echo Form::open(array('id'=>'delete', 'class' => 'delete', 'url' => $urlDelete, 'method' => 'POST','style'=>'display:inline' ));
+                                    echo Form::submit('Delete', array('class' => 'btn btn-primary',));
+                                    echo Form::button('Delete with confirm ', array('class'=>'btn btn-primary', 'data-toggle'=>'modal', 'data-target'=>'#confirmDelete', 'data-title'=>'Delete User', 'data-message'=>'Are you sure you want to delete this user ?'));
                                     echo Form::close();
                                     echo '</li>';
                                 }
+                                ?>  
 
-                                ?>
+    <!---<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete User" data-message="Are you sure you want to delete this user ?">
+        <i class="glyphicon glyphicon-trash"></i> Delete
+    </button>---->
                                 
                             </ul>
                         </div>
                     </div>
                     <?php } ?>
-                </div>
-            </div>
-            <?php } else {
-                $teacher_class = App\Classes::where('user_id', '=', Auth::user()->id)->get();
+
+                <div id="class" class="tab-pane fade">
+                <?php
+                $teacher_class = App\Classes::get();
                 echo '<h3>Danh sách môn học</h3>';
                 echo '<ul class="list-group control-group list-classes">';
                 foreach ($teacher_class as $index) {
@@ -310,7 +310,15 @@
                 }
 
                 echo '</ul>';
-            } ?>
+             ?>
+            </div>
+                </div>
+            </div>
+
+            
+           
+
+                
 
         </div>
     </div>
