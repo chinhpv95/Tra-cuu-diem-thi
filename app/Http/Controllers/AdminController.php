@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Input;
 use Response;
 use Session;
 use File;
+use Validator;
 
 
 class AdminController extends Controller
@@ -28,16 +29,17 @@ class AdminController extends Controller
     //Them user moi
     public function addUser(Request $request)
     {
+        $this->validate($request, [
+        'email' => 'required|unique:users',
+    ]);
         $data = $request->all();
         $user = new User;
         $user['name'] = $data['username'];
         $user['email'] = $data['email'];
         $user['password'] = bcrypt($data['password']);
         $user['role'] = $data['role'];
-
         $user->save();
         return redirect()->route('admin');
-
     }
 
     //Tao class moi
@@ -94,6 +96,16 @@ class AdminController extends Controller
     //Lay du lieu 1 class tu form
     public function getClass(Request $request)
     {
+        $messages = [
+        'class-code-input.required' => 'Bắt buộc nhập Mã môn học!', 
+        'class-name-input.required' => 'Bắt buộc nhập Tên môn học!', 
+        'teacher-input.required' => 'Bắt buộc nhập tên Giáo viên!', 
+    ];
+        $this->validate($request, [
+        'class-code-input' => 'required',
+        'class-name-input' => 'required',
+        'teacher-input' => 'required',
+        ], $messages);
         $data = $request->all();
         $classes = array();
         $classes['year_id'] = $data['select-year'];
