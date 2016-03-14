@@ -11,6 +11,7 @@ CÔNG VIỆC CẦN LÀM
 - CHECK MÔN HỌC ĐÃ CÓ ĐIỂM THÌ TẠO ICON 
 - HIỆN CẢNH BÁO KHI XÓA USER (hiện ra modal nhỏ có yes no và nhận giá trị)
 - KHI SEARCH RA MÔN HỌC THÌ THÊM GIÁO VIÊN CỦA MÔN ĐÓ Ở BÊN CẠNH
+- SẮP XẾP LẠI CÁC FORM PHẦN EXCEL GIỐNG VỚI PHẦN NHẬP TAY (DÙNG TABLE)
 - CÁN BỘ CÓ THỂ UPLOAD ĐIỂM CỦA TỪNG MÔN (DANH SÁCH MÔN NHIỀU QUÁ THÌ CHIA TRANG NẾU CÓ THỂ)
 - MAKE UP TRANG SEARCH (NHỜ CHUYÊN GIA)
 - CHECK CÁC INPUT TRƯỚC KHI ĐƯA VÀO
