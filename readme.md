@@ -7,9 +7,10 @@
 [![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
 
 CÔNG VIỆC CẦN LÀM
-- CHECK MÔN HỌC ĐÃ CÓ ĐIỂM THÌ TẠO ICON 
-- KHI SEARCH RA MÔN HỌC THÌ THÊM GIÁO VIÊN CỦA MÔN ĐÓ Ở BÊN CẠNH
 - HIỂN THỊ CÁC DANH SÁCH BẰNG BẢNG
+- CHECK MÔN HỌC ĐÃ CÓ ĐIỂM THÌ TẠO ICON 
+- HIỆN CẢNH BÁO KHI XÓA USER
+- KHI SEARCH RA MÔN HỌC THÌ THÊM GIÁO VIÊN CỦA MÔN ĐÓ Ở BÊN CẠNH
 - CÁN BỘ CÓ THỂ UPLOAD ĐIỂM CỦA TỪNG MÔN (DANH SÁCH MÔN NHIỀU QUÁ THÌ CHIA TRANG NẾU CÓ THỂ)
 - MAKE UP TRANG SEARCH (NHỜ CHUYÊN GIA)
 - CHECK CÁC INPUT TRƯỚC KHI ĐƯA VÀO
