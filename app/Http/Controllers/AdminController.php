@@ -13,6 +13,7 @@ use View;
 use Illuminate\Support\Facades\Input;
 use Response;
 use Session;
+use File;
 
 
 class AdminController extends Controller
@@ -61,6 +62,11 @@ class AdminController extends Controller
     {
         $data = $request->all();
         $file = $request['xls'];
+        $extension = File::extension($file);
+        if($extension != 'xls' and $extension != 'xlsx') {
+            Session::flash('flash_message', 'File invalid!');
+            return redirect()->route('admin');
+        }
         Excel::load($file, function ($reader) use ($data) {
             $results = $reader->get();
 

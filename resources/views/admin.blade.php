@@ -84,7 +84,7 @@
                 <div class="tab-content">
                     <div id="home" class="tab-pane fade in active">
                         <div class="upload-file">
-                            <h3>Chọn file excel để import vào cơ sở dữ liệu</h3>
+                            <h3>Import file Excel</h3>
                             <?php
                             echo Form::open(array('url' => 'admin/getExcel', 'method' => 'POST', 'files' => true));
                             $years = App\Year::select('year_id', 'year_name')->get();
@@ -112,7 +112,7 @@
                             echo Form::close();
                             ?>
                         </div>
-                        <h3>Thêm lớp vào cơ sở dữ liệu bằng tay</h3>
+                        <h3>Thêm lớp môn học</h3>
                         <form action="{{ route('getClass') }}" data-toggle="validator" method="POST">
                             <table class="table custom-table">
                                 <tbody>
