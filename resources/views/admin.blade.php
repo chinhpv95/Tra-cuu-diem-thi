@@ -6,6 +6,7 @@
 
 @section('head.style')
     <link rel="stylesheet" href="{{ url('/') }}/assets/css/style.css"/>
+    <?php require_once(base_path().'/resources/views/delete_confirm.php'); ?>
 @endsection
 
 @section('body')
@@ -269,12 +270,20 @@
                                 foreach ($users as $user) {
                                     echo '<li class="list-group-item"><span>' . $user['name'] . '</span>';
                                     $urlDelete = route('delete', ['user_id' => $user['id']]);
-                                    echo Form::open(array('url' => $urlDelete, 'method' => 'POST', 'files' => true));
-                                    echo Form::submit('Delete', array('class' => 'btn btn-primary'));
+                                    echo Form::open(array('class' => 'delete', 'url' => $urlDelete, 'method' => 'POST','style'=>'display:inline' ));
+                                    //echo Form::submit('Delete', array('class' => 'btn btn-primary',));
+?>
+    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete User" data-message="Are you sure you want to delete this user ?">
+        <i class="glyphicon glyphicon-trash"></i> Delete
+    </button>
+    <?php
+
                                     echo Form::close();
                                     echo '</li>';
                                 }
+
                                 ?>
+                                
                             </ul>
                         </div>
                     </div>
@@ -305,6 +314,7 @@
 
         </div>
     </div>
+
 @endsection
 
 @section('body.script')
