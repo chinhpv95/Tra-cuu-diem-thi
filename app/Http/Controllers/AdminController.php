@@ -48,10 +48,7 @@ class AdminController extends Controller
         $class = new Classes();
         $class['class_code'] = $classes['class_code'];
         $class['class_name'] = $classes['class_name'];
-
-        //Tim Id cua user
-        $user = User::where('name', '=', $classes['teacher'])->get()->first();
-        $class['user_id'] = $user->id;
+        $class['teacher'] = $classes['teacher'];
 
         $class['year_id'] = $classes['year_id'];
         $class['semester_id'] = $classes['semester_id'];
