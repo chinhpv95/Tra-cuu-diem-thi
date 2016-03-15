@@ -63,8 +63,8 @@ class AdminController extends Controller
     public function getExcel(Request $request)
     {
         $data = $request->all();
-        $file = $request['xls'];
-        $extension = File::extension($file);
+        $file = Input::file('xls');
+        $extension = $file->getClientOriginalExtension();
         if($extension != 'xls' and $extension != 'xlsx') {
             Session::flash('flash_message', 'File invalid!');
             return redirect()->route('admin');
