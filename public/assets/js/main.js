@@ -1,4 +1,4 @@
-$(document).ready(function () {
+(function ($) {
     $('.select-option').on('click', function () {
         $(this).next().toggleClass('open-option');
     });
@@ -11,4 +11,6 @@ $(document).ready(function () {
             $(this).children('.dropdown-menu').stop(true, false).slideUp(250);
         }
     );
-});
+
+    $('#auto').focus();
+})(jQuery);

@@ -6,18 +6,18 @@
 
 @section('head.style')
     <link rel="stylesheet" href="{{ url('/') }}/assets/css/style.css"/>
-    <?php require_once(base_path().'/resources/views/delete_confirm.php'); ?>
+    <?php require_once(base_path() . '/resources/views/delete_confirm.php'); ?>
 @endsection
 
 @section('body')
     @if (count($errors) > 0)
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
     @endif
     <nav class="navbar navbar-default">
         <div class="container">
@@ -80,7 +80,6 @@
             @endif
 
 
-            
             <div class="col-sm-3">
                 <ul class="nav nav-tabs manager">
                     <?php if( Auth::user()->role == 1 ) { ?>
@@ -88,7 +87,7 @@
                     <?php } ?>
                     <li class="active"><a data-toggle="tab" href="#home">Cập nhật danh sách</a></li>
                     <li><a data-toggle="tab" href="#class">Cập nhật điểm</a></li>
-                    
+
                 </ul>
             </div>
 
@@ -97,87 +96,102 @@
                     <div id="home" class="tab-pane fade in active">
                         <div class="upload-file">
                             <h3>Import file Excel</h3>
-                            <?php
-                            echo Form::open(array('url' => 'admin/getExcel', 'method' => 'POST', 'files' => true));
-                            $years = App\Year::select('year_id', 'year_name')->get();
-                            $semesters = App\Semester::select('semester_id', 'semester_name')->get();
-                            ?>
-                            {{ Form::label('school-year', 'Năm học:', array('class' => 'awesome')) }}
-                            <select name="select-year-excel">
-                                <?php
-                                foreach ($years as $year) {
-                                    echo '<option value="' . $year['year_id'] . '">' . $year['year_name'] . '</option>';
-                                }
-                                ?>
-                            </select>
-                            {{ Form::label('semester', 'Học Kỳ:', array('class' => 'awesome')) }}
-                            <select name="select-semester-excel">
-                                <?php
-                                foreach ($semesters as $semester) {
-                                    echo '<option value="' . $semester['semester_id'] . '">' . $semester['semester_name'] . '</option>';
-                                }
-                                ?>
-                            </select>
-                            <?php
-                            echo Form::file('xls');
-                            echo '<button class="btn btn-primary" type="submit">Import</button>';
-                            echo Form::close();
-                            ?>
-                        </div>
-                        <h3>Thêm lớp môn học</h3>
-                        <form action="{{ route('getClass') }}" data-toggle="validator" method="POST">
+                            {{ Form::open(array('url' => 'admin/getExcel', 'method' => 'POST', 'files' => true)) }}
                             <table class="table custom-table">
                                 <tbody>
                                 <tr>
                                     <?php
-                                    echo '<td>' . Form::label('school-year', 'Năm học:', array('class' => 'awesome')) . '</td>';
-                                    echo '<td><select name="select-year">';
-                                    foreach ($years as $year) {
-                                        echo '<option value="' . $year['year_id'] . '">' . $year['year_name'] . '</option>';
-                                    }
-                                    echo '</select></td>';
+                                    $years = App\Year::select('year_id', 'year_name')->get();
+                                    $semesters = App\Semester::select('semester_id', 'semester_name')->get();
                                     ?>
+                                    <td>{{ Form::label('school-year', 'Năm học', array('class' => 'awesome')) }}</td>
+                                    <td><select name="select-year-excel">
+                                            <?php
+                                            foreach ($years as $year) {
+                                                echo '<option value="' . $year['year_id'] . '">' . $year['year_name'] . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                    </td>
+                                <tr>
+                                    <td>{{ Form::label('semester', 'Học Kỳ', array('class' => 'awesome')) }}</td>
+                                    <td>
+                                        <select name="select-semester-excel">
+                                            <?php
+                                            foreach ($semesters as $semester) {
+                                                echo '<option value="' . $semester['semester_id'] . '">' . $semester['semester_name'] . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <?php
-                                    echo '<td>' . Form::label('semester', 'Học Kỳ:', array('class' => 'awesome')) . '</td>';
-                                    echo '<td><select name="select-semester">';
-                                    foreach ($semesters as $semester) {
-                                        echo '<option value="' . $semester['semester_id'] . '">' . $semester['semester_name'] . '</option>';
-                                    }
-                                    echo '</select></td>';
-                                    ?>
+                                    <td>{{ Form::label('semester', 'File Upload', array('class' => 'awesome')) }}</td>
+                                    <td>{{ Form::file('xls') }}</td>
                                 </tr>
                                 <tr>
-                                    <?php
-                                    echo '<td>' . Form::label('class', 'Tên môn học') . '</td>';
-                                    echo '<td>' . Form::text('class-name-input', '', array('class' => 'form-control')) . '</td>';
-                                    ?>
+                                    <td></td>
+                                    <td>
+                                        <button class="btn btn-primary" type="submit">Import</button>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <?php
-                                    echo '<td>' . Form::label('class-code', 'Mã môn học') . '</td>';
-                                    echo '<td>' . Form::text('class-code-input', '', array('class' => 'form-control')) . '</td>';
-                                    ?>
-                                </tr>
-                                <tr>
-                                    <?php
-                                    echo '<td>' . Form::label('teacher', 'Giáo viên') . '</td>';
-                                    echo '<td>' . Form::text('teacher-input', '', array('class' => 'form-control')) . '</td>';
-                                    ?>
-                                </tr>
-
-                                <tr>
-
-                                    <?php
-
-                                    echo '<td></td><td><button class="btn btn-primary" role="button" type="submit">Submit</button></td>';
-                                    ?>
-                                </tr>
-
                                 </tbody>
                             </table>
-                        </form>
+                            {{ Form::close() }}
+                        </div>
+                        <div class="upload-manual">
+                            <h3>Thêm lớp môn học</h3>
+                            <form action="{{ route('getClass') }}" data-toggle="validator" method="POST">
+                                {!! csrf_field() !!}
+                                <table class="table custom-table">
+                                    <tbody>
+                                    <tr>
+                                        <?php
+                                        echo '<td>' . Form::label('school-year', 'Năm học', array('class' => 'awesome')) . '</td>';
+                                        echo '<td><select name="select-year">';
+                                        foreach ($years as $year) {
+                                            echo '<option value="' . $year['year_id'] . '">' . $year['year_name'] . '</option>';
+                                        }
+                                        echo '</select></td>';
+                                        ?>
+                                    </tr>
+                                    <tr>
+                                        <?php
+                                        echo '<td>' . Form::label('semester', 'Học Kỳ', array('class' => 'awesome')) . '</td>';
+                                        echo '<td><select name="select-semester">';
+                                        foreach ($semesters as $semester) {
+                                            echo '<option value="' . $semester['semester_id'] . '">' . $semester['semester_name'] . '</option>';
+                                        }
+                                        echo '</select></td>';
+                                        ?>
+                                    </tr>
+                                    <tr>
+                                        <?php
+                                        echo '<td>' . Form::label('class', 'Tên môn học') . '</td>';
+                                        echo '<td>' . Form::text('class-name-input', '', array('class' => 'form-control')) . '</td>';
+                                        ?>
+                                    </tr>
+                                    <tr>
+                                        <?php
+                                        echo '<td>' . Form::label('class-code', 'Mã môn học') . '</td>';
+                                        echo '<td>' . Form::text('class-code-input', '', array('class' => 'form-control')) . '</td>';
+                                        ?>
+                                    </tr>
+                                    <tr>
+                                        <?php
+                                        echo '<td>' . Form::label('teacher', 'Giáo viên') . '</td>';
+                                        echo '<td>' . Form::text('teacher-input', '', array('class' => 'form-control')) . '</td>';
+                                        ?>
+                                    </tr>
+                                    <tr>
+                                        <?php
+                                        echo '<td></td><td><button class="btn btn-primary" role="button" type="submit">Submit</button></td>';
+                                        ?>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
                     </div>
                     <?php if( Auth::user()->role == 1 ) { ?>
                     <div id="manager" class="tab-pane fade">
@@ -247,7 +261,8 @@
                                                 <div class="control-group">
                                                     <div class="controls">
                                                         <label class="radio-inline"><input type="radio" name="role"
-                                                                                           value="1">Quản trị viên</label>
+                                                                                           value="1">Quản trị
+                                                            viên</label>
                                                         <label class="radio-inline"><input type="radio" name="role"
                                                                                            value="2">Cán bộ</label>
                                                     </div>
@@ -272,53 +287,59 @@
                                 foreach ($users as $user) {
                                     echo '<li class="list-group-item"><span>' . $user['name'] . '</span>';
                                     $urlDelete = route('delete', ['user_id' => $user['id']]);
-                                    echo Form::open(array('id'=>'delete', 'class' => 'delete', 'url' => $urlDelete, 'method' => 'POST','style'=>'display:inline' ));
+                                    echo Form::open(array('id' => 'delete', 'class' => 'delete', 'url' => $urlDelete, 'method' => 'POST', 'style' => 'display:inline'));
                                     echo Form::submit('Delete', array('class' => 'btn btn-primary',));
-                                    echo Form::button('Delete with confirm ', array('class'=>'btn btn-primary', 'data-toggle'=>'modal', 'data-target'=>'#confirmDelete', 'data-title'=>'Delete User', 'data-message'=>'Are you sure you want to delete this user ?'));
+                                    echo Form::button('Delete with confirm ', array('class' => 'btn btn-primary', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete User', 'data-message' => 'Are you sure you want to delete this user ?'));
                                     echo Form::close();
                                     echo '</li>';
                                 }
-                                ?>  
+                                ?>
 
-    <!---<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete User" data-message="Are you sure you want to delete this user ?">
+                                    <!---<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete User" data-message="Are you sure you want to delete this user ?">
         <i class="glyphicon glyphicon-trash"></i> Delete
     </button>---->
-                                
+
                             </ul>
                         </div>
                     </div>
                     <?php } ?>
 
-                <div id="class" class="tab-pane fade">
-                <?php
-                $teacher_class = App\Classes::get();
-                echo '<h3>Danh sách môn học</h3>';
-                echo '<ul class="list-group control-group list-classes">';
-                foreach ($teacher_class as $index) {
-                    echo '<li class="list-group-item"><span>' . $index['class_name'] . ' (' . $index['class_code'] . ')</span>';
-                    $urlUpload = route('upLoad', ['class_id' => $index['class_id']]);
+                    <div id="class" class="tab-pane fade">
+                        <?php
+                        $teacher_class = App\Classes::get();
+                        echo '<h3>Danh sách môn học</h3>';
+                        echo '<ul class="list-group control-group list-classes">';
+                        foreach ($teacher_class as $index) {
+                            if (!isset($index['link'])) {
+                                echo '<li class="list-group-item"><span>' . $index['class_name'] . ' (' . $index['class_code'] . ')</span>';
+                                $urlUpload = route('upLoad', ['class_id' => $index['class_id']]);
 
-                    echo Form::open(array('url' => $urlUpload, 'method' => 'POST', 'files' => true));
-                    echo Form::file('link');
-                    echo Form::submit('Upload', array('class' => 'btn btn-primary'));
-                    echo Form::close();
+                                echo Form::open(array('url' => $urlUpload, 'method' => 'POST', 'files' => true));
+                                echo Form::file('link');
+                                echo Form::submit('Upload', array('class' => 'btn btn-primary'));
+                                echo Form::close();
 
-                    $urlDownload = route('downLoad', ['class_id' => $index['class_id']]);
-                    echo Form::open(array('url' => $urlDownload, 'method' => 'POST', 'files' => true));
-                    echo Form::submit('Download', array('class' => 'btn btn-primary'));
-                    echo Form::close();
-                }
+                                $urlDownload = route('downLoad', ['class_id' => $index['class_id']]);
+                                echo Form::open(array('url' => $urlDownload, 'method' => 'POST', 'files' => true));
+                                echo Form::submit('Download', array('class' => 'btn btn-primary'));
+                                echo Form::close();
+                                echo '</li>';
+                            } else {
+                                echo '<li class="list-group-item">
+                                    <a href="' . url('storage') . '/' . $index["link"] . '" target="_blank">
+                                    <span>' . $index['class_name'] . ' (' . $index['class_code'] . ')</span>
+                                    </a>
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                    </li>';
+                            }
+                        }
 
-                echo '</ul>';
-             ?>
-            </div>
+                        echo '</ul>';
+                        ?>
+                    </div>
                 </div>
             </div>
 
-            
-           
-
-                
 
         </div>
     </div>

@@ -7,6 +7,9 @@
                 select {
                     width: 170px;
                 }
+                &:first-child {
+                    width: 250px;
+                }
             }
         }
     }
@@ -25,9 +28,6 @@
         &:focus {
             outline: none;
         }
-    }
-    button {
-        margin-top: 20px;
     }
 }
 
@@ -157,6 +157,15 @@
 
 .list-classes {
     input {
-        margin-right: 30px;
+        margin-right: 20px;
+    }
+
+    a {
+        &:hover {
+            text-decoration: none;
+        }
+    }
+    span.glyphicon {
+        color: rgb(46, 204, 113);
     }
 }

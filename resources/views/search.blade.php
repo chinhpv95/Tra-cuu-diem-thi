@@ -12,13 +12,16 @@
 @endsection
 
 @section('body')
+    <header>
+        <image src="http://student.uet.vnu.edu.vn/images/logo.png"></image>
+    </header>
     <div class="container search-form">
         <div class="row">
             <div class="col-sm-12">
                 {{ Form::open(array('url' => 'result', 'method' => 'POST')) }}
                 {{ Form::text('auto', '', ['id' =>  'auto', 'class' => 'form-control', 'placeholder' =>  'Enter name'])}}
                 <button class="button expand" type="submit" name="search" value="search"><span
-                        class="glyphicon glyphicon-search"></span></button>
+                        class="glyphicon glyphicon-search search-icon"></span></button>
                 <div class="advanced-options">
                     <p class="select-option">Tìm kiếm nâng cao</p>
                     <div class="options">
@@ -59,6 +62,7 @@
                 } else {
                     echo $index['class_name'] . ' (' . $index['class_code'] . ')';
                 }
+                echo '<span>' .$index['teacher'] .'</span>';
                 echo '</li>';
             }
             echo '</ul>';

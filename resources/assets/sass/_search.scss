@@ -18,8 +18,12 @@
     }
 }
 
+header {
+    padding: 30px 0;
+    text-align: center;
+}
+
 .search-form {
-    margin-top: 150px !important;
     form {
         position: relative;
         max-width: 580px;
@@ -58,6 +62,13 @@
             }
         }
     }
+}
+
+.search-icon {
+    animation: bounceIn 750ms linear infinite alternate;
+    -moz-animation: bounceIn 750ms linear infinite alternate;
+    -webkit-animation: bounceIn 750ms linear infinite alternate;
+    -o-animation: bounceIn 750ms linear infinite alternate;
 }
 
 .list_result {
