@@ -7,14 +7,10 @@
 [![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
 
 CÔNG VIỆC CẦN LÀM
-- HIỂN THỊ CÁC DANH SÁCH BẰNG BẢNG
-- CHECK MÔN HỌC ĐÃ CÓ ĐIỂM THÌ TẠO ICON 
-- HIỆN CẢNH BÁO KHI XÓA USER (hiện ra modal nhỏ có yes no và nhận giá trị)
+- HIỂN THỊ CÁC DANH SÁCH BẰNG BẢNG (phần kết quả search)
+- HIỆN CẢNH BÁO KHI XÓA USER (có nút mà chưa được)
 - KHI SEARCH RA MÔN HỌC THÌ THÊM GIÁO VIÊN CỦA MÔN ĐÓ Ở BÊN CẠNH
-- SẮP XẾP LẠI CÁC FORM PHẦN EXCEL GIỐNG VỚI PHẦN NHẬP TAY (DÙNG TABLE)
-- CÁN BỘ CÓ THỂ UPLOAD ĐIỂM CỦA TỪNG MÔN (DANH SÁCH MÔN NHIỀU QUÁ THÌ CHIA TRANG NẾU CÓ THỂ)
 - MAKE UP TRANG SEARCH (NHỜ CHUYÊN GIA)
-- CHECK CÁC INPUT TRƯỚC KHI ĐƯA VÀO
 - RẢNH THÌ CHIA COTROLLER GIẢM GÁNH NẶNG CHO ADMIN
 
 
