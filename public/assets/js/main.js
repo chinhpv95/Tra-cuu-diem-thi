@@ -1,5 +1,10 @@
 (function ($) {
     'use strict';
+
+    //$.ajaxSetup({
+    //    headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+    //});
+
     $('.select-option').on('click', function () {
         $(this).next().toggleClass('open-option');
     });
@@ -23,7 +28,8 @@
             if(confirm("Are you sure you want to delete this?"))
             {
                 $.ajax({
-                    //type: "POST",
+                    headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') },
+                    type: "POST",
                     url: "delete",
                     data: info,
                     success: function(){

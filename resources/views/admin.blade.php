@@ -256,17 +256,6 @@
                                                         <p class="help-block">Please confirm password</p>
                                                     </div>
                                                 </div>
-
-                                                <div class="control-group">
-                                                    <div class="controls">
-                                                        <label class="radio-inline"><input type="radio" name="role"
-                                                                                           value="1">Quản trị
-                                                            viên</label>
-                                                        <label class="radio-inline"><input type="radio" name="role"
-                                                                                           value="2">Cán bộ</label>
-                                                    </div>
-                                                </div>
-
                                                 <div class="control-group">
                                                     <!-- Button -->
                                                     <div class="controls">
@@ -285,21 +274,10 @@
                                 $users = App\User::where('role', '=', '1')->orwhere('role', '=', '2')->get();
                                 foreach ($users as $user) {
                                     echo '<li class="list-group-item"><span>' . $user['name'] . '</span>';
-//                                    $urlDelete = route('delete', ['user_id' => $user['id']]);
-//                                    echo Form::open(array('id' => $user_id, 'class' => 'delete', 'url' => $urlDelete, 'method' => 'POST', 'style' => 'display:inline'));
-                                    //echo Form::submit('Delete', array('class' => 'btn btn-primary delete',));
-                                    //echo Form::button('Delete with confirm ', array('class' => 'btn btn-primary', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete User', 'data-message' => 'Are you sure you want to delete this user ?'));
-
-                                    echo '<button type="submit" class="action"><a href="#" id="' . $user['id'] . '" class="delete" title="Delete">X</a></button>';
-//                                    echo Form::close();
+                                    echo '<button type="submit" class="action"><a href="#" id="' . $user['id'] . '" data-token="{{ csrf_token() }}" class="delete" title="Delete">X</a></button>';
                                     echo '</li>';
                                 }
                                 ?>
-
-                                    <!---<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#confirmDelete" data-title="Delete User" data-message="Are you sure you want to delete this user ?">
-        <i class="glyphicon glyphicon-trash"></i> Delete
-    </button>---->
-
                             </ul>
                         </div>
                     </div>
