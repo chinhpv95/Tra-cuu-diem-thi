@@ -87,6 +87,7 @@ class AdminController extends Controller
 
         });
 
+        Session::flash('flash_message', 'File uploaded!');
         return redirect()->route('admin');
     }
 
@@ -120,6 +121,7 @@ class AdminController extends Controller
         return redirect()->route('admin');
     }
 
+    //Cap nhat diem
     public function upLoad($class_id)
     {
         $file = Input::file('link');
@@ -141,6 +143,7 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
+    //Tai file pdf ve may
     public function download($class_id)
     {
         $class = Classes::find($class_id);
@@ -148,15 +151,12 @@ class AdminController extends Controller
         return Response::download($destinationPath . $class->link);
     }
 
-    public function delete()
+    public function delete($user_id)
     {
-//        var_dump($request);
-        echo 'xxx';
 
-//        User::where('id', $user_id)->delete();
-//        Session::flash('delete_message', 'Delete successfully!');
-//
-//        return redirect()->back();
+       User::where('id', $user_id)->delete();
+       Session::flash('delete_message', 'Delete successfully!');
+       return redirect()->back();
     }
 
     public function profile($user_id)

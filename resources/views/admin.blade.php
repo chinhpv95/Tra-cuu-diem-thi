@@ -285,12 +285,12 @@
                                 $users = App\User::where('role', '=', '1')->orwhere('role', '=', '2')->get();
                                 foreach ($users as $user) {
                                     echo '<li class="list-group-item"><span>' . $user['name'] . '</span>';
-//                                    $urlDelete = route('delete', ['user_id' => $user['id']]);
-//                                    echo Form::open(array('id' => $user_id, 'class' => 'delete', 'url' => $urlDelete, 'method' => 'POST', 'style' => 'display:inline'));
+                                     $urlDelete = route('delete', $user['id']);
+                                    // echo Form::open(array('class' => 'delete', 'url' => $urlDelete, 'method' => 'POST', ));
                                     //echo Form::submit('Delete', array('class' => 'btn btn-primary delete',));
                                     //echo Form::button('Delete with confirm ', array('class' => 'btn btn-primary', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete User', 'data-message' => 'Are you sure you want to delete this user ?'));
 
-                                    echo '<button type="submit" class="action"><a href="#" id="' . $user['id'] . '" class="delete" title="Delete">X</a></button>';
+                                    echo '<button type="submit" class="action"><a href= '.$urlDelete.' class="delete" title="Delete">Delete</a></button>';
 //                                    echo Form::close();
                                     echo '</li>';
                                 }

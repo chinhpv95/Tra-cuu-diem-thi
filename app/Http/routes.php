@@ -26,16 +26,6 @@ Route::post('result', [
     'uses' => 'SearchController@result'
 ]);
 
-Route::any('delete', [
-    'as' => 'delete',
-    'uses' => 'AdminController@delete'
-]);
-//Route::post('delete', ['as' => 'delete', 'uses' => 'AdminController@delete']);
-
-//Route::any('delete', [
-//    'as' => 'delete_user',
-//    'uses' => 'AdminController@delete'
-//]);
 
 /*
 |--------------------------------------------------------------------------
@@ -47,10 +37,6 @@ Route::any('delete', [
 | kernel and includes session state, CSRF protection, and more.
 |
 */
-
-Route::group(['middleware' => ['web']], function () {
-    //
-});
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
@@ -72,4 +58,6 @@ Route::group(['middleware' => 'web'], function () {
     Route::any('profile/{user_id}/updateName', ['as' => 'updateName', 'uses' => 'AdminController@updateName']);
     Route::any('profile/{user_id}/updateEmail', ['as' => 'updateEmail', 'uses' => 'AdminController@updateEmail']);
     Route::any('profile/{user_id}/updatePassword', ['as' => 'updatePassword', 'uses' => 'AdminController@updatePassword']);
+
+    Route::any('admin/delete/{user_id}', ['as' => 'delete', 'uses' => 'AdminController@delete']);
 });
