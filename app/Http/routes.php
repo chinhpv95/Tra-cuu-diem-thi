@@ -26,6 +26,7 @@ Route::post('result', [
     'uses' => 'SearchController@result'
 ]);
 
+Route::any('delete', ['as' => 'delete', 'uses' => 'AdminController@delete']);
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,4 @@ Route::group(['middleware' => 'web'], function () {
     Route::any('profile/{user_id}/updateName', ['as' => 'updateName', 'uses' => 'AdminController@updateName']);
     Route::any('profile/{user_id}/updateEmail', ['as' => 'updateEmail', 'uses' => 'AdminController@updateEmail']);
     Route::any('profile/{user_id}/updatePassword', ['as' => 'updatePassword', 'uses' => 'AdminController@updatePassword']);
-
-    Route::any('admin/delete/{user_id}', ['as' => 'delete', 'uses' => 'AdminController@delete']);
 });

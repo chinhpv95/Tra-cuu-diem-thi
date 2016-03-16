@@ -83,7 +83,7 @@
                 <ul class="nav nav-tabs manager">
                     <li class="active"><a data-toggle="tab" href="#home">Cập nhật danh sách</a></li>
                     <li><a data-toggle="tab" href="#class">Cập nhật điểm</a></li>
-                    <?php if( Auth::user()->role == 0 ) { ?>
+                    <?php if( Auth::user()->role == 1 ) { ?>
                     <li><a data-toggle="tab" href="#manager">Quản lí thành viên</a></li>
                     <?php } ?>
 
@@ -192,7 +192,7 @@
                             </form>
                         </div>
                     </div>
-                    <?php if( Auth::user()->role == 0 ) { ?>
+                    <?php if( Auth::user()->role == 1 ) { ?>
                     <div id="manager" class="tab-pane fade">
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
@@ -254,6 +254,15 @@
                                                                name="password_confirm" placeholder=""
                                                                class="form-control">
                                                         <p class="help-block">Please confirm password</p>
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <div class="controls">
+                                                        <label class="radio-inline"><input type="radio" name="role"
+                                                                                           value="1">Quản trị
+                                                            viên</label>
+                                                        <label class="radio-inline"><input type="radio" name="role"
+                                                                                           value="2">Cán bộ</label>
                                                     </div>
                                                 </div>
                                                 <div class="control-group">
