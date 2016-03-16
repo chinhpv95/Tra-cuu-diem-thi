@@ -73,8 +73,16 @@ header {
 
 .list_result {
     li {
+        span {
+            padding-left: 30px;
+        }
         &:nth-child(2n) {
             background-color: #e5e5e5;
+        }
+        span.glyphicon {
+            float: right;
+            padding-right: 10px;
+            color: rgb(46, 204, 113);
         }
     }
 }

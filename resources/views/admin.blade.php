@@ -6,7 +6,6 @@
 
 @section('head.style')
     <link rel="stylesheet" href="{{ url('/') }}/assets/css/style.css"/>
-    <?php require_once(base_path() . '/resources/views/delete_confirm.php'); ?>
 @endsection
 
 @section('body')
@@ -54,10 +53,10 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 <?php $user_id = Auth::user()->id; ?>
-                                <li><a href="{{ url('/logout') }}"><span
-                                            class="glyphicon glyphicon-log-out"></span>Logout</a></li>
                                 <li><a href="{{ route('profile', ['user_id' => $user_id]) }}"><span
                                             class="glyphicon glyphicon-user"></span>Profile</a></li>
+                                <li><a href="{{ url('/logout') }}"><span
+                                            class="glyphicon glyphicon-log-out"></span>Logout</a></li>
                             </ul>
                         </li>
                     @endif
@@ -87,6 +86,7 @@
                     <?php } ?>
                     <li class="active"><a data-toggle="tab" href="#home">Cập nhật danh sách</a></li>
                     <li><a data-toggle="tab" href="#class">Cập nhật điểm</a></li>
+                    <li><a data-toggle="tab" href="#manager">Quản lí thành viên</a></li>
 
                 </ul>
             </div>
@@ -193,7 +193,7 @@
                             </form>
                         </div>
                     </div>
-                    <?php if( Auth::user()->role == 1 ) { ?>
+                    <?php if( Auth::user()->role == 0 ) { ?>
                     <div id="manager" class="tab-pane fade">
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
@@ -286,11 +286,13 @@
                                 $users = App\User::where('role', '=', '1')->orwhere('role', '=', '2')->get();
                                 foreach ($users as $user) {
                                     echo '<li class="list-group-item"><span>' . $user['name'] . '</span>';
-                                    $urlDelete = route('delete', ['user_id' => $user['id']]);
-                                    echo Form::open(array('id' => 'delete', 'class' => 'delete', 'url' => $urlDelete, 'method' => 'POST', 'style' => 'display:inline'));
-                                    echo Form::submit('Delete', array('class' => 'btn btn-primary',));
-                                    echo Form::button('Delete with confirm ', array('class' => 'btn btn-primary', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete User', 'data-message' => 'Are you sure you want to delete this user ?'));
-                                    echo Form::close();
+//                                    $urlDelete = route('delete', ['user_id' => $user['id']]);
+//                                    echo Form::open(array('id' => $user_id, 'class' => 'delete', 'url' => $urlDelete, 'method' => 'POST', 'style' => 'display:inline'));
+                                    //echo Form::submit('Delete', array('class' => 'btn btn-primary delete',));
+                                    //echo Form::button('Delete with confirm ', array('class' => 'btn btn-primary', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete User', 'data-message' => 'Are you sure you want to delete this user ?'));
+
+                                    echo '<button type="submit" class="action"><a href="#" id="'. $user['id'] .'" class="delete" title="Delete">X</a></button>';
+//                                    echo Form::close();
                                     echo '</li>';
                                 }
                                 ?>
@@ -309,7 +311,8 @@
                         $teacher_class = App\Classes::get();
                         echo '<h3>Danh sách môn học</h3>';
                         echo '<ul class="list-group control-group list-classes">';
-                        foreach ($teacher_class as $index) {
+                        foreach ($teacher_class as $value => $index) {
+                            $value++;
                             if (!isset($index['link'])) {
                                 echo '<li class="list-group-item"><span>' . $index['class_name'] . ' (' . $index['class_code'] . ')</span>';
                                 $urlUpload = route('upLoad', ['class_id' => $index['class_id']]);
@@ -325,12 +328,22 @@
                                 echo Form::close();
                                 echo '</li>';
                             } else {
-                                echo '<li class="list-group-item">
-                                    <a href="' . url('storage') . '/' . $index["link"] . '" target="_blank">
+                                echo '<li class="list-group-item">';
+                                echo '<a href="' . url('storage') . '/' . $index["link"] . '" target="_blank">
                                     <span>' . $index['class_name'] . ' (' . $index['class_code'] . ')</span>
-                                    </a>
-                                    <span class="glyphicon glyphicon-ok"></span>
-                                    </li>';
+                                    </a>';
+                                $urlUpload = route('upLoad', ['class_id' => $index['class_id']]);
+
+                                echo Form::open(array('url' => $urlUpload, 'method' => 'POST', 'files' => true));
+                                echo Form::file('link');
+                                echo Form::submit('Upload', array('class' => 'btn btn-primary'));
+                                echo Form::close();
+
+                                $urlDownload = route('downLoad', ['class_id' => $index['class_id']]);
+                                echo Form::open(array('url' => $urlDownload, 'method' => 'POST', 'files' => true));
+                                echo Form::submit('Download', array('class' => 'btn btn-primary'));
+                                echo Form::close();
+                                echo '<span class="glyphicon glyphicon-ok"></span></li>';
                             }
                         }
 

@@ -55,15 +55,19 @@
         <?php
         if (isset($_POST['search'])) {
             echo '<ul class="list_result list-group">';
-            foreach ($result as $index) {
-                echo '<li class="class_result list-group-item">';
+            foreach ($result as $count => $index) {
+                $count++;
                 if (isset($index['link'])) {
+                    echo '<li class="class_result list-group-item">' . $count .'. ';
                     echo '<a href="' . url('storage') . '/' . $index["link"] . '" target="_blank">' . $index['class_name'] . ' (' . $index['class_code'] . ')</a>';
+                    echo '<span>' .$index['teacher'] .'</span>';
+                    echo '<span class="glyphicon glyphicon-ok"></span></li>';
                 } else {
+                    echo '<li class="class_result list-group-item">' . $count .'. ';
                     echo $index['class_name'] . ' (' . $index['class_code'] . ')';
+                    echo '<span>' .$index['teacher'] .'</span>';
+                    echo '</li>';
                 }
-                echo '<span>' .$index['teacher'] .'</span>';
-                echo '</li>';
             }
             echo '</ul>';
         }

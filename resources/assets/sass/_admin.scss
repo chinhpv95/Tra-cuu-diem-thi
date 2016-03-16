@@ -56,6 +56,11 @@
     }
 }
 
+.btn-primary:focus {
+    outline: none;
+    border: none;
+}
+
 #manager {
     button {
         margin-bottom: 30px;
@@ -73,10 +78,14 @@
         &:nth-child(2n) {
             background-color: #e5e5e5;
         }
+        a {
+            display: inline-block;
+        }
         span {
             display: inline-block;
             vertical-align: middle;
-            min-width: 300px;
+            width: 300px;
+            padding-right: 10px;
             margin-top: 2px;
             position: relative;
         }
@@ -92,6 +101,21 @@
                     outline: none;
                 }
             }
+        }
+        input {
+            margin-right: 20px;
+        }
+
+        a {
+            &:hover {
+                text-decoration: none;
+            }
+        }
+        span.glyphicon {
+            color: rgb(46, 204, 113);
+            display: inline-block;
+            width: auto;
+            padding: 0;
         }
     }
 }
@@ -152,20 +176,5 @@
                 color: #1dae84;
             }
         }
-    }
-}
-
-.list-classes {
-    input {
-        margin-right: 20px;
-    }
-
-    a {
-        &:hover {
-            text-decoration: none;
-        }
-    }
-    span.glyphicon {
-        color: rgb(46, 204, 113);
     }
 }

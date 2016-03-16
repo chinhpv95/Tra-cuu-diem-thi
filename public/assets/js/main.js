@@ -1,4 +1,5 @@
 (function ($) {
+    'use strict';
     $('.select-option').on('click', function () {
         $(this).next().toggleClass('open-option');
     });
@@ -13,4 +14,25 @@
     );
 
     $('#auto').focus();
+
+    $(function() {
+        $(".delete").click(function(){
+            var element = $(this);
+            var del_id = element.attr("id");
+            var info = 'id=' + del_id;
+            if(confirm("Are you sure you want to delete this?"))
+            {
+                $.ajax({
+                    //type: "POST",
+                    url: "delete",
+                    data: info,
+                    success: function(){
+                    }
+                });
+                $(this).parents(".list-group-item").animate({ backgroundColor: "#003" }, "slow")
+                    .animate({ opacity: "hide" }, "slow");
+            }
+            return false;
+        });
+    });
 })(jQuery);

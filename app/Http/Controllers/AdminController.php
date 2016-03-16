@@ -148,12 +148,15 @@ class AdminController extends Controller
         return Response::download($destinationPath . $class->link);
     }
 
-    public function delete($user_id)
+    public function delete()
     {
-        User::where('id', $user_id)->delete();
-        Session::flash('delete_message', 'Delete successfully!');
+//        var_dump($request);
+        echo 'xxx';
 
-        return redirect()->back();
+//        User::where('id', $user_id)->delete();
+//        Session::flash('delete_message', 'Delete successfully!');
+//
+//        return redirect()->back();
     }
 
     public function profile($user_id)
