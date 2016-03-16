@@ -53,7 +53,7 @@
             </div>
         </div>
         <?php
-        if (isset($_POST['search'])) {
+        if (isset($_POST['search']) && count($result) != 0) {
             echo '<ul class="list_result list-group">';
             echo '<li class="class_result list-group-item"><span class="class_name">Môn Học</span>';
             echo '<span class="teacher">Giáo Viên</span>';
@@ -72,6 +72,9 @@
                 }
             }
             echo '</ul>';
+            echo $result->render();
+        } else {
+            echo '<h1 class="class_error">Không tồn tại môn học</h1>';
         }
         ?>
     </div>

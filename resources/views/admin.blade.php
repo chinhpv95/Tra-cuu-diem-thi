@@ -218,7 +218,7 @@
                                                     <label class="control-label" for="username">Username</label>
                                                     <div class="controls">
                                                         <input type="text" id="username" name="username" placeholder=""
-                                                               class="form-control">
+                                                               class="form-control" required>
                                                         <p class="help-block">Username can contain any letters or
                                                             numbers, without spaces</p>
                                                     </div>
@@ -229,14 +229,15 @@
                                                     <label class="control-label" for="email">E-mail</label>
                                                     <div class="controls">
                                                         <input type="text" id="email" name="email" placeholder=""
-                                                               class="form-control">
+                                                               class="form-control" required>
                                                         <p class="help-block">Please provide your E-mail</p>
                                                     </div>
                                                 </div>
 
                                                 <div class="control-group">
                                                     <!-- Password-->
-                                                    <label class="control-label" for="password">Password</label>
+                                                    <label class="control-label" for="password"
+                                                           required>Password</label>
                                                     <div class="controls">
                                                         <input type="password" id="password" name="password"
                                                                placeholder="" class="form-control">
@@ -252,7 +253,7 @@
                                                     <div class="controls">
                                                         <input type="password" id="password_confirm"
                                                                name="password_confirm" placeholder=""
-                                                               class="form-control">
+                                                               class="form-control" required>
                                                         <p class="help-block">Please confirm password</p>
                                                     </div>
                                                 </div>
@@ -280,11 +281,16 @@
                         <div class="list-user">
                             <ul class="list-group">
                                 <?php
-                                $users = App\User::where('role', '=', '1')->orwhere('role', '=', '2')->get();
+                                $users = App\User::get();
                                 foreach ($users as $user) {
-                                    echo '<li class="list-group-item"><span>' . $user['name'] . '</span>';
-                                    echo '<button type="submit" class="action"><a href="#" id="' . $user['id'] . '" data-token="{{ csrf_token() }}" class="delete" title="Delete">X</a></button>';
-                                    echo '</li>';
+                                    if ($user['role'] == 2) {
+                                        echo '<li class="list-group-item"><span>' . $user['name'] . '</span>';
+                                        echo '<button type="submit" class="action"><a href="#" id="' . $user['id'] . '" data-token="{{ csrf_token() }}" class="delete" title="Delete">X</a></button>';
+                                        echo '</li>';
+                                    } else {
+                                        echo '<li class="list-group-item"><span>' . $user['name'] . '</span>';
+                                        echo '</li>';
+                                    }
                                 }
                                 ?>
                             </ul>

@@ -40,7 +40,7 @@ class SearchController extends Controller
             $semester_id = Semester::where('active', 1)->get()->first();
             $result = Classes::where([['class_name', 'LIKE', '%' . $class . '%'], ['semester_id', '=', $semester_id->semester_id], ['year_id', '=', $year_id->year_id]])
                 ->orWhere([['class_code', 'LIKE', '%' . $class . '%'], ['semester_id', '=', $semester_id->semester_id], ['year_id', '=', $year_id->year_id]])
-                ->orderBy('class_name', 'asc')->get();
+                ->orderBy('class_name', 'asc')->simplePaginate(15);
         } else {
             $year_id = $input['select-year'];
             $semester_id = $input['select-semester'];
