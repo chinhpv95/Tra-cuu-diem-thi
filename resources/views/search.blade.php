@@ -53,6 +53,10 @@
             </div>
         </div>
         <?php
+        if (isset($_POST['search'])) {
+            if (count($result) == 0)
+                echo '<h1 class="class_error">Không tồn tại môn học</h1>';
+        }
         if (isset($_POST['search']) && count($result) != 0) {
             echo '<ul class="list_result list-group">';
             echo '<li class="class_result list-group-item"><span class="class_name">Môn Học</span>';
@@ -61,20 +65,18 @@
                 $count++;
                 if (isset($index['link'])) {
                     echo '<li class="class_result list-group-item">';
-                    echo '<span class="class_name">' . $count .'. <a href="' . url('storage') . '/' . $index["link"] . '" target="_blank">' . $index['class_name'] . ' (' . $index['class_code'] . ')</a></span>';
-                    echo '<span class="teacher">' .$index['teacher'] .'</span>';
+                    echo '<span class="class_name">' . $count . '. <a href="' . url('storage') . '/' . $index["link"] . '" target="_blank">' . $index['class_name'] . ' (' . $index['class_code'] . ')</a></span>';
+                    echo '<span class="teacher">' . $index['teacher'] . '</span>';
                     echo '<span class="glyphicon glyphicon-ok"></span></li>';
                 } else {
                     echo '<li class="class_result list-group-item">';
-                    echo '<span class="class_name">' . $count .'. ' .$index['class_name'] . ' (' . $index['class_code'] . ')</span>' ;
-                    echo '<span class="teacher">' .$index['teacher'] .'</span>';
+                    echo '<span class="class_name">' . $count . '. ' . $index['class_name'] . ' (' . $index['class_code'] . ')</span>';
+                    echo '<span class="teacher">' . $index['teacher'] . '</span>';
                     echo '</li>';
                 }
             }
             echo '</ul>';
             echo $result->render();
-        } else {
-            echo '<h1 class="class_error">Không tồn tại môn học</h1>';
         }
         ?>
     </div>
