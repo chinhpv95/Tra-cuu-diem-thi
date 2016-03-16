@@ -81,12 +81,11 @@
 
             <div class="col-sm-3">
                 <ul class="nav nav-tabs manager">
-                    <?php if( Auth::user()->role == 1 ) { ?>
-                    <li><a data-toggle="tab" href="#manager">Quản lý</a></li>
-                    <?php } ?>
                     <li class="active"><a data-toggle="tab" href="#home">Cập nhật danh sách</a></li>
                     <li><a data-toggle="tab" href="#class">Cập nhật điểm</a></li>
+                    <?php if( Auth::user()->role == 0 ) { ?>
                     <li><a data-toggle="tab" href="#manager">Quản lí thành viên</a></li>
+                    <?php } ?>
 
                 </ul>
             </div>
@@ -291,7 +290,7 @@
                                     //echo Form::submit('Delete', array('class' => 'btn btn-primary delete',));
                                     //echo Form::button('Delete with confirm ', array('class' => 'btn btn-primary', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete User', 'data-message' => 'Are you sure you want to delete this user ?'));
 
-                                    echo '<button type="submit" class="action"><a href="#" id="'. $user['id'] .'" class="delete" title="Delete">X</a></button>';
+                                    echo '<button type="submit" class="action"><a href="#" id="' . $user['id'] . '" class="delete" title="Delete">X</a></button>';
 //                                    echo Form::close();
                                     echo '</li>';
                                 }
