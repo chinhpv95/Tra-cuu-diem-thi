@@ -21,7 +21,7 @@ Route::any('autocomplete', [
     'uses' => 'SearchController@autoComplete'
 ]);
 
-Route::post('result', [
+Route::post('/result', [
     'as' => 'search_result',
     'uses' => 'SearchController@result'
 ]);
