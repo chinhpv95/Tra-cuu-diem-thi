@@ -7,6 +7,9 @@
 [![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
 
 CÔNG VIỆC CẦN LÀM
+
+- FIX LỖI TÌM KIẾM NÂNG CAO: NẾU CHỈ NHẬP NĂM HOẶC CHỈ NHẬP HỌC KỲ THÌ KO RA KẾT QUẢ
+
 - CĂN TÊN GIÁO VIÊN VÀ THÊM TÊN CỘT
 - THÊM SEARCH CHO CÁN BỘ NHẬP ĐIỂM
 - MAKE UP TRANG QUẢN LÝ THÀNH VIÊN
