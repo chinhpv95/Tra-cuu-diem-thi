@@ -55,17 +55,19 @@
         <?php
         if (isset($_POST['search'])) {
             echo '<ul class="list_result list-group">';
+            echo '<li class="class_result list-group-item"><span class="class_name">Môn Học</span>';
+            echo '<span class="teacher">Giáo Viên</span>';
             foreach ($result as $count => $index) {
                 $count++;
                 if (isset($index['link'])) {
-                    echo '<li class="class_result list-group-item">' . $count .'. ';
-                    echo '<a href="' . url('storage') . '/' . $index["link"] . '" target="_blank">' . $index['class_name'] . ' (' . $index['class_code'] . ')</a>';
-                    echo '<span>' .$index['teacher'] .'</span>';
+                    echo '<li class="class_result list-group-item">';
+                    echo '<span class="class_name">' . $count .'. <a href="' . url('storage') . '/' . $index["link"] . '" target="_blank">' . $index['class_name'] . ' (' . $index['class_code'] . ')</a></span>';
+                    echo '<span class="teacher">' .$index['teacher'] .'</span>';
                     echo '<span class="glyphicon glyphicon-ok"></span></li>';
                 } else {
-                    echo '<li class="class_result list-group-item">' . $count .'. ';
-                    echo $index['class_name'] . ' (' . $index['class_code'] . ')';
-                    echo '<span>' .$index['teacher'] .'</span>';
+                    echo '<li class="class_result list-group-item">';
+                    echo '<span class="class_name">' . $count .'. ' .$index['class_name'] . ' (' . $index['class_code'] . ')</span>' ;
+                    echo '<span class="teacher">' .$index['teacher'] .'</span>';
                     echo '</li>';
                 }
             }

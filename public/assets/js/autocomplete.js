@@ -2,7 +2,7 @@
  * Created by daitd on 3/2/2016.
  */
 $(document).ready(function() {
-
+    'use strict';
     $("#auto").autocomplete({
         source: "autocomplete",
         minLength: 1,

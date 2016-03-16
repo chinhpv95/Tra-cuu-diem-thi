@@ -73,8 +73,9 @@ header {
 
 .list_result {
     li {
-        span {
-            padding-left: 30px;
+        .class_name {
+            width: 500px;
+            display: inline-block;
         }
         &:nth-child(2n) {
             background-color: #e5e5e5;

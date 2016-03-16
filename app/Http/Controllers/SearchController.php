@@ -44,9 +44,19 @@ class SearchController extends Controller
         } else {
             $year_id = $input['select-year'];
             $semester_id = $input['select-semester'];
-            $result = Classes::where([['class_name', 'LIKE', '%' . $class . '%'], ['semester_id', '=', $semester_id], ['year_id', '=', $year_id]])
-                ->orWhere([['class_code', 'LIKE', '%' . $class . '%'], ['semester_id', '=', $semester_id], ['year_id', '=', $year_id]])
-                ->orderBy('class_name', 'asc')->get();
+            if( $year_id == '0' ) {
+                $result = Classes::where([['class_name', 'LIKE', '%' . $class . '%'], ['semester_id', '=', $semester_id]])
+                    ->orWhere([['class_code', 'LIKE', '%' . $class . '%'], ['semester_id', '=', $semester_id]])
+                    ->orderBy('class_name', 'asc')->get();
+            } elseif($semester_id == '0' ) {
+                $result = Classes::where([['class_name', 'LIKE', '%' . $class . '%'], ['year_id', '=', $year_id]])
+                    ->orWhere([['class_code', 'LIKE', '%' . $class . '%'], ['year_id', '=', $year_id]])
+                    ->orderBy('class_name', 'asc')->get();
+            } else {
+                $result = Classes::where([['class_name', 'LIKE', '%' . $class . '%'], ['semester_id', '=', $semester_id], ['year_id', '=', $year_id]])
+                    ->orWhere([['class_code', 'LIKE', '%' . $class . '%'], ['semester_id', '=', $semester_id], ['year_id', '=', $year_id]])
+                    ->orderBy('class_name', 'asc')->get();
+            }
         }
         return View::make('search')->with('result', $result);
     }

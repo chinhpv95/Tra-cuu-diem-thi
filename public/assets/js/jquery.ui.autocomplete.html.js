@@ -11,7 +11,7 @@
  * http://github.com/scottgonzalez/jquery-ui-extensions
  */
 (function( $ ) {
-
+    'use strict';
     var proto = $.ui.autocomplete.prototype,
         initSource = proto._initSource;
 
