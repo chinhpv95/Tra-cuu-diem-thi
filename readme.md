@@ -7,9 +7,9 @@
 [![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
 
 CÔNG VIỆC CẦN LÀM
-- HIỂN THỊ CÁC DANH SÁCH BẰNG BẢNG (phần kết quả search)
-- HIỆN CẢNH BÁO KHI XÓA USER (có nút mà chưa được)
-- KHI SEARCH RA MÔN HỌC THÌ THÊM GIÁO VIÊN CỦA MÔN ĐÓ Ở BÊN CẠNH
+- CĂN TÊN GIÁO VIÊN VÀ THÊM TÊN CỘT
+- THÊM SEARCH CHO CÁN BỘ NHẬP ĐIỂM
+- MAKE UP TRANG QUẢN LÝ THÀNH VIÊN
 - MAKE UP TRANG SEARCH (NHỜ CHUYÊN GIA)
 - RẢNH THÌ CHIA COTROLLER GIẢM GÁNH NẶNG CHO ADMIN
 
