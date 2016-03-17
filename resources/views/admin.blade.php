@@ -46,17 +46,14 @@
                         <li><a href="{{ url('/register') }}">Register</a></li>
                     @else
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-expanded="false">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
                                 <?php $user_id = Auth::user()->id; ?>
-                                <li><a href="{{ route('profile', ['user_id' => $user_id]) }}"><span
-                                            class="glyphicon glyphicon-user"></span>Profile</a></li>
-                                <li><a href="{{ url('/logout') }}"><span
-                                            class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+                                <li><a href="{{ route('profile', ['user_id' => $user_id]) }}"><span class="glyphicon glyphicon-user"></span>Profile</a></li>
+                                <li><a href="{{ url('/logout') }}"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
                             </ul>
                         </li>
                     @endif
@@ -203,8 +200,7 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span></button>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                         <h4 class="modal-title" id="myModalLabel">Tạo tài khoản</h4>
                                     </div>
                                     <div class="modal-body">

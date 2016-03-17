@@ -13,7 +13,9 @@
 
 @section('body')
     <header>
-        <image src="http://student.uet.vnu.edu.vn/images/logo.png"></image>
+        <div class="container">
+            <image src="{{ url('/') }}/assets/images/header.jpg"></image>
+        </div>
     </header>
     <div class="container search-form">
         <div class="row">
@@ -78,7 +80,6 @@
                     <span class="teacher">Giáo Viên</span>
                 </li>
                 @foreach ( $result as $count => $index )
-                    {{--//{{ $count++ }}--}}
                     @if ( isset( $index['link'] ) )
                         <li class="class_result list-group-item">
                             <span class="class_name">{{ ($count + 1)  }}. <a href="{{ url( 'storage' ) . '/' . $index[" link"] }}" target="_blank">{{ $index['class_name'] . ' (' . $index['class_code'] }})</a></span>
