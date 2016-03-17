@@ -30,14 +30,14 @@
                         <select name="select-year">
                             <option value="0">Chọn trong danh sách</option>
                             @foreach ($years as $year)
-                                <option value="' . $year['year_id'] . '">{{ $year['year_name'] }}</option>
+                                <option value="{{ $year['year_id'] }}">{{ $year['year_name'] }}</option>
                             @endforeach
                         </select>
                         {{ Form::label('semester', 'Học Kỳ:', array('class' => 'awesome')) }}
                         <select name="select-semester">
                             <option value="0">Chọn trong danh sách</option>
                             @foreach ($semesters as $semester)
-                                <option value="' . $semester['semester_id'] . '">{{ $semester['semester_name'] }}</option>';
+                                <option value="{{ $semester['semester_id'] }}">{{ $semester['semester_name'] }}</option>';
                             @endforeach
                         </select>
                     </div>
