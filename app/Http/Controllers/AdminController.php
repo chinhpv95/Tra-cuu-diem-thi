@@ -15,6 +15,7 @@ use Response;
 use Session;
 use File;
 use Validator;
+use Storage;
 
 
 class AdminController extends Controller
@@ -84,9 +85,9 @@ class AdminController extends Controller
                 $this->addClass($classes);
             }
 
-
+            
         });
-
+        Session::flash('flash_message', 'File uploaded!');
         return redirect()->route('admin');
     }
 
@@ -130,8 +131,10 @@ class AdminController extends Controller
         $file->move($destinationPath, $filename);
 
 
-        //$class = Classes::where('class_id', '=', $class_id)->get()->first();
         $class = Classes::find($class_id);
+        if($class->link != NUll){
+            Storage::delete($class->link);
+        }
         $class->link = $filename;
         $class->save();
 
