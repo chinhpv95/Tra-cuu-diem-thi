@@ -243,7 +243,7 @@
                                                 </div>
                                                 <div class="control-group">
                                                     <div class="controls">
-                                                        <label class="radio-inline"><input type="radio" name="role" value="1">Quản trịviên</label>
+                                                        <label class="radio-inline"><input type="radio" name="role" value="1">Quản trị viên</label>
                                                         <label class="radio-inline"><input type="radio" name="role" value="2">Cán bộ</label>
                                                     </div>
                                                 </div>
