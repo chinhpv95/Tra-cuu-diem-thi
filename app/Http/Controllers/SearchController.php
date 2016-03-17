@@ -25,7 +25,7 @@ class SearchController extends Controller {
 		                  ->take( 10 )->get();
 		$index   = 0;
 		foreach ( $queries as $query ) {
-			$results[] = [ 'id' => $index, 'value' => $query->class_name . ' (' . $query->class_code . ')' ];
+			$results[] = [ 'id' => $index, 'value' => $query->class_name ];
 			$index ++;
 		}
 
