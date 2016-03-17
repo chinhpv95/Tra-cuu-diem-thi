@@ -65,6 +65,11 @@ class AdminController extends Controller
     {
         $data = $request->all();
         $file = Input::file('xls');
+        if($file == NULL){
+            Session::flash('flash_message', 'File invalid!');
+            return redirect()->route('admin');
+        }
+        else{
         $extension = $file->getClientOriginalExtension();
         if($extension != 'xls' and $extension != 'xlsx') {
             Session::flash('flash_message', 'File invalid!');
@@ -87,9 +92,11 @@ class AdminController extends Controller
                 $classes['teacher'] = $objWorksheet->getCellByColumnAndRow(2, $row)->getValue();
                 $this->addClass($classes);
             }
+        }
 
 
-        });
+        );
+    }
         Session::flash('flash_message', 'File uploaded!');
 
         return redirect()->route('admin');
