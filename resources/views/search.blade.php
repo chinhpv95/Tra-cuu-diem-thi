@@ -76,7 +76,6 @@
                 }
             }
             echo '</ul>';
-            echo $result->render();
         }
         ?>
     </div>

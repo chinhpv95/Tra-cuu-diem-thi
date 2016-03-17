@@ -107,3 +107,9 @@ header {
 * html .ui-autocomplete {
     height: 250px;
 }
+
+.ui-menu .ui-menu-item-wrapper {
+    &:hover {
+        text-decoration: none;
+    }
+}

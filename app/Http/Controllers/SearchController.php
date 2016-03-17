@@ -20,12 +20,12 @@ class SearchController extends Controller
     {
         $term = $request->input('term');
         $results = array();
-        $queries = Classes::distinct()->select('class_name')->where([['class_name', 'LIKE', '%' . $term . '%']])
+        $queries = Classes::distinct()->where([['class_name', 'LIKE', '%' . $term . '%']])
             ->orWhere([['class_code', 'LIKE', '%' . $term . '%']])
             ->take(10)->get();
         $index = 0;
         foreach ($queries as $query) {
-            $results[] = ['id' => $index, 'value' => $query->class_name];
+            $results[] = ['id' => $index, 'value' => $query->class_name . ' (' . $query->class_code . ')' ];
             $index++;
         }
         return response()->json($results);
@@ -40,7 +40,7 @@ class SearchController extends Controller
             $semester_id = Semester::where('active', 1)->get()->first();
             $result = Classes::where([['class_name', 'LIKE', '%' . $class . '%'], ['semester_id', '=', $semester_id->semester_id], ['year_id', '=', $year_id->year_id]])
                 ->orWhere([['class_code', 'LIKE', '%' . $class . '%'], ['semester_id', '=', $semester_id->semester_id], ['year_id', '=', $year_id->year_id]])
-                ->orderBy('class_name', 'asc')->paginate(15);
+                ->orderBy('class_name', 'asc')->get();
         } else {
             $year_id = $input['select-year'];
             $semester_id = $input['select-semester'];

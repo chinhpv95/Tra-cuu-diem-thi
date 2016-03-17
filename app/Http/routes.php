@@ -21,10 +21,7 @@ Route::any('autocomplete', [
     'uses' => 'SearchController@autoComplete'
 ]);
 
-Route::post('/result', [
-    'as' => 'search_result',
-    'uses' => 'SearchController@result'
-]);
+
 
 Route::any('delete', ['as' => 'delete', 'uses' => 'AdminController@delete']);
 
@@ -59,4 +56,9 @@ Route::group(['middleware' => 'web'], function () {
     Route::any('profile/{user_id}/updateName', ['as' => 'updateName', 'uses' => 'AdminController@updateName']);
     Route::any('profile/{user_id}/updateEmail', ['as' => 'updateEmail', 'uses' => 'AdminController@updateEmail']);
     Route::any('profile/{user_id}/updatePassword', ['as' => 'updatePassword', 'uses' => 'AdminController@updatePassword']);
+
+    Route::any('/result', [
+        'as' => 'search_result',
+        'uses' => 'SearchController@result'
+    ]);
 });
