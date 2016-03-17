@@ -42,6 +42,7 @@ class AdminController extends Controller
         $user['password'] = bcrypt($data['password']);
         $user['role'] = $data['role'];
         $user->save();
+        Session::flash('flash_message', 'Tạo thành công tài khoản '.$user['name'].' !');
         return Redirect::to(URL::previous() . "#manager");
     }
 
@@ -57,6 +58,7 @@ class AdminController extends Controller
         $class['semester_id'] = $classes['semester_id'];
 
         $class->save();
+        Session::flash('flash_message', 'Lớp môn học đã được thêm thành công!');
         return Redirect::to(URL::previous() . "#home");
     }
 
@@ -135,7 +137,6 @@ class AdminController extends Controller
     public function upLoad($class_id)
     {
         $file = Input::file('link');
-        //var_dump($file);
 
         $filename = $file->getClientOriginalName();
         $destinationPath = base_path() . "\public\storage\\";
