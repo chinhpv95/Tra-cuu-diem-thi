@@ -80,9 +80,9 @@
                 <ul class="nav nav-tabs manager">
                     <li class="active"><a data-toggle="tab" href="#home">Cập nhật danh sách</a></li>
                     <li><a data-toggle="tab" href="#class">Cập nhật điểm</a></li>
-                    <?php if( Auth::user()->role == 1 ) { ?>
-                    <li><a data-toggle="tab" href="#manager">Quản lí thành viên</a></li>
-                    <?php } ?>
+                    @if( Auth::user()->role == 1 )
+                        <li><a data-toggle="tab" href="#manager">Quản lí thành viên</a></li>
+                    @endif
                 </ul>
             </div>
 
@@ -266,7 +266,7 @@
                                 foreach ( $users as $user ) {
                                     if ( $user['role'] == 2 ) {
                                         echo '<li class="list-group-item"><span>' . $user['name'] . '</span>';
-                                        echo '<button type="submit" class="action"><a href="#" id="' . $user['id'] . '" data-token="{{ csrf_token() }}" class="delete" title="Delete">X</a></button>';
+                                        echo '<span id="' . $user['id'] . '" data-token="{{ csrf_token() }}" class="glyphicon glyphicon-trash delete" title="Delete"></span>';
                                         echo '</li>';
                                     } else {
                                         echo '<li class="list-group-item"><span>' . $user['name'] . '</span>';
@@ -318,12 +318,12 @@
                                 echo Form::close();
                                 echo '<span class="glyphicon glyphicon-ok"></span></li>';
 
-                                $urlDownload = route( 'deleteFile' );
-                                echo Form::open( array( 'url' => $urlDownload, 'method' => 'POST', 'files' => true ) );
-                                echo Form::hidden( 'fileName', 'conhiet-phy1100_7.pdf' );
-                                echo Form::submit( 'Download', array( 'class' => 'btn btn-primary' ) );
-                                echo Form::close();
-                                echo '<span class="glyphicon glyphicon-ok"></span></li>';
+//                                $urlDownload = route( 'deleteFile' );
+//                                echo Form::open( array( 'url' => $urlDownload, 'method' => 'POST', 'files' => true ) );
+//                                echo Form::hidden( 'fileName', 'conhiet-phy1100_7.pdf' );
+//                                echo Form::submit( 'Download', array( 'class' => 'btn btn-primary' ) );
+//                                echo Form::close();
+//                                echo '<span class="glyphicon glyphicon-ok"></span></li>';
                             }
                         }
 

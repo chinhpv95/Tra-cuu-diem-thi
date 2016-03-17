@@ -141,6 +141,10 @@
                 width: 200px;
                 display: inline-block;
             }
+            .delete {
+                cursor: pointer;
+                width: auto;
+            }
             > form {
                 display: inline-block;
             }
