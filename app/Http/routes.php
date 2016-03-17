@@ -51,6 +51,7 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/download/{class_id}', ['as' => 'downLoad', 'uses' => 'AdminController@downLoad']);
     Route::post('/download/{class_id}', ['as' => 'downLoad', 'uses' => 'AdminController@downLoad']);
+    Route::post('/delete/file', ['as' => 'deleteFile', 'uses' => 'AdminController@deleteFile']);
 
     Route::any('/profile/{user_id}', ['as' => 'profile', 'uses' => 'AdminController@profile']);
     Route::any('profile/{user_id}/updateName', ['as' => 'updateName', 'uses' => 'AdminController@updateName']);

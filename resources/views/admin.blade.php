@@ -86,7 +86,6 @@
                     <?php if( Auth::user()->role == 1 ) { ?>
                     <li><a data-toggle="tab" href="#manager">Quản lí thành viên</a></li>
                     <?php } ?>
-
                 </ul>
             </div>
 
@@ -100,13 +99,13 @@
                                 <tbody>
                                 <tr>
                                     <?php
-                                    $years = App\Year::select('year_id', 'year_name')->get();
-                                    $semesters = App\Semester::select('semester_id', 'semester_name')->get();
+                                    $years = App\Year::select( 'year_id', 'year_name' )->get();
+                                    $semesters = App\Semester::select( 'semester_id', 'semester_name' )->get();
                                     ?>
                                     <td>{{ Form::label('school-year', 'Năm học', array('class' => 'awesome')) }}</td>
                                     <td><select name="select-year-excel">
                                             <?php
-                                            foreach ($years as $year) {
+                                            foreach ( $years as $year ) {
                                                 echo '<option value="' . $year['year_id'] . '">' . $year['year_name'] . '</option>';
                                             }
                                             ?>
@@ -117,7 +116,7 @@
                                     <td>
                                         <select name="select-semester-excel">
                                             <?php
-                                            foreach ($semesters as $semester) {
+                                            foreach ( $semesters as $semester ) {
                                                 echo '<option value="' . $semester['semester_id'] . '">' . $semester['semester_name'] . '</option>';
                                             }
                                             ?>
@@ -146,9 +145,9 @@
                                     <tbody>
                                     <tr>
                                         <?php
-                                        echo '<td>' . Form::label('school-year', 'Năm học', array('class' => 'awesome')) . '</td>';
+                                        echo '<td>' . Form::label( 'school-year', 'Năm học', array( 'class' => 'awesome' ) ) . '</td>';
                                         echo '<td><select name="select-year">';
-                                        foreach ($years as $year) {
+                                        foreach ( $years as $year ) {
                                             echo '<option value="' . $year['year_id'] . '">' . $year['year_name'] . '</option>';
                                         }
                                         echo '</select></td>';
@@ -156,9 +155,9 @@
                                     </tr>
                                     <tr>
                                         <?php
-                                        echo '<td>' . Form::label('semester', 'Học Kỳ', array('class' => 'awesome')) . '</td>';
+                                        echo '<td>' . Form::label( 'semester', 'Học Kỳ', array( 'class' => 'awesome' ) ) . '</td>';
                                         echo '<td><select name="select-semester">';
-                                        foreach ($semesters as $semester) {
+                                        foreach ( $semesters as $semester ) {
                                             echo '<option value="' . $semester['semester_id'] . '">' . $semester['semester_name'] . '</option>';
                                         }
                                         echo '</select></td>';
@@ -166,20 +165,20 @@
                                     </tr>
                                     <tr>
                                         <?php
-                                        echo '<td>' . Form::label('class', 'Tên môn học') . '</td>';
-                                        echo '<td>' . Form::text('class-name-input', '', array('class' => 'form-control')) . '</td>';
+                                        echo '<td>' . Form::label( 'class', 'Tên môn học' ) . '</td>';
+                                        echo '<td>' . Form::text( 'class-name-input', '', array( 'class' => 'form-control' ) ) . '</td>';
                                         ?>
                                     </tr>
                                     <tr>
                                         <?php
-                                        echo '<td>' . Form::label('class-code', 'Mã môn học') . '</td>';
-                                        echo '<td>' . Form::text('class-code-input', '', array('class' => 'form-control')) . '</td>';
+                                        echo '<td>' . Form::label( 'class-code', 'Mã môn học' ) . '</td>';
+                                        echo '<td>' . Form::text( 'class-code-input', '', array( 'class' => 'form-control' ) ) . '</td>';
                                         ?>
                                     </tr>
                                     <tr>
                                         <?php
-                                        echo '<td>' . Form::label('teacher', 'Giáo viên') . '</td>';
-                                        echo '<td>' . Form::text('teacher-input', '', array('class' => 'form-control')) . '</td>';
+                                        echo '<td>' . Form::label( 'teacher', 'Giáo viên' ) . '</td>';
+                                        echo '<td>' . Form::text( 'teacher-input', '', array( 'class' => 'form-control' ) ) . '</td>';
                                         ?>
                                     </tr>
                                     <tr>
@@ -209,18 +208,14 @@
                                         <h4 class="modal-title" id="myModalLabel">Tạo tài khoản</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <form id = "addUser" class="form-horizontal" action='{{ url('/admin/addUser') }}'
-                                              method="POST">
-
+                                        <form id="addUser" class="form-horizontal" action='{{ url('/admin/addUser') }}' method="POST">
                                             <fieldset>
                                                 <div class="control-group">
                                                     <!-- Username -->
                                                     <label class="control-label" for="username">Username</label>
                                                     <div class="controls">
-                                                        <input type="text" id="username" name="username" placeholder=""
-                                                               class="form-control" required>
-                                                        <p class="help-block">Username can contain any letters or
-                                                            numbers, without spaces</p>
+                                                        <input type="text" id="username" name="username" placeholder="" class="form-control" required>
+                                                        <p class="help-block">Username can contain any letters ornumbers, without spaces</p>
                                                     </div>
                                                 </div>
 
@@ -228,42 +223,32 @@
                                                     <!-- E-mail -->
                                                     <label class="control-label" for="email">E-mail</label>
                                                     <div class="controls">
-                                                        <input type="text" id="email" name="email" placeholder=""
-                                                               class="form-control" required >
+                                                        <input type="text" id="email" name="email" placeholder="" class="form-control" required>
                                                         <p class="help-block">Please provide your E-mail</p>
                                                     </div>
                                                 </div>
 
                                                 <div class="control-group">
                                                     <!-- Password-->
-                                                    <label class="control-label" for="password"
-                                                           required>Password</label>
+                                                    <label class="control-label" for="password" required>Password</label>
                                                     <div class="controls">
-                                                        <input type="password" id="password" name="password"
-                                                               placeholder="" class="form-control" required>
-                                                        <p class="help-block">Password should be at least 4
-                                                            characters</p>
+                                                        <input type="password" id="password" name="password" placeholder="" class="form-control">
+                                                        <p class="help-block">Password should be at least 4characters</p>
                                                     </div>
                                                 </div>
 
                                                 <div class="control-group">
                                                     <!-- Password -->
-                                                    <label class="control-label" for="password_confirm">Password
-                                                        (Confirm)</label>
+                                                    <label class="control-label" for="password_confirm">Password(Confirm)</label>
                                                     <div class="controls">
-                                                        <input type="password" id="password_confirm"
-                                                               name="password_confirm" placeholder=""
-                                                               class="form-control" required>
+                                                        <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="form-control" required>
                                                         <p class="help-block">Please confirm password</p>
                                                     </div>
                                                 </div>
-                                                <div class="control-group" >
-                                                    <div class="controls" >
-                                                        <label class="radio-inline"><input type="radio" name="role"
-                                                                                           value="1">Quản trị
-                                                            viên</label>
-                                                        <label class="radio-inline"><input type="radio" name="role"
-                                                                                           value="2">Cán bộ</label>
+                                                <div class="control-group">
+                                                    <div class="controls">
+                                                        <label class="radio-inline"><input type="radio" name="role" value="1">Quản trịviên</label>
+                                                        <label class="radio-inline"><input type="radio" name="role" value="2">Cán bộ</label>
                                                     </div>
                                                 </div>
                                                 <div class="control-group">
@@ -282,8 +267,8 @@
                             <ul class="list-group">
                                 <?php
                                 $users = App\User::get();
-                                foreach ($users as $user) {
-                                    if ($user['role'] == 2) {
+                                foreach ( $users as $user ) {
+                                    if ( $user['role'] == 2 ) {
                                         echo '<li class="list-group-item"><span>' . $user['name'] . '</span>';
                                         echo '<button type="submit" class="action"><a href="#" id="' . $user['id'] . '" data-token="{{ csrf_token() }}" class="delete" title="Delete">X</a></button>';
                                         echo '</li>';
@@ -303,37 +288,44 @@
                         $teacher_class = App\Classes::get();
                         echo '<h3>Danh sách môn học</h3>';
                         echo '<ul class="list-group control-group list-classes">';
-                        foreach ($teacher_class as $value => $index) {
-                            $value++;
-                            if (!isset($index['link'])) {
+                        foreach ( $teacher_class as $value => $index ) {
+                            $value ++;
+                            if ( ! isset( $index['link'] ) ) {
                                 echo '<li class="list-group-item"><span>' . $index['class_name'] . ' (' . $index['class_code'] . ')</span>';
-                                $urlUpload = route('upLoad', ['class_id' => $index['class_id']]);
+                                $urlUpload = route( 'upLoad', [ 'class_id' => $index['class_id'] ] );
 
-                                echo Form::open(array('url' => $urlUpload, 'method' => 'POST', 'files' => true));
-                                echo Form::file('link');
-                                echo Form::submit('Upload', array('class' => 'btn btn-primary'));
+                                echo Form::open( array( 'url' => $urlUpload, 'method' => 'POST', 'files' => true ) );
+                                echo Form::file( 'link' );
+                                echo Form::submit( 'Upload', array( 'class' => 'btn btn-primary' ) );
                                 echo Form::close();
 
-                                $urlDownload = route('downLoad', ['class_id' => $index['class_id']]);
-                                echo Form::open(array('url' => $urlDownload, 'method' => 'POST', 'files' => true));
-                                echo Form::submit('Download', array('class' => 'btn btn-primary'));
+                                $urlDownload = route( 'downLoad', [ 'class_id' => $index['class_id'] ] );
+                                echo Form::open( array( 'url' => $urlDownload, 'method' => 'POST', 'files' => true ) );
+                                echo Form::submit( 'Download', array( 'class' => 'btn btn-primary' ) );
                                 echo Form::close();
                                 echo '</li>';
                             } else {
                                 echo '<li class="list-group-item">';
-                                echo '<a href="' . url('storage') . '/' . $index["link"] . '" target="_blank">
+                                echo '<a href="' . url( 'storage' ) . '/' . $index["link"] . '" target="_blank">
                                     <span>' . $index['class_name'] . ' (' . $index['class_code'] . ')</span>
                                     </a>';
-                                $urlUpload = route('upLoad', ['class_id' => $index['class_id']]);
+                                $urlUpload = route( 'upLoad', [ 'class_id' => $index['class_id'] ] );
 
-                                echo Form::open(array('url' => $urlUpload, 'method' => 'POST', 'files' => true));
-                                echo Form::file('link');
-                                echo Form::submit('Upload', array('class' => 'btn btn-primary'));
+                                echo Form::open( array( 'url' => $urlUpload, 'method' => 'POST', 'files' => true ) );
+                                echo Form::file( 'link' );
+                                echo Form::submit( 'Upload', array( 'class' => 'btn btn-primary' ) );
                                 echo Form::close();
 
-                                $urlDownload = route('downLoad', ['class_id' => $index['class_id']]);
-                                echo Form::open(array('url' => $urlDownload, 'method' => 'POST', 'files' => true));
-                                echo Form::submit('Download', array('class' => 'btn btn-primary'));
+                                $urlDownload = route( 'downLoad', [ 'class_id' => $index['class_id'] ] );
+                                echo Form::open( array( 'url' => $urlDownload, 'method' => 'POST', 'files' => true ) );
+                                echo Form::submit( 'Download', array( 'class' => 'btn btn-primary' ) );
+                                echo Form::close();
+                                echo '<span class="glyphicon glyphicon-ok"></span></li>';
+
+                                $urlDownload = route( 'deleteFile' );
+                                echo Form::open( array( 'url' => $urlDownload, 'method' => 'POST', 'files' => true ) );
+                                echo Form::hidden( 'fileName', 'conhiet-phy1100_7.pdf' );
+                                echo Form::submit( 'Download', array( 'class' => 'btn btn-primary' ) );
                                 echo Form::close();
                                 echo '<span class="glyphicon glyphicon-ok"></span></li>';
                             }
@@ -355,5 +347,4 @@
     {{ Html::script('assets/js/jquery.min.js', array('async' => 'async')) }}
     {{ Html::script('assets/js/bootstrap.min.js', array('async' => 'async')) }}
     {{ Html::script('assets/js/main.js', array('async' => 'async')) }}
-    {{ Html::script('assets/js/validationmodal.js', array('async' => 'async')) }}
 @endsection

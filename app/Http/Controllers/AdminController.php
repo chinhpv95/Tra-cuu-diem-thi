@@ -88,9 +88,10 @@ class AdminController extends Controller
                 $this->addClass($classes);
             }
 
-            
+
         });
         Session::flash('flash_message', 'File uploaded!');
+
         return redirect()->route('admin');
     }
 
@@ -133,7 +134,6 @@ class AdminController extends Controller
         $destinationPath = base_path() . "\public\storage\\";
         $file->move($destinationPath, $filename);
 
-
         $class = Classes::find($class_id);
         if($class->link != NUll){
             Storage::delete($class->link);
@@ -145,6 +145,15 @@ class AdminController extends Controller
         Session::flash('flash_message', 'File uploaded!');
 
         return Redirect::to(URL::previous() . "#class");
+    }
+
+    public function deleteFile(Request $request)
+    {
+        $fileName = $request->get('fileName');
+
+        $destinationPath = base_path() . "\\public\\storage\\";
+
+        unlink($destinationPath . $fileName);
     }
 
     public function download($class_id)

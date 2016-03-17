@@ -18,66 +18,83 @@
     <div class="container search-form">
         <div class="row">
             <div class="col-sm-12">
-                {{ Form::open(array('url' => 'result', 'method' => 'POST')) }}
+                {{ Form::open(array('url' => 'result', 'method' => 'GET')) }}
                 {{ Form::text('auto', '', ['id' =>  'auto', 'class' => 'form-control', 'placeholder' =>  'Enter name'])}}
-                <button class="button expand" type="submit" name="search" value="search"><span
-                        class="glyphicon glyphicon-search search-icon"></span></button>
+                <button class="button expand" type="submit" name="search" value="search"><span class="glyphicon glyphicon-search search-icon"></span></button>
                 <div class="advanced-options">
                     <p class="select-option">Tìm kiếm nâng cao</p>
                     <div class="options">
-                        <?php
-                        $years = App\Year::select('year_id', 'year_name')->get();
-                        $semesters = App\Semester::select('semester_id', 'semester_name')->get();
-                        ?>
                         {{ Form::label('school-year', 'Năm học:', array('class' => 'awesome')) }}
                         <select name="select-year">
                             <option value="0">Chọn trong danh sách</option>
-                            <?php
-                            foreach ($years as $year) {
-                                echo '<option value="' . $year['year_id'] . '">' . $year['year_name'] . '</option>';
-                            }
-                            ?>
+                            @foreach ($years as $year)
+                                <option value="' . $year['year_id'] . '">{{ $year['year_name'] }}</option>
+                            @endforeach
                         </select>
                         {{ Form::label('semester', 'Học Kỳ:', array('class' => 'awesome')) }}
                         <select name="select-semester">
                             <option value="0">Chọn trong danh sách</option>
-                            <?php
-                            foreach ($semesters as $semester) {
-                                echo '<option value="' . $semester['semester_id'] . '">' . $semester['semester_name'] . '</option>';
-                            }
-                            ?>
+                            @foreach ($semesters as $semester)
+                                <option value="' . $semester['semester_id'] . '">{{ $semester['semester_name'] }}</option>';
+                            @endforeach
                         </select>
                     </div>
                 </div>
                 {{ Form::close() }}
             </div>
         </div>
-        <?php
-        if (isset($_POST['search'])) {
-            if (count($result) == 0)
-                echo '<h1 class="class_error">Không tồn tại môn học</h1>';
-        }
-        if (isset($_POST['search']) && count($result) != 0) {
-            echo '<ul class="list_result list-group">';
-            echo '<li class="class_result list-group-item"><span class="class_name">Môn Học</span>';
-            echo '<span class="teacher">Giáo Viên</span>';
-            foreach ($result as $count => $index) {
-                $count++;
-                if (isset($index['link'])) {
-                    echo '<li class="class_result list-group-item">';
-                    echo '<span class="class_name">' . $count . '. <a href="' . url('storage') . '/' . $index["link"] . '" target="_blank">' . $index['class_name'] . ' (' . $index['class_code'] . ')</a></span>';
-                    echo '<span class="teacher">' . $index['teacher'] . '</span>';
-                    echo '<span class="glyphicon glyphicon-ok"></span></li>';
-                } else {
-                    echo '<li class="class_result list-group-item">';
-                    echo '<span class="class_name">' . $count . '. ' . $index['class_name'] . ' (' . $index['class_code'] . ')</span>';
-                    echo '<span class="teacher">' . $index['teacher'] . '</span>';
-                    echo '</li>';
-                }
-            }
-            echo '</ul>';
-        }
-        ?>
+        @if ( isset( $_GET['search'] ) )
+            @if ( count( $result ) == 0 )
+                <h1 class="class_error">Không tồn tại môn học</h1>
+            @endif
+        @endif
+        @if ( isset( $_GET['search'] ) && count( $result ) != 0 && isset( $input['page'] ) )
+            <ul class="list_result list-group">
+                <li class="class_result list-group-item">
+                    <span class="class_name">Môn Học</span>
+                    <span class="teacher">Giáo Viên</span>
+                </li>
+                @foreach ( $result as $count => $index )
+                    @if ( isset( $index['link'] ) )
+                        <li class="class_result list-group-item">
+                            <span class="class_name">{{ ( ( $input['page'] - 1 ) * 15 + $count + 1 ) }}. <a href="{{ url( 'storage' ) . '/' . $index[" link"] }}" target="_blank">{{ $index['class_name'] . ' (' . $index['class_code'] }})</a></span>
+                            <span class="teacher">{{ $index['teacher'] }}</span>
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </li>
+                    @else
+                        <li class="class_result list-group-item">
+                            <span class="class_name">{{ ( ( $input['page'] - 1 ) * 15 + $count + 1 ) }}. {{ $index['class_name'] }} ({{ $index['class_code'] }})</span>
+                            <span class="teacher">{{ $index['teacher'] }}</span>
+                        </li>
+                    @endif
+                @endforeach
+            </ul>
+            {{ $result->appends( $input )->render() }}
+        @endif
+        @if ( isset( $_GET['search'] ) && count( $result ) != 0 && !isset( $input['page'] ) )
+            <ul class="list_result list-group">
+                <li class="class_result list-group-item">
+                    <span class="class_name">Môn Học</span>
+                    <span class="teacher">Giáo Viên</span>
+                </li>
+                @foreach ( $result as $count => $index )
+                    {{--//{{ $count++ }}--}}
+                    @if ( isset( $index['link'] ) )
+                        <li class="class_result list-group-item">
+                            <span class="class_name">{{ ($count + 1)  }}. <a href="{{ url( 'storage' ) . '/' . $index[" link"] }}" target="_blank">{{ $index['class_name'] . ' (' . $index['class_code'] }})</a></span>
+                            <span class="teacher">{{ $index['teacher'] }}</span>
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </li>
+                    @else
+                        <li class="class_result list-group-item">
+                            <span class="class_name">{{ $count + 1 }}. {{ $index['class_name'] }} ({{ $index['class_code'] }})</span>
+                            <span class="teacher">{{ $index['teacher'] }}</span>
+                        </li>
+                    @endif
+                @endforeach
+            </ul>
+            {{ $result->appends( $input )->render() }}
+        @endif
     </div>
 @endsection
 
