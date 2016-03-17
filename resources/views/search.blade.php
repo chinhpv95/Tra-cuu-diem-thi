@@ -82,7 +82,7 @@
                 @foreach ( $result as $count => $index )
                     @if ( isset( $index['link'] ) )
                         <li class="class_result list-group-item">
-                            <span class="class_name">{{ ($count + 1)  }}. <a href="{{ url( 'storage' ) . '/' . $index[" link"] }}" target="_blank">{{ $index['class_name'] . ' (' . $index['class_code'] }})</a></span>
+                            <span class="class_name">{{ ($count + 1)  }}. <a href="{{ url( 'storage' ) . '/' . $index['link'] }}" target="_blank">{{ $index['class_name'] . ' (' . $index['class_code'] }})</a></span>
                             <span class="teacher">{{ $index['teacher'] }}</span>
                             <span class="glyphicon glyphicon-ok"></span>
                         </li>
