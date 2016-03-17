@@ -132,18 +132,19 @@
 
 .list-user {
     .list-group {
+        width: 300px;
         .list-group-item {
             vertical-align: middle;
             &:nth-child(2n) {
                 background-color: #e5e5e5;
             }
             > span {
-                width: 200px;
                 display: inline-block;
             }
             .delete {
                 cursor: pointer;
                 width: auto;
+                float: right;
             }
             > form {
                 display: inline-block;

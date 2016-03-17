@@ -260,6 +260,7 @@
                             </div>
                         </div>
                         <div class="list-user">
+                            <h3>Danh sách thành viên</h3>
                             <ul class="list-group">
                                 <?php
                                 $users = App\User::get();
