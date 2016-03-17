@@ -264,13 +264,19 @@
                             <ul class="list-group">
                                 <?php
                                 $users = App\User::get();
+                                echo '<li class="list-group-item"><span class="user_name">Tên Thành Viên</span>';
+                                echo '<span class="email">Email</span><span class="role">Chức vụ</span></li>';
                                 foreach ( $users as $user ) {
                                     if ( $user['role'] == 2 ) {
-                                        echo '<li class="list-group-item"><span>' . $user['name'] . '</span>';
-                                        echo '<span id="' . $user['id'] . '" data-token="{{ csrf_token() }}" class="glyphicon glyphicon-trash delete" title="Delete"></span>';
+                                        echo '<li class="list-group-item"><span class="user_name">' . $user['name'] . '</span>';
+                                        echo '<span class="email">' . $user['email'] . '</span>';
+                                        echo '<span class="role">Cán bộ</span>';
+                                        echo '<span id="' . $user['id'] . '" data-token="'. csrf_token() .'" class="glyphicon glyphicon-trash delete" title="Delete"></span>';
                                         echo '</li>';
                                     } else {
                                         echo '<li class="list-group-item"><span>' . $user['name'] . '</span>';
+                                        echo '<span class="email">' . $user['email'] . '</span>';
+                                        echo '<span class="role">Quản trị viên</span>';
                                         echo '</li>';
                                     }
                                 }

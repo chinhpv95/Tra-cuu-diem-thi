@@ -28,6 +28,7 @@
                         <a class="navbar-brand" href="{{ url('/') }}">
                             Home
                         </a>
+                        <a class="navbar-brand" href="{{ url('/admin') }}">Admin</a>
                     </div>
 
                     <div class="collapse navbar-collapse" id="app-navbar-collapse">
