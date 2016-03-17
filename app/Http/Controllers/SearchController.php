@@ -20,7 +20,7 @@ class SearchController extends Controller {
 	public function autoComplete( Request $request ) {
 		$term    = $request->input( 'term' );
 		$results = array();
-		$queries = Classes::distinct()->where( [ [ 'class_name', 'LIKE', '%' . $term . '%' ] ] )
+		$queries = Classes::distinct()->select('class_name')->where( [ [ 'class_name', 'LIKE', '%' . $term . '%' ] ] )
 		                  ->orWhere( [ [ 'class_code', 'LIKE', '%' . $term . '%' ] ] )
 		                  ->take( 10 )->get();
 		$index   = 0;
