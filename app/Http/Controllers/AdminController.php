@@ -16,6 +16,8 @@ use Session;
 use File;
 use Validator;
 use Storage;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
 
 
 class AdminController extends Controller
@@ -40,7 +42,7 @@ class AdminController extends Controller
         $user['password'] = bcrypt($data['password']);
         $user['role'] = $data['role'];
         $user->save();
-        return redirect()->route('admin');
+        return Redirect::to(URL::previous() . "#manager");
     }
 
     //Tao class moi
@@ -55,6 +57,7 @@ class AdminController extends Controller
         $class['semester_id'] = $classes['semester_id'];
 
         $class->save();
+        return Redirect::to(URL::previous() . "#home");
     }
 
     //Doc du lieu tu excel
@@ -141,7 +144,7 @@ class AdminController extends Controller
 
         Session::flash('flash_message', 'File uploaded!');
 
-        return redirect()->back();
+        return Redirect::to(URL::previous() . "#class");
     }
 
     public function download($class_id)

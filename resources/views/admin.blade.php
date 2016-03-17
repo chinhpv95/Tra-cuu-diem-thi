@@ -209,7 +209,7 @@
                                         <h4 class="modal-title" id="myModalLabel">Tạo tài khoản</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <form class="form-horizontal" action='{{ url('/admin/addUser') }}'
+                                        <form id = "addUser" class="form-horizontal" action='{{ url('/admin/addUser') }}'
                                               method="POST">
 
                                             <fieldset>
@@ -229,7 +229,7 @@
                                                     <label class="control-label" for="email">E-mail</label>
                                                     <div class="controls">
                                                         <input type="text" id="email" name="email" placeholder=""
-                                                               class="form-control" required>
+                                                               class="form-control" required >
                                                         <p class="help-block">Please provide your E-mail</p>
                                                     </div>
                                                 </div>
@@ -240,7 +240,7 @@
                                                            required>Password</label>
                                                     <div class="controls">
                                                         <input type="password" id="password" name="password"
-                                                               placeholder="" class="form-control">
+                                                               placeholder="" class="form-control" required>
                                                         <p class="help-block">Password should be at least 4
                                                             characters</p>
                                                     </div>
@@ -257,8 +257,8 @@
                                                         <p class="help-block">Please confirm password</p>
                                                     </div>
                                                 </div>
-                                                <div class="control-group">
-                                                    <div class="controls">
+                                                <div class="control-group" >
+                                                    <div class="controls" >
                                                         <label class="radio-inline"><input type="radio" name="role"
                                                                                            value="1">Quản trị
                                                             viên</label>
@@ -355,4 +355,5 @@
     {{ Html::script('assets/js/jquery.min.js', array('async' => 'async')) }}
     {{ Html::script('assets/js/bootstrap.min.js', array('async' => 'async')) }}
     {{ Html::script('assets/js/main.js', array('async' => 'async')) }}
+    {{ Html::script('assets/js/validationmodal.js', array('async' => 'async')) }}
 @endsection
