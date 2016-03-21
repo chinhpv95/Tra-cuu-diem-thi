@@ -41,4 +41,45 @@
             return false;
         });
     });
+    $(function(){
+        var req = null;
+        $('#keysearch').on('keyup', function(){
+            var key = $('#keysearch').val();
+            if (key && key.length > 0)
+            {
+                $('#loading').css('display', 'block');
+                if (req)
+                    req.abort();
+                req = $.ajax({
+                    url : 'search_class',
+                    type : 'POST',
+                    cache : false,
+                    data : {
+                        keysearch : key
+                    },
+                    success : function(data)
+                    {
+                        if (data)
+                        {
+                            $('#loading').css('display', 'none');
+                            $('.list-classes .list-group-item').css('display', 'none');
+                            for( var i=0; i<data.length; i++) {
+                                $('.list-classes .list-group-item').each(function() {
+                                    if( $(this).attr('data-id') == data[i]['class_id'] ) {
+                                        $(this).css('display', 'block');
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+            }
+            else
+            {
+                $('#loading').css('display', 'none');
+                $('.list-classes .list-group-item').css('display', 'block');
+            }
+
+        });
+    });
 })(jQuery);

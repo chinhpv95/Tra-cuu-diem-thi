@@ -62,4 +62,9 @@ Route::group(['middleware' => 'web'], function () {
         'as' => 'search_result',
         'uses' => 'SearchController@result'
     ]);
+
+    Route::any('/search_class', [
+        'as' => 'search_class_result',
+        'uses' => 'AdminController@search_class'
+    ]);
 });

@@ -46,14 +46,17 @@
                         <li><a href="{{ url('/register') }}">Register</a></li>
                     @else
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
                                 <?php $user_id = Auth::user()->id; ?>
-                                <li><a href="{{ route('profile', ['user_id' => $user_id]) }}"><span class="glyphicon glyphicon-user"></span>Profile</a></li>
-                                <li><a href="{{ url('/logout') }}"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+                                <li><a href="{{ route('profile', ['user_id' => $user_id]) }}"><span
+                                            class="glyphicon glyphicon-user"></span>Profile</a></li>
+                                <li><a href="{{ url('/logout') }}"><span class="glyphicon glyphicon-log-out"></span>Logout</a>
+                                </li>
                             </ul>
                         </li>
                     @endif
@@ -200,18 +203,22 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
                                         <h4 class="modal-title" id="myModalLabel">Tạo tài khoản</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <form id="addUser" class="form-horizontal" action='{{ url('/admin/addUser') }}' method="POST">
+                                        <form id="addUser" class="form-horizontal" action='{{ url('/admin/addUser') }}'
+                                              method="POST">
                                             <fieldset>
                                                 <div class="control-group">
                                                     <!-- Username -->
                                                     <label class="control-label" for="username">Username</label>
                                                     <div class="controls">
-                                                        <input type="text" id="username" name="username" placeholder="" class="form-control" required>
-                                                        <p class="help-block">Username can contain any letters ornumbers, without spaces</p>
+                                                        <input type="text" id="username" name="username" placeholder=""
+                                                               class="form-control" required>
+                                                        <p class="help-block">Username can contain any letters
+                                                            ornumbers, without spaces</p>
                                                     </div>
                                                 </div>
 
@@ -219,17 +226,21 @@
                                                     <!-- E-mail -->
                                                     <label class="control-label" for="email">E-mail</label>
                                                     <div class="controls">
-                                                        <input type="text" id="email" name="email" placeholder="" class="form-control" required>
+                                                        <input type="text" id="email" name="email" placeholder=""
+                                                               class="form-control" required>
                                                         <p class="help-block">Please provide your E-mail</p>
                                                     </div>
                                                 </div>
 
                                                 <div class="control-group">
                                                     <!-- Password-->
-                                                    <label class="control-label" for="password" required>Password</label>
+                                                    <label class="control-label" for="password"
+                                                           required>Password</label>
                                                     <div class="controls">
-                                                        <input type="password" id="password" name="password" placeholder="" class="form-control">
-                                                        <p class="help-block">Password should be at least 4characters</p>
+                                                        <input type="password" id="password" name="password"
+                                                               placeholder="" class="form-control">
+                                                        <p class="help-block">Password should be at least
+                                                            4characters</p>
                                                     </div>
                                                 </div>
 
@@ -237,14 +248,19 @@
                                                     <!-- Password -->
                                                     <label class="control-label" for="password_confirm">Password(Confirm)</label>
                                                     <div class="controls">
-                                                        <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="form-control" required>
+                                                        <input type="password" id="password_confirm"
+                                                               name="password_confirm" placeholder=""
+                                                               class="form-control" required>
                                                         <p class="help-block">Please confirm password</p>
                                                     </div>
                                                 </div>
                                                 <div class="control-group">
                                                     <div class="controls">
-                                                        <label class="radio-inline"><input type="radio" name="role" value="1">Quản trị viên</label>
-                                                        <label class="radio-inline"><input type="radio" name="role" value="2">Cán bộ</label>
+                                                        <label class="radio-inline"><input type="radio" name="role"
+                                                                                           value="1">Quản trị
+                                                            viên</label>
+                                                        <label class="radio-inline"><input type="radio" name="role"
+                                                                                           value="2">Cán bộ</label>
                                                     </div>
                                                 </div>
                                                 <div class="control-group">
@@ -265,13 +281,13 @@
                                 <?php
                                 $users = App\User::get();
                                 echo '<li class="list-group-item"><span class="user_name">Tên Thành Viên</span>';
-                                echo '<span class="email">Email</span><span class="role">Chức vụ</span></li>';
+                                echo '<span class="email">Email</span><span class="role">Chức vụ</span><span class="delete">Xóa</span></li>';
                                 foreach ( $users as $user ) {
                                     if ( $user['role'] == 2 ) {
                                         echo '<li class="list-group-item"><span class="user_name">' . $user['name'] . '</span>';
                                         echo '<span class="email">' . $user['email'] . '</span>';
                                         echo '<span class="role">Cán bộ</span>';
-                                        echo '<span id="' . $user['id'] . '" data-token="'. csrf_token() .'" class="glyphicon glyphicon-trash delete" title="Delete"></span>';
+                                        echo '<span id="' . $user['id'] . '" data-token="' . csrf_token() . '" class="glyphicon glyphicon-trash delete" title="Delete"></span>';
                                         echo '</li>';
                                     } else {
                                         echo '<li class="list-group-item"><span>' . $user['name'] . '</span>';
@@ -289,12 +305,21 @@
                     <div id="class" class="tab-pane fade">
                         <?php
                         $teacher_class = App\Classes::get();
+                        echo '<div class="panel panel-default">
+                                    <div class="form-group">
+                                        <label for="username">Tìm kiếm :</label>
+                                        <input name="keysearch" value="" placeholder="name" id="keysearch" type="text" class="form-control">
+                                        <span id="loading">Loading...</span>
+                                    </div>
+                                    <div id="result"></div>
+                            </div>
+                        ';
                         echo '<h3>Danh sách môn học</h3>';
                         echo '<ul class="list-group control-group list-classes">';
                         foreach ( $teacher_class as $value => $index ) {
                             $value ++;
                             if ( ! isset( $index['link'] ) ) {
-                                echo '<li class="list-group-item"><span>' . $index['class_name'] . ' (' . $index['class_code'] . ')</span>';
+                                echo '<li class="list-group-item" data-id="' . $index['class_id'] . '"><span>' . $index['class_name'] . ' (' . $index['class_code'] . ')</span>';
                                 $urlUpload = route( 'upLoad', [ 'class_id' => $index['class_id'] ] );
 
                                 echo Form::open( array( 'url' => $urlUpload, 'method' => 'POST', 'files' => true ) );
@@ -308,7 +333,7 @@
                                 echo Form::close();
                                 echo '</li>';
                             } else {
-                                echo '<li class="list-group-item">';
+                                echo '<li class="list-group-item" data-id="' . $index['class_id'] . '">';
                                 echo '<a href="' . url( 'storage' ) . '/' . $index["link"] . '" target="_blank">
                                     <span>' . $index['class_name'] . ' (' . $index['class_code'] . ')</span>
                                     </a>';
@@ -339,8 +364,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 
