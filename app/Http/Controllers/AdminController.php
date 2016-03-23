@@ -9,7 +9,6 @@ use App\Semester;
 use App\User;
 use Illuminate\Http\Request;
 use Excel;
-use Symfony\Component\DomCrawler\Form;
 use View;
 use Illuminate\Support\Facades\Input;
 use Response;
@@ -24,7 +23,12 @@ use Illuminate\Support\Facades\URL;
 class AdminController extends Controller {
 	public function index() {
 		if ( Auth::check() ) {
-			return view( 'admin' );
+			$years = Year::select( 'year_id', 'year_name' )->get();
+			$semesters = Semester::select( 'semester_id', 'semester_name' )->get();
+			$users = User::get();
+			$teacher_class = Classes::get();
+
+			return view('admin', compact('years', 'semesters', 'users', 'teacher_class'));
 		}
 	}
 
@@ -209,12 +213,7 @@ class AdminController extends Controller {
 			$search = $_POST['keysearch'];
 			$parts = explode(' ', $search);
 			$p = count($parts);
-
-//			/**
-//			 * Create SQL
-//			 */
 			$sql = 'class_name LIKE "%' .$parts[0] . '%"';
-//			$sql = '';
 			for($i = 1; $i < $p; $i++) {
 				$sql .= ' and class_name LIKE "%' . $parts[$i] . '%"';
 			}
@@ -223,5 +222,19 @@ class AdminController extends Controller {
 		        ->get();
 			return $results;
         }
+	}
+
+	public function addYear() {
+		$year = Input::get('new_year');
+		$year_active = Input::get('year_active');
+		if( $year_active ) {
+			Year::where('active', '1')->update(['active' => '0']);
+			Year::insert( [ 'year_name' => $year, 'active' => '1' ] );
+		} else {
+			Year::insert( [ 'year_name' => $year ] );
+		}
+		Session::flash( 'add_message', 'Add year successfully!' );
+
+		return redirect()->back();
 	}
 }
