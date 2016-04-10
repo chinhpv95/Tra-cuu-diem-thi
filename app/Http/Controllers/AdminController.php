@@ -247,11 +247,20 @@ class AdminController extends Controller {
 	public function filter_class() {
 		$latest_year     = Input::get( 'filter_year' );
 		$latest_semester = Input::get( 'filter_semester' );
-		$latest_class    = Classes::where( [
-			[ 'semester_id', $latest_semester ],
-			[ 'year_id', $latest_year ]
-		] )->get();
-		$html          = view( 'partials._filter', compact( 'latest_class' ) )->render();
+		if ( $latest_year != null && $latest_year != null ) {
+			$latest_class = Classes::where( [
+				[ 'semester_id', $latest_semester ],
+				[ 'year_id', $latest_year ]
+			] )->get();
+		} elseif ( $latest_year == null ) {
+			$latest_class = Classes::where( 'semester_id', $latest_semester )->get();
+			var_dump('xxx');
+		} else {
+			$latest_class = Classes::where( 'year_id', $latest_year )->get();
+			var_dump('yyy');
+		}
+
+		$html = view( 'partials._filter', compact( 'latest_class' ) )->render();
 
 		return response()->json( $html );
 	}
