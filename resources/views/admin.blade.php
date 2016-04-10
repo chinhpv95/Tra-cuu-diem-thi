@@ -5,7 +5,9 @@
 @endsection
 
 @section('head.style')
-    <link rel="stylesheet" href="{{ url('/') }}/assets/css/style.css"/>
+    <link rel="stylesheet" href="{{ url('/public') }}/assets/css/style.css"/>
+    {{ Html::script('public/assets/js/jquery.min.js') }}
+    {{ Html::script('public/assets/js/bootstrap.min.js') }}
 @endsection
 
 @section('body')
@@ -334,13 +336,14 @@
                             </div>
                             <div id="result"></div>
                         </div>
-                        {{ Form::open(array('url' => 'admin/searchClass', 'method' => 'POST')) }}
+                        <h3>Chọn năm học và kì học cần hiện thị</h3>
+                        {{ Form::open(array('url' => 'admin/filter', 'method' => 'post')) }}
                         <table class="table custom-table">
                             <tbody>
                             <tr>
                                 <td>{{ Form::label('school-year', 'Năm học', array('class' => 'awesome')) }}</td>
                                 <td>
-                                    <select name="select-year-excel">
+                                    <select name="filter-year" class="filter-year">
                                         <option value="null">Chọn trong danh sách</option>
                                         @foreach ( $years as $year )
                                             <option value="{{ $year['year_id'] }}">{{ $year['year_name'] }}</option>
@@ -350,7 +353,7 @@
                             <tr>
                                 <td>{{ Form::label('semester', 'Học Kỳ', array('class' => 'awesome')) }}</td>
                                 <td>
-                                    <select name="select-semester-excel">
+                                    <select name="filter-semester" class="filter-semester">
                                         <option value="null">Chọn trong danh sách</option>
                                         @foreach ( $semesters as $semester )
                                             <option
@@ -359,42 +362,16 @@
                                     </select>
                                 </td>
                             </tr>
+                            <tr>
+                                <td></td>
+                                <td><span class="filter-class">Filter</span></td>
+                            </tr>
                             </tbody>
                         </table>
                         {{ Form::close() }}
                         <h3>Danh sách môn học</h3>
                         <ul class="list-group control-group list-classes">
-                            @foreach ( $teacher_class as $index )
-                                @if ( ! isset( $index['link'] ) )
-                                    <li class="list-group-item" data-id="{{ $index['class_id'] }}"><span>{{ $index['class_name'] }}
-                                            ({{ $index['class_code'] }})</span>
-                                        {{ Form::open( array( 'url' => route( 'upLoad', [ 'class_id' => $index['class_id'] ] ), 'method' => 'POST', 'files' => true ) ) }}
-                                        {{ Form::file( 'link' ) }}
-                                        {{ Form::submit( 'Upload', array( 'class' => 'btn btn-primary' ) ) }}
-                                        {{ Form::close() }}
-
-                                        {{ Form::open( array( 'url' => route( 'downLoad', [ 'class_id' => $index['class_id'] ] ), 'method' => 'POST', 'files' => true ) ) }}
-                                        {{Form::submit( 'Download', array( 'class' => 'btn btn-primary' ) ) }}
-                                        {{Form::close()}}
-                                    </li>
-                                @else
-                                    <li class="list-group-item" data-id="{{ $index['class_id'] }}">
-                                        <a href="{{ url( 'storage' ) }}/{{ $index["link"] }}" target="_blank">
-                                            <span>{{ $index['class_name'] }} ({{ $index['class_code'] }})</span>
-                                        </a>
-
-                                        {{ Form::open( array( 'url' => route( 'upLoad', [ 'class_id' => $index['class_id'] ] ), 'method' => 'POST', 'files' => true ) ) }}
-                                        {{ Form::file( 'link' ) }}
-                                        {{ Form::submit( 'Upload', array( 'class' => 'btn btn-primary' ) ) }}
-                                        {{ Form::close() }}
-
-                                        {{ Form::open( array( 'url' => route( 'downLoad', [ 'class_id' => $index['class_id'] ] ), 'method' => 'POST', 'files' => true )) }}
-                                        {{ Form::submit( 'Download', array( 'class' => 'btn btn-primary' ) ) }}
-                                        {{ Form::close() }}
-                                        <span class="glyphicon glyphicon-ok"></span>
-                                    </li>
-                                @endif
-                            @endforeach
+                            @include('partials._filter')
                         </ul>
                     </div>
                 </div>
@@ -404,7 +381,5 @@
 @endsection
 
 @section('body.script')
-    {{ Html::script('assets/js/jquery.min.js', array('async' => 'async')) }}
-    {{ Html::script('assets/js/bootstrap.min.js', array('async' => 'async')) }}
-    {{ Html::script('assets/js/main.js', array('async' => 'async')) }}
+    {{ Html::script('public/assets/js/main.js', array('async' => 'async')) }}
 @endsection

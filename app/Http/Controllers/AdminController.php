@@ -23,12 +23,17 @@ use Illuminate\Support\Facades\URL;
 class AdminController extends Controller {
 	public function index() {
 		if ( Auth::check() ) {
-			$years = Year::select( 'year_id', 'year_name' )->get();
-			$semesters = Semester::select( 'semester_id', 'semester_name' )->get();
-			$users = User::get();
-			$teacher_class = Classes::get();
+			$years           = Year::select( 'year_id', 'year_name' )->get();
+			$semesters       = Semester::select( 'semester_id', 'semester_name' )->get();
+			$users           = User::get();
+			$latest_year     = Year::select( 'year_id' )->where( 'active', 1 )->get();
+			$latest_semester = Semester::select( 'semester_id' )->where( 'active', 1 )->get();
+			$latest_class    = Classes::where( [
+				[ 'semester_id', $latest_semester[0]['semester_id'] ],
+				[ 'year_id', $latest_year[0]['year_id'] ]
+			] )->get();
 
-			return view('admin', compact('years', 'semesters', 'users', 'teacher_class'));
+			return view( 'admin', compact( 'years', 'semesters', 'users', 'latest_class' ) );
 		}
 	}
 
@@ -211,24 +216,25 @@ class AdminController extends Controller {
 	public function search_class() {
 		if ( isset( $_POST['keysearch'] ) ) {
 			$search = $_POST['keysearch'];
-			$parts = explode(' ', $search);
-			$p = count($parts);
-			$sql = 'class_name LIKE "%' .$parts[0] . '%"';
-			for($i = 1; $i < $p; $i++) {
-				$sql .= ' and class_name LIKE "%' . $parts[$i] . '%"';
+			$parts  = explode( ' ', $search );
+			$p      = count( $parts );
+			$sql    = 'class_name LIKE "%' . $parts[0] . '%"';
+			for ( $i = 1; $i < $p; $i ++ ) {
+				$sql .= ' and class_name LIKE "%' . $parts[ $i ] . '%"';
 			}
-	        $results = Classes::select('class_id')->whereRAw( $sql )
-		        ->orWhereRaw( $sql )
-		        ->get();
+			$results = Classes::select( 'class_id' )->whereRAw( $sql )
+			                  ->orWhereRaw( $sql )
+			                  ->get();
+
 			return $results;
-        }
+		}
 	}
 
 	public function addYear() {
-		$year = Input::get('new_year');
-		$year_active = Input::get('year_active');
-		if( $year_active ) {
-			Year::where('active', '1')->update(['active' => '0']);
+		$year        = Input::get( 'new_year' );
+		$year_active = Input::get( 'year_active' );
+		if ( $year_active ) {
+			Year::where( 'active', '1' )->update( [ 'active' => '0' ] );
 			Year::insert( [ 'year_name' => $year, 'active' => '1' ] );
 		} else {
 			Year::insert( [ 'year_name' => $year ] );
@@ -236,5 +242,17 @@ class AdminController extends Controller {
 		Session::flash( 'add_message', 'Add year successfully!' );
 
 		return redirect()->back();
+	}
+
+	public function filter_class() {
+		$latest_year     = Input::get( 'filter_year' );
+		$latest_semester = Input::get( 'filter_semester' );
+		$latest_class    = Classes::where( [
+			[ 'semester_id', $latest_semester ],
+			[ 'year_id', $latest_year ]
+		] )->get();
+		$html          = view( 'partials._filter', compact( 'latest_class' ) )->render();
+
+		return response()->json( $html );
 	}
 }

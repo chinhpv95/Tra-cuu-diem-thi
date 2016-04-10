@@ -1,10 +1,6 @@
 (function ($) {
     'use strict';
 
-    //$.ajaxSetup({
-    //    headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
-    //});
-
     $('.select-option').on('click', function () {
         $(this).next().toggleClass('open-option');
     });
@@ -47,7 +43,7 @@
             var key = $('#keysearch').val();
             if (key && key.length > 0)
             {
-                $('#loading').css('display', 'block');
+                $('#loading').css('opacity', '1');
                 if (req)
                     req.abort();
                 req = $.ajax({
@@ -61,12 +57,13 @@
                     {
                         if (data)
                         {
-                            $('#loading').css('display', 'none');
+                            $('#loading').css('opacity', '0');
                             $('.list-classes .list-group-item').css('display', 'none');
                             for( var i=0; i<data.length; i++) {
                                 $('.list-classes .list-group-item').each(function() {
                                     if( $(this).attr('data-id') == data[i]['class_id'] ) {
                                         $(this).css('display', 'block');
+                                        $('list-classes').append($(this));
                                     }
                                 });
                             }
@@ -76,10 +73,29 @@
             }
             else
             {
-                $('#loading').css('display', 'none');
+                $('#loading').css('opacity', '0');
                 $('.list-classes .list-group-item').css('display', 'block');
             }
 
+        });
+    });
+
+    $(function($) {
+        $('.filter-class').click(function() {
+            var filter_year = $('.filter-year').val();
+            var filter_semester = $('.filter-semester').val();
+            $.ajax({
+                url: 'admin/filter_class',
+                type: 'POST',
+                cache: false,
+                data: {
+                    filter_year: filter_year,
+                    filter_semester: filter_semester
+                },
+                success: function(data) {
+                    $('.list-classes').html(data);
+                }
+            });
         });
     });
 })(jQuery);

@@ -198,7 +198,7 @@
 }
 
 #loading {
-    display: none;
+    opacity: 0;
 }
 
 #searchid {
@@ -230,4 +230,11 @@
     background: #40A2BE;
     color: #FFF;
     cursor: pointer;
+}
+
+.filter-class {
+    cursor: pointer;
+    padding: 10px 20px;
+    background-color: #337ab7;
+    color: #fff;
 }
