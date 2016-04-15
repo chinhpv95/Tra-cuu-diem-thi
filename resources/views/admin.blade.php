@@ -5,7 +5,7 @@
 @endsection
 
 @section('head.style')
-    <link rel="stylesheet" href="{{ url('/public') }}/assets/css/style.css"/>
+    {{ Html::style('/public/assets/css/style.css') }}
     {{ Html::script('public/assets/js/jquery.min.js') }}
     {{ Html::script('public/assets/js/bootstrap.min.js') }}
 @endsection
@@ -344,7 +344,7 @@
                                 <td>{{ Form::label('school-year', 'Năm học', array('class' => 'awesome')) }}</td>
                                 <td>
                                     <select name="filter-year" class="filter-year">
-                                        <option value="null">Chọn trong danh sách</option>
+                                        <option value="0">Chọn trong danh sách</option>
                                         @foreach ( $years as $year )
                                             <option value="{{ $year['year_id'] }}">{{ $year['year_name'] }}</option>
                                         @endforeach
@@ -354,7 +354,7 @@
                                 <td>{{ Form::label('semester', 'Học Kỳ', array('class' => 'awesome')) }}</td>
                                 <td>
                                     <select name="filter-semester" class="filter-semester">
-                                        <option value="null">Chọn trong danh sách</option>
+                                        <option value="0">Chọn trong danh sách</option>
                                         @foreach ( $semesters as $semester )
                                             <option
                                                 value="{{ $semester['semester_id'] }}">{{ $semester['semester_name'] }}</option>
@@ -381,5 +381,5 @@
 @endsection
 
 @section('body.script')
-    {{ Html::script('public/assets/js/main.js', array('async' => 'async')) }}
+    {{ Html::script('public/assets/js/main.js') }}
 @endsection

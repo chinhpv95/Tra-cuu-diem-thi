@@ -16,72 +16,61 @@
 
     $('#auto').focus();
 
-    $(function() {
-        $(".delete").click(function(){
+    $(function () {
+        $(".delete").click(function () {
             var element = $(this);
             var del_id = element.attr("id");
             var info = 'id=' + del_id;
-            if(confirm("Are you sure you want to delete this?"))
-            {
+            if (confirm("Are you sure you want to delete this?")) {
                 $.ajax({
-                    headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') },
+                    headers: {'X-CSRF-Token': $('meta[name=_token]').attr('content')},
                     type: "POST",
                     url: "delete",
                     data: info,
-                    success: function(){
+                    success: function () {
                     }
                 });
-                $(this).parents(".list-group-item").animate({ backgroundColor: "#003" }, "slow")
-                    .animate({ opacity: "hide" }, "slow");
+                $(this).parents(".list-group-item").animate({backgroundColor: "#003"}, "slow")
+                    .animate({opacity: "hide"}, "slow");
             }
             return false;
         });
     });
-    $(function(){
+    $(function () {
         var req = null;
-        $('#keysearch').on('keyup', function(){
+        $('#keysearch').on('keyup', function () {
             var key = $('#keysearch').val();
-            if (key && key.length > 0)
-            {
+            if (key && key.length > 0) {
                 $('#loading').css('opacity', '1');
                 if (req)
                     req.abort();
                 req = $.ajax({
-                    url : 'search_class',
-                    type : 'POST',
-                    cache : false,
-                    data : {
-                        keysearch : key
+                    url: 'search_class',
+                    type: 'POST',
+                    cache: false,
+                    data: {
+                        keysearch: key
                     },
-                    success : function(data)
-                    {
-                        if (data)
-                        {
+                    success: function (data) {
+                        if(data) {
                             $('#loading').css('opacity', '0');
-                            $('.list-classes .list-group-item').css('display', 'none');
-                            for( var i=0; i<data.length; i++) {
-                                $('.list-classes .list-group-item').each(function() {
-                                    if( $(this).attr('data-id') == data[i]['class_id'] ) {
-                                        $(this).css('display', 'block');
-                                        $('list-classes').append($(this));
-                                    }
-                                });
-                            }
+                            $('.list-classes').html(data);
+                        } else {
+                            $('#loading').css('opacity', '0');
+                            $('.list-classes').html('<h3>Không có môn học phù hợp</h3>');
                         }
                     }
                 });
             }
-            else
-            {
+            else {
                 $('#loading').css('opacity', '0');
-                $('.list-classes .list-group-item').css('display', 'block');
             }
 
         });
     });
 
-    $(function($) {
-        $('.filter-class').click(function() {
+    $(function ($) {
+        $('.filter-class').click(function () {
             var filter_year = $('.filter-year').val();
             var filter_semester = $('.filter-semester').val();
             $.ajax({
@@ -92,8 +81,17 @@
                     filter_year: filter_year,
                     filter_semester: filter_semester
                 },
-                success: function(data) {
-                    $('.list-classes').html(data);
+                success: function (data) {
+                    if(data) {
+                        $('.list-classes').html(data);
+                        console.log('xxx');
+                    } else {
+                        $('.list-classes').html('<h3>Không tồn tại danh sách môn học</h3>');
+                        console.log('yyy');
+                    }
+                },
+                error: function () {
+                    alert('Da co loi xay ra');
                 }
             });
         });

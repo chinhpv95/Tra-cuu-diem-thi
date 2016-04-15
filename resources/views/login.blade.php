@@ -26,7 +26,7 @@
 @endsection
 
 @section('body.script')
-    {{ Html::script('public/assets/js/jquery.min.js', array('async' => 'async')) }}
-    {{ Html::script('public/assets/js/bootstrap.min.js', array('async' => 'async')) }}
-    {{ Html::script('public/assets/js/main.js', array('async' => 'async')) }}
+    {{ Html::script('public/assets/js/jquery.min.js') }}
+    {{ Html::script('public/assets/js/bootstrap.min.js') }}
+    {{ Html::script('public/assets/js/main.js') }}
 @endsection

@@ -5,10 +5,11 @@
 @endsection
 
 @section('head.style')
-    <link rel="stylesheet" href="{{ url('/public/') }}/assets/css/style.css"/>
-    <link rel="stylesheet" href="{{ url('/public/') }}/assets/css/jquery-ui.css">
-
-
+    {{ Html::style('/public/assets/css/style.css') }}
+    {{ Html::style('/public/assets/css/jquery-ui.css') }}
+    {{ Html::script('/public/assets/js/jquery.min.js') }}
+    {{ Html::script('/public/assets/js/bootstrap.min.js') }}
+    {{ Html::script('/public/assets/js/jquery-ui.min.js') }}
 @endsection
 
 @section('body')
@@ -100,10 +101,7 @@
 @endsection
 
 @section('body.script')
-    {{ Html::script('/public/assets/js/jquery.min.js', array('async' => 'async')) }}
-    {{ Html::script('/public/assets/js/bootstrap.min.js', array('async' => 'async')) }}
-    {{ Html::script('/public/assets/js/jquery-ui.min.js', array('async' => 'async')) }}
-    {{ Html::script('/public/assets/js/main.js', array('async' => 'async')) }}
-    {{ Html::script('/public/assets/js/autocomplete.js', array('async' => 'async')) }}
-    {{ Html::script('/public/assets/js/jquery.ui.autocomplete.html.js', array('async' => 'async')) }}
+    {{ Html::script('/public/assets/js/main.js') }}
+    {{ Html::script('/public/assets/js/autocomplete.js') }}
+    {{ Html::script('/public/assets/js/jquery.ui.autocomplete.html.js') }}
 @endsection

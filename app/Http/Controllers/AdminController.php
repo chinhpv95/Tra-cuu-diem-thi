@@ -115,10 +115,10 @@ class AdminController extends Controller {
 	//Lay du lieu 1 class tu form
 	public function getClass( Request $request ) {
 		$messages = [
-			'class-code-input.required'       => 'Bắt buộc nhập Mã môn học!',
-			'class-name-input.required'       => 'Bắt buộc nhập Tên môn học!',
-			'teacher-input.required'          => 'Bắt buộc nhập tên Giáo viên!',
-			'class-code-input.unique:classes' => 'Bắt buộc nhập Mã môn học!',
+			'class-code-input.required'       => 'Bắt buộc nhập mã môn học!',
+			'class-name-input.required'       => 'Bắt buộc nhập tên môn học!',
+			'teacher-input.required'          => 'Bắt buộc nhập tên giáo viên!',
+			'class-code-input.unique:classes' => 'Bắt buộc nhập mã môn học!',
 
 		];
 
@@ -214,20 +214,19 @@ class AdminController extends Controller {
 	}
 
 	public function search_class() {
-		if ( isset( $_POST['keysearch'] ) ) {
-			$search = $_POST['keysearch'];
-			$parts  = explode( ' ', $search );
-			$p      = count( $parts );
-			$sql    = 'class_name LIKE "%' . $parts[0] . '%"';
-			for ( $i = 1; $i < $p; $i ++ ) {
-				$sql .= ' and class_name LIKE "%' . $parts[ $i ] . '%"';
-			}
-			$results = Classes::select( 'class_id' )->whereRAw( $sql )
-			                  ->orWhereRaw( $sql )
-			                  ->get();
-
-			return $results;
+		$search = $_POST['keysearch'];
+		$parts  = explode( ' ', $search );
+		$p      = count( $parts );
+		$sql    = 'class_name LIKE "%' . $parts[0] . '%"';
+		for ( $i = 1; $i < $p; $i ++ ) {
+			$sql .= ' and class_name LIKE "%' . $parts[ $i ] . '%"';
 		}
+		$latest_class = Classes::whereRAw( $sql )
+		                       ->orWhereRaw( $sql )
+		                       ->get();
+		$html         = view( 'partials._filter', compact( 'latest_class' ) )->render();
+
+		return response()->json( $html );
 	}
 
 	public function addYear() {
@@ -247,17 +246,20 @@ class AdminController extends Controller {
 	public function filter_class() {
 		$latest_year     = Input::get( 'filter_year' );
 		$latest_semester = Input::get( 'filter_semester' );
-		if ( $latest_year != null && $latest_year != null ) {
+		if ( $latest_year != '0' && $latest_year != '0' ) {
 			$latest_class = Classes::where( [
 				[ 'semester_id', $latest_semester ],
 				[ 'year_id', $latest_year ]
 			] )->get();
-		} elseif ( $latest_year == null ) {
-			$latest_class = Classes::where( 'semester_id', $latest_semester )->get();
-			var_dump('xxx');
-		} else {
+		}
+		if ( $latest_year == '0' && $latest_semester == '0' ) {
+			$latest_class = '';
+		}
+		if ( $latest_year != '0' && $latest_semester == '0' ) {
 			$latest_class = Classes::where( 'year_id', $latest_year )->get();
-			var_dump('yyy');
+		}
+		if ( $latest_year == '0' && $latest_semester != '0' ) {
+			$latest_class = Classes::where( 'semester_id', $latest_semester )->get();
 		}
 
 		$html = view( 'partials._filter', compact( 'latest_class' ) )->render();
