@@ -4,14 +4,6 @@
     <title>Search test score</title>
 @endsection
 
-@section('head.style')
-    {{ Html::style('/public/assets/css/style.css') }}
-    {{ Html::style('/public/assets/css/jquery-ui.css') }}
-    {{ Html::script('/public/assets/js/jquery.min.js') }}
-    {{ Html::script('/public/assets/js/bootstrap.min.js') }}
-    {{ Html::script('/public/assets/js/jquery-ui.min.js') }}
-@endsection
-
 @section('body')
     <header>
         <div class="container">
@@ -98,10 +90,4 @@
             {{ $result->appends( $input )->render() }}
         @endif
     </div>
-@endsection
-
-@section('body.script')
-    {{ Html::script('/public/assets/js/main.js') }}
-    {{ Html::script('/public/assets/js/autocomplete.js') }}
-    {{ Html::script('/public/assets/js/jquery.ui.autocomplete.html.js') }}
 @endsection

@@ -2,6 +2,4 @@
 
 @yield('body')
 
-@yield('body.script')
-
 @include('partials.footer')

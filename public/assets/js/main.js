@@ -17,7 +17,7 @@
     $('#auto').focus();
 
     $(function () {
-        $(".delete").click(function () {
+        $(".list-users .delete").click(function () {
             var element = $(this);
             var del_id = element.attr("id");
             var info = 'id=' + del_id;
@@ -36,6 +36,28 @@
             return false;
         });
     });
+
+    $(function() {
+        $('.list-years .year_delete').click(function() {
+            var element = $(this);
+            var del_id = element.attr("id");
+            var info = 'id=' + del_id;
+            if (confirm("Are you sure you want to delete this?")) {
+                $.ajax({
+                    headers: {'X-CSRF-Token': $('meta[name=_token]').attr('content')},
+                    type: "POST",
+                    url: "delete_year",
+                    data: info,
+                    success: function () {
+                    }
+                });
+                $(this).parents(".list-group-item").animate({backgroundColor: "#003"}, "slow")
+                    .animate({opacity: "hide"}, "slow");
+            }
+            return false;
+        });
+    });
+
     $(function () {
         var req = null;
         $('#keysearch').on('keyup', function () {

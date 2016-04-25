@@ -4,12 +4,6 @@
     <title>Admin Dashboard</title>
 @endsection
 
-@section('head.style')
-    {{ Html::style('/public/assets/css/style.css') }}
-    {{ Html::script('public/assets/js/jquery.min.js') }}
-    {{ Html::script('public/assets/js/bootstrap.min.js') }}
-@endsection
-
 @section('body')
     @if (count($errors) > 0)
         <div class="alert alert-danger">
@@ -93,6 +87,7 @@
                     @if( Auth::user()->role == 1 )
                         <li><a data-toggle="tab" href="#manager">Quản lí thành viên</a></li>
                     @endif
+                    <li><a data-toggle="tab" href="#manager_year">Quản lí năm học</a></li>
                 </ul>
             </div>
 
@@ -100,28 +95,6 @@
                 <div class="tab-content">
                     <div id="home" class="tab-pane fade in active">
                         <div class="upload-file">
-                            <h3>Thêm năm học mới</h3>
-                            {{ Form::open(array('url' => 'admin/addYear', 'method' => 'POST')) }}
-                            <table class="table custom-table">
-                                <tbody>
-                                <tr>
-                                    <td><label class="control-label">Năm học</label></td>
-                                    <td><input class="form-control" id="new_year" placeholder="Nhập năm học" type="text"
-                                               name="new_year"></td>
-                                </tr>
-                                <tr>
-                                    <td><label class="control-label">Mới nhất</label></td>
-                                    <td><input type="checkbox" id="year_active" name="year_active"></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>
-                                        <button class="btn btn-primary" type="submit">Thêm</button>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            {{ Form::close() }}
                             <h3>Import file Excel</h3>
                             {{ Form::open(array('url' => 'admin/getExcel', 'method' => 'POST', 'files' => true)) }}
                             <table class="table custom-table">
@@ -374,12 +347,81 @@
                             @include('partials._filter')
                         </ul>
                     </div>
+                    <div id="manager_year" class="tab-pane fade">
+                        <h3>Danh sách các năm học</h3>
+                        <ul class="list-group list-years">
+                            <li class="list-group-item"><span class="year_name">Năm học</span><span class="year_modify">Chỉnh sửa</span><span
+                                    class="year_delete">Xóa</span></li>
+                            @foreach ( $years as $count => $index )
+                                <li class="list-group-item">
+                                    <span class="year_name">{{ $count + 1 }}. {{  $index['year_name'] }}</span>
+                                    <span class="year_modify glyphicon glyphicon-edit" data-toggle="modal"
+                                          data-target="#year_{{ $index['year_id'] }}"></span>
+                                    <span id="{{ $index['year_id'] }}"
+                                          class="year_delete delete glyphicon glyphicon-trash"></span>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <h3>Thêm năm học mới</h3>
+                        {{ Form::open(array('url' => 'admin/addYear', 'method' => 'POST')) }}
+                        <table class="table custom-table">
+                            <tbody>
+                            <tr>
+                                <td><label class="control-label">Năm học</label></td>
+                                <td><input class="form-control" id="new_year" placeholder="Nhập năm học" type="text"
+                                           name="new_year"></td>
+                            </tr>
+                            <tr>
+                                <td><label class="control-label">Mới nhất</label></td>
+                                <td><input type="checkbox" id="year_active" name="year_active"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <button class="btn btn-primary" type="submit">Thêm</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        {{ Form::close() }}
+                    </div>
+                    @foreach( $years as $year )
+                        <div class="modal fade" id="year_{{ $year['year_id'] }}" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Năm học</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="form-horizontal"
+                                              action='{{ url('/admin/' . $year['year_id'] .'/updateYear') }}'
+                                              method="POST">
+
+                                            <fieldset>
+                                                <div class="control-group">
+                                                    <div class="controls">
+                                                        <input type="text" id="year_name" name="year_name" placeholder=""
+                                                               class="form-control"
+                                                               value="{{ $year['year_name'] }}">
+                                                        <p class="help-block">Username can contain any letters or
+                                                            numbers, without spaces</p>
+                                                        <button class="btn btn-primary" role="button" type="submit">
+                                                            Update
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
     </div>
-@endsection
-
-@section('body.script')
-    {{ Html::script('public/assets/js/main.js') }}
 @endsection

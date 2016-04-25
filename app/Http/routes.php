@@ -24,6 +24,7 @@ Route::any('autocomplete', [
 
 
 Route::any('delete', ['as' => 'delete', 'uses' => 'AdminController@delete']);
+Route::any('delete_year', ['as' => 'delete_year', 'uses' => 'AdminController@delete_year']);
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/admin/getClass', ['as' => 'getClass', 'uses' => 'AdminController@getClass']);
     Route::post('/admin/addYear', ['as' => 'addYear', 'uses' => 'AdminController@addYear']);
     Route::post('admin/filter_class', ['as' => 'filter', 'uses' => 'AdminController@filter_class']);
+    Route::post('admin/{year_id}/updateYear', ['as' => 'updateYear', 'uses' => 'AdminController@updateYear']);
 
     Route::get('/upload/{class_id}', ['as' => 'upLoad', 'uses' => 'AdminController@upLoad']);
     Route::post('/upload/{class_id}', ['as' => 'upLoad', 'uses' => 'AdminController@upLoad']);

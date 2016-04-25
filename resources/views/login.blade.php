@@ -4,9 +4,6 @@
     <title>Login</title>
 @endsection
 
-@section('head.style')
-    <link rel="stylesheet" href="{{ url('/public') }}/assets/css/style.css"/>
-@endsection
 
 @section('body')
 
@@ -23,10 +20,4 @@
             <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
         </form>
     </div>
-@endsection
-
-@section('body.script')
-    {{ Html::script('public/assets/js/jquery.min.js') }}
-    {{ Html::script('public/assets/js/bootstrap.min.js') }}
-    {{ Html::script('public/assets/js/main.js') }}
 @endsection

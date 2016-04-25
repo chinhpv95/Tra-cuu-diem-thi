@@ -5,6 +5,11 @@
     <meta name="_token" content="{!! csrf_token() !!}}" />
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
     @yield('head')
-    @yield('head.style')
+    {{ Html::style('/public/assets/css/style.css') }}
+    {{ Html::style('/public/assets/css/jquery-ui.css') }}
+    {{ Html::script('/public/assets/js/jquery.min.js') }}
+    {{ Html::script('public/assets/js/jquery.min.js') }}
+    {{ Html::script('public/assets/js/bootstrap.min.js') }}
 </head>
+
 <body>

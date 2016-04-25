@@ -142,7 +142,6 @@
                 display: inline-block;
             }
             .delete {
-                cursor: pointer;
                 width: auto;
                 float: right;
             }
@@ -151,6 +150,10 @@
             }
         }
     }
+}
+
+.delete {
+    cursor: pointer;
 }
 
 .navbar-default {
@@ -237,4 +240,15 @@
     padding: 10px 20px;
     background-color: #337ab7;
     color: #fff;
+}
+
+.year_name, .year_modify {
+    min-width: 250px;
+    display: inline-block;
+}
+
+.list-years {
+    .glyphicon-edit {
+        cursor: pointer;
+    }
 }

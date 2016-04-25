@@ -4,11 +4,6 @@
     <title>Admin Dashboard</title>
 @endsection
 
-@section('head.style')
-    {{ Html::style('/public/assets/css/style.css') }}
-    {{ Html::script('public/assets/js/jquery.min.js') }}
-    {{ Html::script('public/assets/js/bootstrap.min.js') }}
-@endsection
 
 @section('body')
     <div class="container">
@@ -62,12 +57,12 @@
             </nav>
             <ul class="list-group show_profile">
                 <li class="list-group-item"><span>Name</span>
-                    <span class="name"><?php echo $data['name']; ?></span>
+                    <span class="name">{{ $data['name'] }}</span>
                     <span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#name"></span>
                 </li>
                 <li class="list-group-item">
                     <span>Email</span>
-                    <span class="email"><?php echo $data['email']; ?></span>
+                    <span class="email">{{ $data['email'] }}</span>
                     <span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#email"></span>
                 </li>
                 <li class="list-group-item">
@@ -96,7 +91,7 @@
                                         <label class="control-label" for="username">Username</label>
                                         <div class="controls">
                                             <input type="text" id="username" name="username" placeholder=""
-                                                   class="form-control" value="<?php echo $data['name']; ?>">
+                                                   class="form-control" value="{{ $data['name'] }}">
                                             <p class="help-block">Username can contain any letters or
                                                 numbers, without spaces</p>
                                             <button class="btn btn-primary" role="button" type="submit">Update</button>
@@ -127,7 +122,7 @@
                                         <label class="control-label" for="email">Email</label>
                                         <div class="controls">
                                             <input type="text" id="email" name="email" placeholder=""
-                                                   class="form-control" value="<?php echo $data['email']; ?>">
+                                                   class="form-control" value="{{ $data['email'] }}">
                                             <p class="help-block">Please provide your E-mail</p>
                                             <button class="btn btn-primary" role="button" type="submit">Update</button>
                                         </div>
@@ -157,7 +152,7 @@
                                         <label class="control-label" for="password">Password</label>
                                         <div class="controls">
                                             <input type="password" id="username" name="password" placeholder=""
-                                                   class="form-control" value="<?php echo $data['password']; ?>">
+                                                   class="form-control" value="{{ $data['password'] }}">
                                             <p class="help-block">Password should be at least 4
                                                 characters</p>
                                             <button class="btn btn-primary" role="button" type="submit">Update</button>
@@ -176,8 +171,4 @@
             @endif
         </div>
     </div>
-@endsection
-
-@section('body.script')
-    {{ Html::script('public/assets/js/main.js') }}
 @endsection

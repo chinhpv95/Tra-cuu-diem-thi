@@ -182,6 +182,18 @@ class AdminController extends Controller {
 		User::where( 'id', $user_id )->delete();
 	}
 
+	public function delete_year( Request $request ) {
+		$year_id = Input::get( 'id' );
+		Year::where( 'year_id', $year_id )->delete();
+	}
+
+	public function updateYear( Request $request, $year_id ) {
+		$data = $request->all();
+		Year::where('year_id', $year_id)->update( [ 'year_name' => $data['year_name'] ]);
+
+		return redirect()->back();
+	}
+
 	public function profile( $user_id ) {
 		$data = Auth::user()->where( 'id', '=', $user_id )->get()->first();
 
