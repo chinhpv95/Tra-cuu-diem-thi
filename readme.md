@@ -8,15 +8,10 @@
 
 CÔNG VIỆC CẦN LÀM
 
-- HIỆN THÔNG BÁO NẾU SEARCH KHÔNG CÓ KẾT QUẢ THỎA MÃN
-- CHIA TRANG CÁC BẢNG DANH SÁCH VÌ QUÁ DÀI
-- 
-- UP ĐIỂM XONG Ở LẠI TRANG TIẾP TỤC UP ĐIỂM HOẶC LOAD LẠI TRANG NHƯNG NHẢY VÀO TAB UPLOAD ĐIỂM
-- THÊM SEARCH CHO CÁN BỘ NHẬP ĐIỂM
-- MAKE UP TRANG QUẢN LÝ THÀNH VIÊN
-- MAKE UP TRANG SEARCH (NHỜ CHUYÊN GIA)
-- RẢNH THÌ CHIA COTROLLER GIẢM GÁNH NẶNG CHO ADMIN
-
+- Xóa nhiều một lúc (môn, người dùng,...)
+- Phân quyền chi tiết (thêm các cột tương ứng các quyền dùng checkbox)
+- Tạo nút gửi mail để nhắc giáo viên nộp bài (thêm trường mail vào file excel khi import danh sách môn)
+- Thêm nút Nhận điểm bên cạnh môn chưa có điểm để SV có thể nhập mail vào khi có điểm thì thông báo
 
 
 
