@@ -49,6 +49,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/admin/addYear', ['as' => 'addYear', 'uses' => 'AdminController@addYear']);
     Route::post('admin/filter_class', ['as' => 'filter', 'uses' => 'AdminController@filter_class']);
     Route::post('admin/{year_id}/updateYear', ['as' => 'updateYear', 'uses' => 'AdminController@updateYear']);
+    Route::post('admin/multi_delete', ['as' => 'multi_delete', 'uses' => 'AdminController@multi_delete']);
 
     Route::get('/upload/{class_id}', ['as' => 'upLoad', 'uses' => 'AdminController@upLoad']);
     Route::post('/upload/{class_id}', ['as' => 'upLoad', 'uses' => 'AdminController@upLoad']);

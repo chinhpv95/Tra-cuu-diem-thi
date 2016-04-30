@@ -8,8 +8,8 @@
     {{ Html::style('/public/assets/css/style.css') }}
     {{ Html::style('/public/assets/css/jquery-ui.css') }}
     {{ Html::script('/public/assets/js/jquery.min.js') }}
-    {{ Html::script('public/assets/js/jquery.min.js') }}
-    {{ Html::script('public/assets/js/bootstrap.min.js') }}
+    {{ Html::script('/public/assets/js/jquery-ui.min.js') }}
+    {{ Html::script('/public/assets/js/bootstrap.min.js') }}
 </head>
 
 <body>

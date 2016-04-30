@@ -16,8 +16,13 @@
 
     $('#auto').focus();
 
+    $(".list-users .delete").click(function () {
+        console.log('3');
+    });
+
     $(function () {
-        $(".list-users .delete").click(function () {
+        $(".list-user .delete").click(function () {
+            console.log('xxx');
             var element = $(this);
             var del_id = element.attr("id");
             var info = 'id=' + del_id;
@@ -60,7 +65,7 @@
 
     $(function () {
         var req = null;
-        $('#keysearch').on('keyup', function () {
+        $('#auto').on('keyup', function () {
             var key = $('#keysearch').val();
             if (key && key.length > 0) {
                 $('#loading').css('opacity', '1');

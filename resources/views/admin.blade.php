@@ -177,7 +177,7 @@
                                     <tr>
                                         <td></td>
                                         <td>
-                                            <button class="btn btn-primary" role="button" type="submit">Submit</button>
+                                            <button class="btn btn-primary" type="submit">Submit</button>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -193,14 +193,13 @@
                             </button>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-                                 aria-labelledby="myModalLabel">
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title" id="myModalLabel">Tạo tài khoản</h4>
+                                            <h4 class="modal-title">Tạo tài khoản</h4>
                                         </div>
                                         <div class="modal-body">
                                             <form id="addUser" class="form-horizontal"
@@ -209,7 +208,7 @@
                                                 <fieldset>
                                                     <div class="control-group">
                                                         <!-- Username -->
-                                                        <label class="control-label" for="username">Username</label>
+                                                        <label class="control-label">Username</label>
                                                         <div class="controls">
                                                             <input type="text" id="username" name="username"
                                                                    placeholder=""
@@ -221,7 +220,7 @@
 
                                                     <div class="control-group">
                                                         <!-- E-mail -->
-                                                        <label class="control-label" for="email">E-mail</label>
+                                                        <label class="control-label">E-mail</label>
                                                         <div class="controls">
                                                             <input type="text" id="email" name="email" placeholder=""
                                                                    class="form-control" required>
@@ -231,8 +230,7 @@
 
                                                     <div class="control-group">
                                                         <!-- Password-->
-                                                        <label class="control-label" for="password"
-                                                               required>Password</label>
+                                                        <label class="control-label">Password</label>
                                                         <div class="controls">
                                                             <input type="password" id="password" name="password"
                                                                    placeholder="" class="form-control">
@@ -243,7 +241,7 @@
 
                                                     <div class="control-group">
                                                         <!-- Password -->
-                                                        <label class="control-label" for="password_confirm">Password(Confirm)</label>
+                                                        <label class="control-label">Password(Confirm)</label>
                                                         <div class="controls">
                                                             <input type="password" id="password_confirm"
                                                                    name="password_confirm" placeholder=""
@@ -302,7 +300,7 @@
                     <div id="class" class="tab-pane fade">
                         <div class="panel panel-default">
                             <div class="form-group">
-                                <label for="username">Tìm kiếm :</label>
+                                <label>Tìm kiếm :</label>
                                 <input name="keysearch" value="" placeholder="name" id="keysearch" type="text"
                                        class="form-control">
                                 <span id="loading">Loading...</span>
@@ -349,9 +347,10 @@
                     </div>
                     <div id="manager_year" class="tab-pane fade">
                         <h3>Danh sách các năm học</h3>
+                        {{ Form::open( array( 'url' => 'admin/multi_delete' ) ) }}
                         <ul class="list-group list-years">
                             <li class="list-group-item"><span class="year_name">Năm học</span><span class="year_modify">Chỉnh sửa</span><span
-                                    class="year_delete">Xóa</span></li>
+                                    class="year_delete">Xóa</span><span class="check_delete">Check</span></li>
                             @foreach ( $years as $count => $index )
                                 <li class="list-group-item">
                                     <span class="year_name">{{ $count + 1 }}. {{  $index['year_name'] }}</span>
@@ -359,9 +358,17 @@
                                           data-target="#year_{{ $index['year_id'] }}"></span>
                                     <span id="{{ $index['year_id'] }}"
                                           class="year_delete delete glyphicon glyphicon-trash"></span>
+                                    {{ Form::checkbox( 'id_array[]', $index['year_id'] ) }}
                                 </li>
                             @endforeach
+                            <li class="list-group-item">
+                                <span class="year_name"></span>
+                                <span class="year_modify"></span>
+                                <span class="year_delete delete"></span>
+                                {{ Form::submit( 'Xóa' ) }}
+                            </li>
                         </ul>
+                        {{ Form::close() }}
                         <h3>Thêm năm học mới</h3>
                         {{ Form::open(array('url' => 'admin/addYear', 'method' => 'POST')) }}
                         <table class="table custom-table">
@@ -386,14 +393,13 @@
                         {{ Form::close() }}
                     </div>
                     @foreach( $years as $year )
-                        <div class="modal fade" id="year_{{ $year['year_id'] }}" tabindex="-1" role="dialog"
-                             aria-labelledby="myModalLabel">
+                        <div class="modal fade" id="year_{{ $year['year_id'] }}" tabindex="-1" role="dialog">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="myModalLabel">Năm học</h4>
+                                        <h4 class="modal-title">Năm học</h4>
                                     </div>
                                     <div class="modal-body">
                                         <form class="form-horizontal"
@@ -403,7 +409,8 @@
                                             <fieldset>
                                                 <div class="control-group">
                                                     <div class="controls">
-                                                        <input type="text" id="year_name" name="year_name" placeholder=""
+                                                        <input type="text" id="year_name" name="year_name"
+                                                               placeholder=""
                                                                class="form-control"
                                                                value="{{ $year['year_name'] }}">
                                                         <p class="help-block">Username can contain any letters or

@@ -278,4 +278,10 @@ class AdminController extends Controller {
 
 		return response()->json( $html );
 	}
+
+	public function multi_delete() {
+		$get_data = Input::all();
+		$id_array = $get_data['id_array'];
+		Year::destroy($id_array);
+	}
 }

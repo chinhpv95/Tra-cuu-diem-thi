@@ -88,7 +88,7 @@
                                 <fieldset>
                                     <div class="control-group">
                                         <!-- Username -->
-                                        <label class="control-label" for="username">Username</label>
+                                        <label class="control-label">Username</label>
                                         <div class="controls">
                                             <input type="text" id="username" name="username" placeholder=""
                                                    class="form-control" value="{{ $data['name'] }}">
@@ -119,7 +119,7 @@
                                 <fieldset>
                                     <div class="control-group">
                                         <!-- Username -->
-                                        <label class="control-label" for="email">Email</label>
+                                        <label class="control-label">Email</label>
                                         <div class="controls">
                                             <input type="text" id="email" name="email" placeholder=""
                                                    class="form-control" value="{{ $data['email'] }}">
@@ -149,7 +149,7 @@
                                 <fieldset>
                                     <div class="control-group">
                                         <!-- Username -->
-                                        <label class="control-label" for="password">Password</label>
+                                        <label class="control-label">Password</label>
                                         <div class="controls">
                                             <input type="password" id="username" name="password" placeholder=""
                                                    class="form-control" value="{{ $data['password'] }}">
