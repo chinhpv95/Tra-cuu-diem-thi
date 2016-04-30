@@ -16,13 +16,8 @@
 
     $('#auto').focus();
 
-    $(".list-users .delete").click(function () {
-        console.log('3');
-    });
-
     $(function () {
         $(".list-user .delete").click(function () {
-            console.log('xxx');
             var element = $(this);
             var del_id = element.attr("id");
             var info = 'id=' + del_id;
@@ -111,10 +106,8 @@
                 success: function (data) {
                     if(data) {
                         $('.list-classes').html(data);
-                        console.log('xxx');
                     } else {
                         $('.list-classes').html('<h3>Không tồn tại danh sách môn học</h3>');
-                        console.log('yyy');
                     }
                 },
                 error: function () {
