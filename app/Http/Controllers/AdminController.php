@@ -18,6 +18,7 @@ use Validator;
 use Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
+use Mail;
 
 
 class AdminController extends Controller {
@@ -283,5 +284,18 @@ class AdminController extends Controller {
 		$get_data = Input::all();
 		$id_array = $get_data['id_array'];
 		Year::destroy($id_array);
+	}
+
+	public function sendEmail(){
+		$class_id = Input::get('id');
+		$classes = Classes::select('email', 'class_code')->where('class_id', $class_id)->get();
+		foreach ($classes as $class ) {
+			$data = array( 'email' => $class['email'], 'class_code'=>$class['class_code'] );
+			Mail::raw('Phòng Đào Tạo xin thông báo: Giảng Viên nhanh chóng nộp điểm tổng kết lớp môn học '.$data['class_code'].' về PĐT', function($arg) use ($data) {
+				$arg->from('hung.a3.k13.tv@gmail.com','Nguyen Manh Hung1');
+				$arg->to($data['email'],'Nguyen Manh Hung2')->subject('[Thông báo]Về việc nộp bảng điểm tổng kết');
+
+			});
+		}
 	}
 }

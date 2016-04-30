@@ -28,6 +28,7 @@
                     url: "delete",
                     data: info,
                     success: function () {
+
                     }
                 });
                 $(this).parents(".list-group-item").animate({backgroundColor: "#003"}, "slow")
@@ -36,6 +37,31 @@
             return false;
         });
     });
+
+    $(function () {
+        $(".list-group-item .sendemail").click(function () {
+            console.log('xxx');
+            var element = $(this);
+            var del_id = element.attr("id");
+            var info = 'id=' + del_id;
+            if (confirm("Are you sure you want to delete this?")) {
+                $.ajax({
+                    headers: {'X-CSRF-Token': $('meta[name=_token]').attr('content')},
+                    type: "POST",
+                    url: "sendemail",
+                    data: info,
+                    success: function () {
+                        console.log('success');
+                        var mess = 'Send Email Successfully';
+                        $(".send-email-success").append(mess);
+
+                    }
+                });
+            }
+            return false;
+        });
+    });
+
 
     $(function() {
         $('.list-years .year_delete').click(function() {

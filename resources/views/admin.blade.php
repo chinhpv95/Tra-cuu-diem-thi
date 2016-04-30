@@ -341,6 +341,9 @@
                         </table>
                         {{ Form::close() }}
                         <h3>Danh sách môn học</h3>
+                        <div class="send-email-success" id="send-email-success">
+                        
+                        </div>
                         <ul class="list-group control-group list-classes">
                             @include('partials._filter')
                         </ul>

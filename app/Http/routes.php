@@ -72,4 +72,6 @@ Route::group(['middleware' => 'web'], function () {
         'as' => 'search_class_result',
         'uses' => 'AdminController@search_class'
     ]);
+
+    Route::any('sendemail', ['as'=>'sendEmail', 'uses'=>'AdminController@sendEmail']);
 });
