@@ -69,7 +69,7 @@ class AdminController extends Controller {
 		$class['class_code'] = $classes['class_code'];
 		$class['class_name'] = $classes['class_name'];
 		$class['teacher']    = $classes['teacher'];
-
+		$class['email']    = $classes['email'];
 		$class['year_id']     = $classes['year_id'];
 		$class['semester_id'] = $classes['semester_id'];
 
@@ -109,6 +109,7 @@ class AdminController extends Controller {
 					$classes['class_code'] = $objWorksheet->getCellByColumnAndRow( 0, $row )->getValue();
 					$classes['class_name'] = $objWorksheet->getCellByColumnAndRow( 1, $row )->getValue();
 					$classes['teacher']    = $objWorksheet->getCellByColumnAndRow( 2, $row )->getValue();
+					$classes['email']    = $objWorksheet->getCellByColumnAndRow( 3, $row )->getValue();
 					$this->addClass( $classes );
 				}
 			}
