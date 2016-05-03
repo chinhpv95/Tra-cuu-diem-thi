@@ -83,7 +83,7 @@
 
     $(function () {
         var req = null;
-        $('#auto').on('keyup', function () {
+        $('#keysearch').on('keyup', function () {
             var key = $('#keysearch').val();
             if (key && key.length > 0) {
                 $('#loading').css('opacity', '1');

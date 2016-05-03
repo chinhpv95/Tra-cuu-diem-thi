@@ -20,7 +20,7 @@ class CreateClassesTable extends Migration
             $table->char('class_code');
             $table->char('email');
             $table->char('teacher');
-            $table->char('link');
+            $table->char('link')->nullable();
             $table->timestamps();
         });
     }

@@ -159,7 +159,7 @@ class AdminController extends Controller {
 		$destinationPath = base_path() . "\public\storage\\";
 		$file->move( $destinationPath, $filename );
 
-		$class = Classes::find( $id );
+		$class = Classes::find( $class_id );
 		if ( $class->link != null ) {
 			Storage::delete( $class->link );
 		}
@@ -181,7 +181,7 @@ class AdminController extends Controller {
 	}
 
 	public function download( $class_id ) {
-		$class           = Classes::find( $id );
+		$class           = Classes::find( $class_id );
 		$destinationPath = base_path() . "\public\storage\\";
 
 		return Response::download( $destinationPath . $class->link );
@@ -302,6 +302,7 @@ class AdminController extends Controller {
 	public function sendEmail() {
 		$class_id = Input::get( 'id' );
 		$classes  = Classes::select( 'email', 'class_code' )->where( 'id', $class_id )->get();
+		var_dump($classes);
 		foreach ( $classes as $class ) {
 			$data = array( 'email' => $class['email'], 'class_code' => $class['class_code'] );
 			Mail::raw( 'Phòng Đào Tạo xin thông báo: Giảng Viên nhanh chóng nộp điểm tổng kết lớp môn học ' . $data['class_code'] . ' về PĐT', function ( $arg ) use ( $data ) {
