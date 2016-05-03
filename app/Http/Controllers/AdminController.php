@@ -7,6 +7,7 @@ use App\Classes;
 use App\Year;
 use App\Semester;
 use App\User;
+use App\UserRole;
 use Illuminate\Http\Request;
 use Excel;
 use View;
@@ -27,6 +28,7 @@ class AdminController extends Controller {
 			$years           = Year::select( 'year_id', 'year_name' )->get();
 			$semesters       = Semester::select( 'semester_id', 'semester_name' )->get();
 			$users           = User::get();
+			$user_role       = User::find(Auth::user()->id)->roles()->get()->toArray();
 			$latest_year     = Year::select( 'year_id' )->where( 'active', 1 )->get();
 			$latest_semester = Semester::select( 'semester_id' )->where( 'active', 1 )->get();
 			$latest_class    = Classes::where( [
@@ -34,7 +36,7 @@ class AdminController extends Controller {
 				[ 'year_id', $latest_year[0]['year_id'] ]
 			] )->get();
 
-			return view( 'admin', compact( 'years', 'semesters', 'users', 'latest_class' ) );
+			return view( 'admin', compact( 'years', 'semesters', 'users', 'user_role', 'latest_class' ) );
 		}
 	}
 
@@ -48,8 +50,14 @@ class AdminController extends Controller {
 		$user['name']     = $data['username'];
 		$user['email']    = $data['email'];
 		$user['password'] = bcrypt( $data['password'] );
-		$user['role']     = $data['role'];
+		if( isset($data['isAdmin']) ) {
+			$user['is_admin'] = $data['isAdmin'];
+		}
 		$user->save();
+		$user_id = $user['id'];
+		foreach( $data['role'] as $item ) {
+			UserRole::insert(['user_id' => $user_id, 'role_id' => $item]);
+		}
 		Session::flash( 'flash_message', 'Tạo thành công tài khoản ' . $user['name'] . ' !' );
 
 		return Redirect::to( URL::previous() . "#manager" );
@@ -190,7 +198,7 @@ class AdminController extends Controller {
 
 	public function updateYear( Request $request, $year_id ) {
 		$data = $request->all();
-		Year::where('year_id', $year_id)->update( [ 'year_name' => $data['year_name'] ]);
+		Year::where( 'year_id', $year_id )->update( [ 'year_name' => $data['year_name'] ] );
 
 		return redirect()->back();
 	}
@@ -283,19 +291,41 @@ class AdminController extends Controller {
 	public function multi_delete() {
 		$get_data = Input::all();
 		$id_array = $get_data['id_array'];
-		Year::destroy($id_array);
+		Year::destroy( $id_array );
+
+		Session::flash('multi_delete', 'Delete Successfully');
+
+		return redirect()->back();
 	}
 
-	public function sendEmail(){
-		$class_id = Input::get('id');
-		$classes = Classes::select('email', 'class_code')->where('class_id', $class_id)->get();
-		foreach ($classes as $class ) {
-			$data = array( 'email' => $class['email'], 'class_code'=>$class['class_code'] );
-			Mail::raw('Phòng Đào Tạo xin thông báo: Giảng Viên nhanh chóng nộp điểm tổng kết lớp môn học '.$data['class_code'].' về PĐT', function($arg) use ($data) {
-				$arg->from('hung.a3.k13.tv@gmail.com','Nguyen Manh Hung1');
-				$arg->to($data['email'],'Nguyen Manh Hung2')->subject('[Thông báo]Về việc nộp bảng điểm tổng kết');
+	public function sendEmail() {
+		$class_id = Input::get( 'id' );
+		$classes  = Classes::select( 'email', 'class_code' )->where( 'class_id', $class_id )->get();
+		foreach ( $classes as $class ) {
+			$data = array( 'email' => $class['email'], 'class_code' => $class['class_code'] );
+			Mail::raw( 'Phòng Đào Tạo xin thông báo: Giảng Viên nhanh chóng nộp điểm tổng kết lớp môn học ' . $data['class_code'] . ' về PĐT', function ( $arg ) use ( $data ) {
+				$arg->from( 'daitd58@gmail.com', 'Quan Ly' );
+				$arg->to( $data['email'], 'Nguyen Manh Hung2' )->subject( '[Thông báo]Về việc nộp bảng điểm tổng kết' );
 
-			});
+			} );
 		}
+	}
+
+	public function updateAvatar( $user_id ) {
+		$file            = Input::file( 'image_name' );
+		$file_name       = $file->getClientOriginalName();
+		$destinationPath = base_path() . "\public\storage\\images";
+		$file->move( $destinationPath, $file_name );
+
+		User::where( 'id', $user_id )->update( [ 'image' => $file_name ] );
+
+		return redirect()->back();
+	}
+
+	public function manytomany() {
+		$data = User::find( 2 )->roles()->get()->toArray();
+		echo '<pre>';
+		print_r( $data );
+		echo '</pre>';
 	}
 }

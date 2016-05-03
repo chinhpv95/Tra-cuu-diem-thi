@@ -21,10 +21,10 @@ Route::any('autocomplete', [
     'uses' => 'SearchController@autoComplete'
 ]);
 
-
-
-Route::any('delete', ['as' => 'delete', 'uses' => 'AdminController@delete']);
-Route::any('delete_year', ['as' => 'delete_year', 'uses' => 'AdminController@delete_year']);
+Route::any('manytomany', [
+    'as' => 'manytomany',
+    'uses' => 'AdminController@manytomany'
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +62,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::any('profile/{user_id}/updateName', ['as' => 'updateName', 'uses' => 'AdminController@updateName']);
     Route::any('profile/{user_id}/updateEmail', ['as' => 'updateEmail', 'uses' => 'AdminController@updateEmail']);
     Route::any('profile/{user_id}/updatePassword', ['as' => 'updatePassword', 'uses' => 'AdminController@updatePassword']);
+    Route::post('profile/{user_id}/updateAvatar', ['as' => 'updateAvatar', 'uses' => 'AdminController@updateAvatar']);
 
     Route::any('/result', [
         'as' => 'search_result',
@@ -74,4 +75,7 @@ Route::group(['middleware' => 'web'], function () {
     ]);
 
     Route::any('sendemail', ['as'=>'sendEmail', 'uses'=>'AdminController@sendEmail']);
+
+    Route::any('delete', ['as' => 'delete', 'uses' => 'AdminController@delete']);
+    Route::any('delete_year', ['as' => 'delete_year', 'uses' => 'AdminController@delete_year']);
 });

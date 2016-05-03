@@ -1,60 +1,37 @@
-@extends('layouts.wrapper')
+@extends('layouts.app')
 
-@section('head')
-    <title>Admin Dashboard</title>
+@section('title')
+    <title>Profile</title>
+@endsection
+
+@section('admin')
+    <a class="navbar-brand" href="{{ url('/admin') }}">
+        Admin
+    </a>
 @endsection
 
 
 @section('body')
     <div class="container">
         <div class="row">
-            <nav class="navbar navbar-default">
-                <div class="container">
-                    <div class="navbar-header">
-
-                        <!-- Collapsed Hamburger -->
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                                data-target="#app-navbar-collapse">
-                            <span class="sr-only">Toggle Navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-
-                        <!-- Branding Image -->
-                        <a class="navbar-brand" href="{{ url('/') }}">
-                            Home
-                        </a>
-                        <a class="navbar-brand" href="{{ url('/admin') }}">Admin</a>
-                    </div>
-
-                    <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                        <!-- Right Side Of Navbar -->
-                        <ul class="nav navbar-nav navbar-right">
-                            <!-- Authentication Links -->
-                            @if (Auth::guest())
-                                <li><a href="{{ url('/login') }}">Login</a></li>
-                                <li><a href="{{ url('/register') }}">Register</a></li>
-                            @else
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                       aria-expanded="false">
-                                        {{ Auth::user()->name }} <span class="caret"></span>
-                                    </a>
-
-                                    <ul class="dropdown-menu" role="menu">
-                                    <?php $user_id = Auth::user()->id; ?>
-                                        <li><a href="{{ url('/logout') }}"><span
-                                                    class="glyphicon glyphicon-log-out"></span>Logout</a></li>
-                                        <li><a href="{{ route('profile', ['user_id' => $user_id]) }}"><span
-                                                    class="glyphicon glyphicon-user"></span>Profile</a></li>
-                                    </ul>
-                                </li>
-                            @endif
-                        </ul>
-                    </div>
+            <div class="image-avatar">
+                {{ Form::open(array('url' => url('/profile/' . $data['id'] . '/updateAvatar'), 'method' => 'post', 'files' => true)) }}
+                <label class="label-avatar">Avatar</label>
+                @if( $data['image'] != null )
+                    <img id='img-upload' src="{{ url('public/storage/images/'.$data["image"]) }}" alt="avatar"/>
+                @else
+                    <img id='img-upload' src="{{ url('public/storage/images/avatar.jpg') }}" alt="avatar"/>
+                @endif
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <span class="btn btn-default btn-file">Browse… <input type="file" id="imgInp" name="image_name">
+                        </span>
+                    </span>
+                    <input type="text" class="form-control image_name" readonly>
                 </div>
-            </nav>
+                <button class="btn btn-primary update_image" type="submit">Update</button>
+                {{ Form::close() }}
+            </div>
             <ul class="list-group show_profile">
                 <li class="list-group-item"><span>Name</span>
                     <span class="name">{{ $data['name'] }}</span>
@@ -143,7 +120,8 @@
                             <h4 class="modal-title" id="myModalLabel">Password</h4>
                         </div>
                         <div class="modal-body">
-                            <form class="form-horizontal" action='{{ url('/profile/' . $data['id'] . '/updatePassword') }}'
+                            <form class="form-horizontal"
+                                  action='{{ url('/profile/' . $data['id'] . '/updatePassword') }}'
                                   method="POST">
 
                                 <fieldset>
@@ -171,4 +149,8 @@
             @endif
         </div>
     </div>
+@endsection
+
+@section('body-script')
+    {{ Html::script('/public/assets/js/main.js') }}
 @endsection

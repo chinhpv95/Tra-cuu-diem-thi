@@ -1,13 +1,11 @@
-@extends('layouts.wrapper')
+@extends('layouts.app')
 
-@section('head')
+@section('title')
     <title>Login</title>
 @endsection
 
 
 @section('body')
-
-
     <div class="container">
         <form class="form-signin">
             <h2 class="form-signin-heading">Login</h2>
@@ -20,4 +18,8 @@
             <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
         </form>
     </div>
+@endsection
+
+@section('body-script')
+    {{ Html::script('/public/assets/js/main.js') }}
 @endsection

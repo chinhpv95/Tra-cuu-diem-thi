@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'image'
     ];
 
     /**
@@ -24,5 +24,16 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    
+    public function roles() {
+        return $this->belongsToMany('App\Role', 'user_role');
+    }
+
+    public function hasRole( $array, $role ) {
+        foreach( $array as $item ) {
+            if( $item['id'] == $role )
+                return true;
+        }
+        return false;
+    }
+
 }

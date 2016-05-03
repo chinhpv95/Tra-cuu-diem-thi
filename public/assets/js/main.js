@@ -40,21 +40,18 @@
 
     $(function () {
         $(".list-group-item .sendemail").click(function () {
-            console.log('xxx');
             var element = $(this);
             var del_id = element.attr("id");
             var info = 'id=' + del_id;
-            if (confirm("Are you sure you want to delete this?")) {
+            if (confirm("Are you sure you want to send mail?")) {
                 $.ajax({
                     headers: {'X-CSRF-Token': $('meta[name=_token]').attr('content')},
                     type: "POST",
                     url: "sendemail",
                     data: info,
                     success: function () {
-                        console.log('success');
                         var mess = 'Send Email Successfully';
                         $(".send-email-success").append(mess);
-
                     }
                 });
             }
@@ -63,8 +60,8 @@
     });
 
 
-    $(function() {
-        $('.list-years .year_delete').click(function() {
+    $(function () {
+        $('.list-years .year_delete').click(function () {
             var element = $(this);
             var del_id = element.attr("id");
             var info = 'id=' + del_id;
@@ -100,7 +97,7 @@
                         keysearch: key
                     },
                     success: function (data) {
-                        if(data) {
+                        if (data) {
                             $('#loading').css('opacity', '0');
                             $('.list-classes').html(data);
                         } else {
@@ -130,7 +127,7 @@
                     filter_semester: filter_semester
                 },
                 success: function (data) {
-                    if(data) {
+                    if (data) {
                         $('.list-classes').html(data);
                     } else {
                         $('.list-classes').html('<h3>Không tồn tại danh sách môn học</h3>');
@@ -140,6 +137,42 @@
                     alert('Da co loi xay ra');
                 }
             });
+        });
+    });
+
+    $(function () {
+        $(document).on('change', '.image-avatar .btn-file :file', function () {
+            var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
+        });
+
+        $('.btn-file :file').on('fileselect', function (event, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = label;
+
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img-upload').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imgInp").change(function () {
+            readURL(this);
         });
     });
 })(jQuery);

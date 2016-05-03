@@ -25,6 +25,7 @@
     }
     input[type="file"] {
         cursor: pointer;
+        margin-top: 0;
         &:focus {
             outline: none;
         }
@@ -88,6 +89,10 @@
             padding-right: 10px;
             margin-top: 2px;
             position: relative;
+            &.glyphicon-ok {
+                float: right;
+                right: 10px;
+            }
         }
         form {
             display: inline-block;
@@ -96,7 +101,6 @@
                 vertical-align: middle;
             }
             input[type="file"] {
-                min-width: 200px;
                 &:focus {
                     outline: none;
                 }
@@ -256,4 +260,60 @@
 .year_delete {
     width: 200px;
     display: inline-block;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    width: auto !important;
+    &:before {
+        content: '\e118';
+        font-family: 'Glyphicons Halflings';
+        display: inline-block;
+        margin-right: 10px;
+    }
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+.custom-nav {
+    display: block;
+    padding: 5px 0;
+    .avatar {
+        display: inline-block;
+        img {
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+        }
+    }
+
+    > li {
+        > a {
+            display: inline-block;
+        }
+    }
+}
+
+.navbar-header {
+    height: 60px;
+}
+
+.navbar-brand {
+    padding: 20px 15px;
+}
+
+.navbar-default.navbar {
+    border: none;
 }

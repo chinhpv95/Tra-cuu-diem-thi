@@ -1,4 +1,6 @@
 .show_profile {
+    margin-left: 450px;
+    display: block;
     li {
         > span {
             width: 200px;
@@ -10,3 +12,51 @@
         }
     }
 }
+
+.image-avatar {
+    float: left;
+    width: 400px;
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+    }
+
+    #img-upload {
+        width: 200px;
+        margin-bottom: 20px;
+    }
+
+    .label-avatar {
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    .form-control {
+        height: 35px;
+        &:focus {
+            border-color: #ccc;
+            box-shadow: none;
+        }
+    }
+
+    .input-group {
+        margin-bottom: 20px;
+    }
+}
+

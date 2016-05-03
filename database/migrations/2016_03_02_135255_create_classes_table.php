@@ -16,9 +16,10 @@ class CreateClassesTable extends Migration
             $table->increments('id');
             $table->integer('year_id');
             $table->integer('semester_id');
-            $table->integer('user_id');
-            $table->char('subject_name');
-            $table->char('subject_code');
+            $table->char('class_name');
+            $table->char('class_code');
+            $table->char('email');
+            $table->char('teacher');
             $table->char('link');
             $table->timestamps();
         });
