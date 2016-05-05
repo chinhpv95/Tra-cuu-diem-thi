@@ -257,18 +257,26 @@
                                             class="delete">Xóa</span></li>
                                     @foreach ( $users as $user )
                                         @if ( $user['is_admin'] != 1 )
-                                            <li class="list-group-item"><span
+                                            <li class="list-group-item">
+                                                <input type="checkbox" form="form-delete" name="id_array[]" value="{{ $user['id'] }}" />
+                                                <span
                                                     class="user_name">{{ $user['name'] }}</span>
                                                 <span class="email">{{ $user['email'] }}</span>
                                                 <span id="{{ $user['id'] }}" data-token="{{ csrf_token() }}"
                                                       class="glyphicon glyphicon-trash delete" title="Delete"></span>
                                             </li>
                                         @else
-                                            <li class="list-group-item"><span>{{ $user['name'] }}</span>
+                                            <li class="list-group-item">
+                                                
+                                                <span>{{ $user['name'] }}</span>
                                                 <span class="email">{{ $user['email'] }}</span>
                                             </li>
                                         @endif
                                     @endforeach
+                                    {{ Form::open( array( 'url' => 'admin/multi_delete_user', 'id'=>'form-delete' ) ) }}
+                                    <label><input type="checkbox" id="checkAllUser"/> Check all</label>
+                                    {{ Form::submit( 'Xóa' ) }}
+                                    {{ Form::close() }}
                                 </ul>
                             </div>
                         </div>
@@ -346,6 +354,7 @@
                                     </li>
                                 @endforeach
                                 <li class="list-group-item">
+                                    <label><input type="checkbox" id="checkAllYear"/> Check all</label>
                                     <span class="year_name"></span>
                                     <span class="year_modify"></span>
                                     <span class="year_delete delete"></span>

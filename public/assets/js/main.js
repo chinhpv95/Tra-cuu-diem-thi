@@ -16,6 +16,24 @@
 
     $('#auto').focus();
 
+
+    $('#checkAllYear').change(function() {
+    var checkboxes = $(this).closest('form').find(':checkbox');
+    if($(this).is(':checked')) {
+        checkboxes.prop('checked', true);
+    } else {
+        checkboxes.prop('checked', false);
+    }
+});
+    $('#checkAllUser').change(function() {
+    var checkboxes = $(this).closest('form').find(':checkbox');
+    if($(this).is(':checked')) {
+        checkboxes.prop('checked', true);
+    } else {
+        checkboxes.prop('checked', false);
+    }
+});
+
     $(function () {
         $(".list-user .delete").click(function () {
             var element = $(this);

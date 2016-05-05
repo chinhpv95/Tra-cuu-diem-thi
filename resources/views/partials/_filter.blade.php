@@ -1,8 +1,8 @@
 @foreach ( $latest_class as $index )
     @if ( ! isset( $index['link'] ) )
     
-        <li class="list-group-item" data-id="{{ $index['id'] }}"><span>{{ $index['class_name'] }}
-                ({{ $index['class_code'] }})</span>
+        <li class="list-group-item" data-id="{{ $index['id'] }}">
+            <span>{{ $index['class_name'] }} ({{ $index['class_code'] }})</span>
             {{ Form::open( array( 'url' => route( 'upLoad', [ 'class_id' => $index['id'] ] ), 'method' => 'POST', 'files' => true ) ) }}
             <span class="btn-file btn btn-primary">Select File{{ Form::file( 'link' ) }}</span>
             {{ Form::submit( 'Upload', array( 'class' => 'btn btn-primary' ) ) }}
@@ -16,6 +16,7 @@
 
     @else
         <li class="list-group-item" data-id="{{ $index['id'] }}">
+            <input type="checkbox" form="form-delete" name="id_array[]" value="{{ $index['id'] }}" />
             <a href="{{ url( 'public/storage' ) }}/{{ $index["link"] }}" target="_blank">
                 <span>{{ $index['class_name'] }} ({{ $index['class_code'] }})</span>
             </a>
@@ -31,6 +32,12 @@
 
             <span class="glyphicon glyphicon-ok"></span>
         </li>
+
         
     @endif
+
 @endforeach
+{{ Form::open( array( 'url' => 'admin/multi_delete_pdf', 'id'=>'form-delete' ) ) }}
+            
+            {{ Form::submit( 'Xóa' ) }}
+            {{ Form::close() }}

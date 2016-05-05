@@ -38,6 +38,7 @@ class AdminController extends Controller {
 
 			return view( 'admin', compact( 'years', 'semesters', 'users', 'user_role', 'latest_class' ) );
 		}
+		return redirect('login');
 	}
 
 	//Them user moi
@@ -154,7 +155,7 @@ class AdminController extends Controller {
 
 	public function upLoad( $class_id ) {
 		$file = Input::file( 'link' );
-
+		if($file != null){
 		$filename        = $file->getClientOriginalName();
 		$destinationPath = base_path() . "\public\storage\\";
 		$file->move( $destinationPath, $filename );
@@ -168,7 +169,7 @@ class AdminController extends Controller {
 
 
 		Session::flash( 'flash_message', 'File uploaded!' );
-
+	}
 		return Redirect::to( URL::previous() . "#class" );
 	}
 
@@ -295,6 +296,29 @@ class AdminController extends Controller {
 		Year::destroy( $id_array );
 
 		Session::flash('multi_delete', 'Delete Successfully');
+
+		return redirect()->back();
+	}
+	public function multi_delete_user() {
+		$get_data = Input::all();
+		$id_array = $get_data['id_array'];
+		User::destroy( $id_array );
+
+		Session::flash('multi_delete', 'Delete Users Successfully');
+
+		return redirect()->back();
+	}
+
+	public function multi_delete_pdf() {
+		$get_data = Input::all();
+		$id_array = $get_data['id_array'];
+		foreach ($id_array as $id) {
+			$class = Classes::where('id',$id)->firstOrFail();
+			Storage::delete( $class->link );
+			$class->link = null;
+			$class->save();
+		}
+		Session::flash('multi_delete', 'Delete PDF Successfully');
 
 		return redirect()->back();
 	}
