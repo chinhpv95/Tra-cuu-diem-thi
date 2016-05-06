@@ -16,22 +16,41 @@
 
     $('#auto').focus();
 
+    $(function () {
+    $('.checkAllYear').on('click', function () {
+        if(this.checked) {
+            $('.check-box-year'). each(function(){ this.checked = true; });
+        }
+        else
+        {
+            $('.check-box-year'). each(function(){ this.checked = false; });
+        }
 
-    $('#checkAllYear').change(function() {
-    var checkboxes = $(this).closest('form').find(':checkbox');
-    if($(this).is(':checked')) {
-        checkboxes.prop('checked', true);
-    } else {
-        checkboxes.prop('checked', false);
-    }
+    });
 });
-    $('#checkAllUser').change(function() {
-    var checkboxes = $(this).closest('form').find(':checkbox');
-    if($(this).is(':checked')) {
-        checkboxes.prop('checked', true);
-    } else {
-        checkboxes.prop('checked', false);
-    }
+
+    $(function () {
+    $('.checkAllUser').on('click', function () {
+        if(this.checked) {
+            $('.check-box-user'). each(function(){ this.checked = true; });
+        }
+        else
+        {
+            $('.check-box-user'). each(function(){ this.checked = false; });
+        }
+
+    });
+});$(function () {
+    $('.checkAllClass').on('click', function () {
+        if(this.checked) {
+            $('.check-box-class'). each(function(){ this.checked = true; });
+        }
+        else
+        {
+            $('.check-box-class'). each(function(){ this.checked = false; });
+        }
+
+    });
 });
 
     $(function () {

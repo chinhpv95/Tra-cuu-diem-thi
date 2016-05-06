@@ -312,6 +312,7 @@ class AdminController extends Controller {
 	public function multi_delete_pdf() {
 		$get_data = Input::all();
 		$id_array = $get_data['id_array'];
+		dd($id_array);
 		foreach ($id_array as $id) {
 			$class = Classes::where('id',$id)->firstOrFail();
 			Storage::delete( $class->link );

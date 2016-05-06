@@ -16,7 +16,7 @@
 
     @else
         <li class="list-group-item" data-id="{{ $index['id'] }}">
-            <input type="checkbox" form="form-delete" name="id_array[]" value="{{ $index['id'] }}" />
+            <input type="checkbox" class="check-box-class" form="form-delete" name="id_array[]" value="{{ $index['id'] }}" />
             <a href="{{ url( 'public/storage' ) }}/{{ $index["link"] }}" target="_blank">
                 <span>{{ $index['class_name'] }} ({{ $index['class_code'] }})</span>
             </a>
@@ -38,6 +38,6 @@
 
 @endforeach
 {{ Form::open( array( 'url' => 'admin/multi_delete_pdf', 'id'=>'form-delete' ) ) }}
-            
+            <label><input type="checkbox" class="checkAllClass"/> Check all</label>
             {{ Form::submit( 'Xóa' ) }}
             {{ Form::close() }}
