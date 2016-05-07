@@ -57,7 +57,7 @@ class SearchController extends Controller {
 			$year_id     = Year::where( 'active', 1 )->get()->first();
 			$semester_id = Semester::where( 'active', 1 )->get()->first();
 			$sql_name .= ' and semester_id = ' . $semester_id['semester_id'] . ' and year_id = ' . $year_id['year_id'];
-			$sql_name .= ' and semester_id = ' . $semester_id['semester_id'] . ' and year_id = ' . $year_id['year_id'];
+			$sql_code .= ' and semester_id = ' . $semester_id['semester_id'] . ' and year_id = ' . $year_id['year_id'];
 			$result = Classes::whereRaw( $sql_name )
 			                 ->orWhereRaw( $sql_code )
 			                 ->orderBy( 'class_name', 'asc' )->paginate( 15 );
@@ -66,19 +66,19 @@ class SearchController extends Controller {
 			$semester_id = $input['select-semester'];
 			if ( $year_id == '0' ) {
 				$sql_name .= ' and semester_id = ' . $semester_id;
-				$sql_name .= ' and semester_id = ' . $semester_id;
+				$sql_code .= ' and semester_id = ' . $semester_id;
 				$result = Classes::whereRaw( $sql_name )
 				                 ->orWhereRaw( $sql_code )
 				                 ->orderBy( 'class_name', 'asc' )->paginate( 15 );
 			} elseif ( $semester_id == '0' ) {
 				$sql_name .= ' and year_id = ' . $year_id;
-				$sql_name .= ' and year_id = ' . $year_id;
+				$sql_code .= ' and year_id = ' . $year_id;
 				$result = Classes::whereRaw( $sql_name )
 				                 ->orWhereRaw( $sql_code )
 				                 ->orderBy( 'class_name', 'asc' )->paginate( 15 );
 			} else {
 				$sql_name .= ' and semester_id = ' . $semester_id . ' and year_id = ' . $year_id;
-				$sql_name .= ' and semester_id = ' . $semester_id . ' and year_id = ' . $year_id;
+				$sql_code .= ' and semester_id = ' . $semester_id . ' and year_id = ' . $year_id;
 				$result = Classes::whereRaw( $sql_name )
 				                 ->orWhereRaw( $sql_code )
 				                 ->orderBy( 'class_name', 'asc' )->paginate( 15 );
