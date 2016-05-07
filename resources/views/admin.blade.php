@@ -49,16 +49,16 @@
 
             <div class="col-sm-3">
                 <ul class="nav nav-tabs manager">
-                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '1') &&  App\User::find(Auth::user()->id)->isAdmin() )
+                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '1') ||  App\User::find(Auth::user()->id)->isAdmin() )
                         <li class="active"><a data-toggle="tab" href="#home">Cập nhật danh sách</a></li>
                     @endif
-                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '2') &&  App\User::find(Auth::user()->id)->isAdmin() )
+                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '2') ||  App\User::find(Auth::user()->id)->isAdmin() )
                         <li><a data-toggle="tab" href="#class">Cập nhật điểm</a></li>
                     @endif
-                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '3') &&  App\User::find(Auth::user()->id)->isAdmin() )
+                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '3') ||  App\User::find(Auth::user()->id)->isAdmin() )
                         <li><a data-toggle="tab" href="#manager">Quản lí thành viên</a></li>
                     @endif
-                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '4') &&  App\User::find(Auth::user()->id)->isAdmin() )
+                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '4') ||  App\User::find(Auth::user()->id)->isAdmin() )
                         <li><a data-toggle="tab" href="#manager_year">Quản lí năm học</a></li>
                     @endif
                     @if( App\User::find(Auth::user()->id)->isAdmin() )
@@ -69,7 +69,7 @@
 
             <div class="col-sm-9">
                 <div class="tab-content">
-                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '1') &&  App\User::find(Auth::user()->id)->isAdmin() )
+                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '1') ||  App\User::find(Auth::user()->id)->isAdmin() )
                         <div id="home" class="tab-pane fade in active">
                             <div class="upload-file">
                                 <h3>Import file Excel</h3>
@@ -166,7 +166,7 @@
                             </div>
                         </div>
                     @endif
-                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '3') &&  App\User::find(Auth::user()->id)->isAdmin() )
+                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '3') ||  App\User::find(Auth::user()->id)->isAdmin() )
                         <div id="manager" class="tab-pane fade">
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
@@ -277,7 +277,7 @@
                             <div class="list-user">
                                 <h3>Danh sách thành viên</h3>
                                 <ul class="list-group">
-                                    <li class="list-group-item"><span class="user_name">Tên Thành Viên</span>
+                                    <li class="list-group-item admin"><span class="user_name">Tên Thành Viên</span>
                                         <span class="email">Email</span><span
                                             class="delete">Xóa</span></li>
                                     @foreach ( $users as $user )
@@ -292,7 +292,7 @@
                                                       class="glyphicon glyphicon-trash delete" title="Delete"></span>
                                             </li>
                                         @else
-                                            <li class="list-group-item">
+                                            <li class="list-group-item admin">
 
                                                 <span>{{ $user['name'] }}</span>
                                                 <span class="email">{{ $user['email'] }}</span>
@@ -308,7 +308,7 @@
                         </div>
                     @endif
 
-                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '2') &&  App\User::find(Auth::user()->id)->isAdmin() )
+                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '2') ||  App\User::find(Auth::user()->id)->isAdmin() )
                         <div id="class" class="tab-pane fade">
                             <div class="panel panel-default">
                                 <div class="form-group">
@@ -365,7 +365,7 @@
                             {{ Form::close() }}
                         </div>
                     @endif
-                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '4') &&  App\User::find(Auth::user()->id)->isAdmin() )
+                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '4') ||  App\User::find(Auth::user()->id)->isAdmin() )
                         <div id="manager_year" class="tab-pane fade">
                             <h3>Danh sách các năm học</h3>
                             {{ Form::open( array( 'url' => 'admin/multi_delete' ) ) }}

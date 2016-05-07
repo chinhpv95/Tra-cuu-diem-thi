@@ -337,3 +337,15 @@
          }
     }
 }
+
+.list-user {
+    .admin {
+        > span:first-child {
+            margin-left: 36px;
+        }
+    }
+
+    .check-box-user {
+        margin-right: 20px;
+    }
+}
