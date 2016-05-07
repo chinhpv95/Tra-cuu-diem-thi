@@ -353,6 +353,25 @@ class AdminController extends Controller {
 		return redirect()->back();
 	}
 
+	public function updatePermission( $user_id, Request $request ) {
+		$data = $request->all();
+		UserRole::where('user_id', $user_id)->delete();
+		if( isset( $data['role']) ) {
+			foreach ( $data['role'] as $item ) {
+				UserRole::insert( [ 'user_id' => $user_id, 'role_id' => $item ] );
+			}
+		}
+
+		if( isset($data['isAdmin']) ) {
+			$admin = $data['isAdmin'];
+			User::where('id', $user_id)->update( ['is_admin' => $admin]);
+		}
+
+		Session::flash('update_permission', 'Update successful');
+
+		return redirect()->back();
+	}
+
 	public function manytomany() {
 		$data = User::find( 2 )->roles()->get()->toArray();
 		echo '<pre>';

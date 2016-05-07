@@ -321,3 +321,19 @@
 .no-link > span {
     margin-left: 36px;
 }
+
+#manager_permission {
+    .list-group {
+         .list-group-item {
+             > span {
+                 width: 250px;
+                 display: inline-block;
+             }
+             .permission_edit {
+                 cursor: pointer;
+                 width: auto;
+                 float: right;
+             }
+         }
+    }
+}

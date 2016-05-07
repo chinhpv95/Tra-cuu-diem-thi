@@ -41,6 +41,12 @@
                 </div>
             @endif
 
+            @if(Session::has('update_permission'))
+                <div class="alert alert-success">
+                    {{ Session::get('update_permission') }}
+                </div>
+            @endif
+
             <div class="col-sm-3">
                 <ul class="nav nav-tabs manager">
                     @if( App\User::find(Auth::user()->id)->hasRole($user_role, '1') &&  App\User::find(Auth::user()->id)->isAdmin() )
@@ -55,9 +61,9 @@
                     @if( App\User::find(Auth::user()->id)->hasRole($user_role, '4') &&  App\User::find(Auth::user()->id)->isAdmin() )
                         <li><a data-toggle="tab" href="#manager_year">Quản lí năm học</a></li>
                     @endif
-                    {{--@if( App\User::find(Auth::user()->id)->isAdmin() )--}}
-                        {{--<li><a data-toggle="tab" href="#manager_permission">Quản lí vai trò</a></li>--}}
-                    {{--@endif--}}
+                    @if( App\User::find(Auth::user()->id)->isAdmin() )
+                        <li><a data-toggle="tab" href="#manager_permission">Quản lí vai trò</a></li>
+                    @endif
                 </ul>
             </div>
 
@@ -245,13 +251,16 @@
                                                                 học</label>
                                                         </div>
                                                     </div>
-                                                    <div class="control-group">
-                                                        <label class="control-label">Admin</label>
-                                                        <div class="controls">
-                                                            <label class="radio-inline"><input type="checkbox"
-                                                                                               name="isAdmin" value="1">Admin</label>
+                                                    @if( App\User::find(Auth::user()->id)->isAdmin() )
+                                                        <div class="control-group">
+                                                            <label class="control-label">Admin</label>
+                                                            <div class="controls">
+                                                                <label class="checkbox-inline"><input type="checkbox"
+                                                                                                      name="isAdmin"
+                                                                                                      value="1">Admin</label>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    @endif
                                                     <div class="control-group">
                                                         <!-- Button -->
                                                         <label class="control-label"></label>
@@ -447,11 +456,105 @@
                             @endforeach
                         </div>
                     @endif
-                    {{--@if(  App\User::find(Auth::user()->id)->isAdmin() )--}}
-                        {{--<div id="manager_permission" class="tab-pane fade">--}}
+                    @if(  App\User::find(Auth::user()->id)->isAdmin() )
+                        <div id="manager_permission" class="tab-pane fade">
+                            <ul class="list-group">
+                                <li class="list-group-item"><span class="user_name">Tên Thành Viên</span>
+                                    <span class="email">Email</span><span
+                                        class="permission_edit">Chỉnh Sửa</span></li>
+                                @foreach( $users as $user )
+                                    @if( $user['is_admin'] != 1 )
+                                        <li class="list-group-item">
+                                        <span
+                                            class="user_name">{{ $user['name'] }}</span>
+                                            <span class="email">{{ $user['email'] }}</span>
+                                        <span id="{{ $user['id'] }}" data-token="{{ csrf_token() }}"
+                                              class="glyphicon glyphicon-edit permission_edit" data-toggle="modal"
+                                              data-target="#user_{{ $user['id'] }}"></span>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                            @foreach( $users as $user )
+                                <div class="modal fade" id="user_{{ $user['id'] }}" tabindex="-1" role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title">Vai trò</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="form-horizontal"
+                                                      action='{{ url('/admin/' . $user['id'] .'/updatePermission') }}'
+                                                      method="POST">
 
-                        {{--</div>--}}
-                    {{--@endif--}}
+                                                    <fieldset>
+                                                        <?php $roles = App\User::find( $user['id'] )->roles ?>
+                                                        <div class="control-group">
+                                                            <div class="controls">
+                                                                <label class="checkbox-inline">
+                                                                    @if(App\User::find($user['id'])->hasRole($roles, '1'))
+                                                                        <input type="checkbox" name="role[]" value="1"
+                                                                               class="has_role">
+                                                                    @else
+                                                                        <input type="checkbox" name="role[]" value="1">
+                                                                    @endif
+                                                                    Cập nhật danh sách
+                                                                </label>
+                                                                <label class="checkbox-inline">
+                                                                    @if(App\User::find($user['id'])->hasRole($roles, '2'))
+                                                                        <input type="checkbox" name="role[]" value="2"
+                                                                               class="has_role">
+                                                                    @else
+                                                                        <input type="checkbox" name="role[]" value="2">
+                                                                    @endif
+                                                                    Cập nhật điểm
+                                                                </label>
+                                                                <label class="checkbox-inline">
+                                                                    @if(App\User::find($user['id'])->hasRole($roles, '3'))
+                                                                        <input type="checkbox" name="role[]" value="3"
+                                                                               class="has_role">
+                                                                    @else
+                                                                        <input type="checkbox" name="role[]" value="3">
+                                                                    @endif
+                                                                    Quản lí thành viên
+                                                                </label>
+                                                                <label class="checkbox-inline">
+                                                                    @if(App\User::find($user['id'])->hasRole($roles, '4'))
+                                                                        <input type="checkbox" name="role[]" value="4"
+                                                                               class="has_role">
+                                                                    @else
+                                                                        <input type="checkbox" name="role[]" value="4">
+                                                                    @endif
+                                                                    Quản lí năm học
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label">Admin</label>
+                                                            <div class="controls">
+                                                                <label class="checkbox-inline"><input type="checkbox"
+                                                                                                      name="isAdmin"
+                                                                                                      value="1">Admin</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label"></label>
+                                                            <div class="controls">
+                                                                <button class="btn btn-success">Update</button>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

@@ -222,4 +222,8 @@
             readURL(this);
         });
     });
+
+    $(function() {
+        $('.has_role').prop('checked', true);
+    });
 })(jQuery);
