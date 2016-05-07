@@ -56,8 +56,10 @@ class AdminController extends Controller {
 		}
 		$user->save();
 		$user_id = $user['id'];
-		foreach( $data['role'] as $item ) {
-			UserRole::insert(['user_id' => $user_id, 'role_id' => $item]);
+		if( isset( $data['role']) ) {
+			foreach ( $data['role'] as $item ) {
+				UserRole::insert( [ 'user_id' => $user_id, 'role_id' => $item ] );
+			}
 		}
 		Session::flash( 'flash_message', 'Tạo thành công tài khoản ' . $user['name'] . ' !' );
 
@@ -191,6 +193,7 @@ class AdminController extends Controller {
 	public function delete( Request $request ) {
 		$user_id = Input::get( 'id' );
 		User::where( 'id', $user_id )->delete();
+		UserRole::where('user_id', $user_id)->delete();
 	}
 
 	public function delete_year( Request $request ) {
@@ -304,6 +307,8 @@ class AdminController extends Controller {
 		$id_array = $get_data['id_array'];
 		User::destroy( $id_array );
 
+		UserRole::whereIn('user_id',$id_array)->delete();
+
 		Session::flash('multi_delete', 'Delete Users Successfully');
 
 		return redirect()->back();
@@ -312,7 +317,6 @@ class AdminController extends Controller {
 	public function multi_delete_pdf() {
 		$get_data = Input::all();
 		$id_array = $get_data['id_array'];
-		dd($id_array);
 		foreach ($id_array as $id) {
 			$class = Classes::where('id',$id)->firstOrFail();
 			Storage::delete( $class->link );

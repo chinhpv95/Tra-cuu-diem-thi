@@ -17,41 +17,51 @@
     $('#auto').focus();
 
     $(function () {
-    $('.checkAllYear').on('click', function () {
-        if(this.checked) {
-            $('.check-box-year'). each(function(){ this.checked = true; });
-        }
-        else
-        {
-            $('.check-box-year'). each(function(){ this.checked = false; });
-        }
+        $('.checkAllYear').on('click', function () {
+            if (this.checked) {
+                $('.check-box-year').each(function () {
+                    this.checked = true;
+                });
+            }
+            else {
+                $('.check-box-year').each(function () {
+                    this.checked = false;
+                });
+            }
 
+        });
     });
-});
 
     $(function () {
-    $('.checkAllUser').on('click', function () {
-        if(this.checked) {
-            $('.check-box-user'). each(function(){ this.checked = true; });
-        }
-        else
-        {
-            $('.check-box-user'). each(function(){ this.checked = false; });
-        }
+        $('.checkAllUser').on('click', function () {
+            if (this.checked) {
+                $('.check-box-user').each(function () {
+                    this.checked = true;
+                });
+            }
+            else {
+                $('.check-box-user').each(function () {
+                    this.checked = false;
+                });
+            }
 
+        });
     });
-});$(function () {
-    $('.checkAllClass').on('click', function () {
-        if(this.checked) {
-            $('.check-box-class'). each(function(){ this.checked = true; });
-        }
-        else
-        {
-            $('.check-box-class'). each(function(){ this.checked = false; });
-        }
+    $(function () {
+        $('.checkAllClass').on('click', function () {
+            if (this.checked) {
+                $('.check-box-class').each(function () {
+                    this.checked = true;
+                });
+            }
+            else {
+                $('.check-box-class').each(function () {
+                    this.checked = false;
+                });
+            }
 
+        });
     });
-});
 
     $(function () {
         $(".list-user .delete").click(function () {

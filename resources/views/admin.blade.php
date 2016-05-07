@@ -43,24 +43,27 @@
 
             <div class="col-sm-3">
                 <ul class="nav nav-tabs manager">
-                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '1') )
+                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '1') &&  App\User::find(Auth::user()->id)->isAdmin() )
                         <li class="active"><a data-toggle="tab" href="#home">Cập nhật danh sách</a></li>
                     @endif
-                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '2') )
+                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '2') &&  App\User::find(Auth::user()->id)->isAdmin() )
                         <li><a data-toggle="tab" href="#class">Cập nhật điểm</a></li>
                     @endif
-                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '3') )
+                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '3') &&  App\User::find(Auth::user()->id)->isAdmin() )
                         <li><a data-toggle="tab" href="#manager">Quản lí thành viên</a></li>
                     @endif
-                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '4') )
+                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '4') &&  App\User::find(Auth::user()->id)->isAdmin() )
                         <li><a data-toggle="tab" href="#manager_year">Quản lí năm học</a></li>
                     @endif
+                    {{--@if( App\User::find(Auth::user()->id)->isAdmin() )--}}
+                        {{--<li><a data-toggle="tab" href="#manager_permission">Quản lí vai trò</a></li>--}}
+                    {{--@endif--}}
                 </ul>
             </div>
 
             <div class="col-sm-9">
                 <div class="tab-content">
-                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '1') )
+                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '1') &&  App\User::find(Auth::user()->id)->isAdmin() )
                         <div id="home" class="tab-pane fade in active">
                             <div class="upload-file">
                                 <h3>Import file Excel</h3>
@@ -157,7 +160,7 @@
                             </div>
                         </div>
                     @endif
-                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '3') )
+                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '3') &&  App\User::find(Auth::user()->id)->isAdmin() )
                         <div id="manager" class="tab-pane fade">
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
@@ -224,16 +227,29 @@
                                                     <div class="control-group">
                                                         <label class="control-label">Permission</label>
                                                         <div class="controls">
-                                                            <label class="checkbox-inline"><input type="checkbox" name="role[]" value="1">Cập nhật danh sách</label>
-                                                            <label class="checkbox-inline"><input type="checkbox" name="role[]" value="2">Cập nhật điểm</label>
-                                                            <label class="checkbox-inline"><input type="checkbox" name="role[]" value="3">Quản lí thành viên</label>
-                                                            <label class="checkbox-inline"><input type="checkbox" name="role[]" value="4">Quản lí năm học</label>
+                                                            <label class="checkbox-inline"><input type="checkbox"
+                                                                                                  name="role[]"
+                                                                                                  value="1">Cập nhật
+                                                                danh sách</label>
+                                                            <label class="checkbox-inline"><input type="checkbox"
+                                                                                                  name="role[]"
+                                                                                                  value="2">Cập nhật
+                                                                điểm</label>
+                                                            <label class="checkbox-inline"><input type="checkbox"
+                                                                                                  name="role[]"
+                                                                                                  value="3">Quản lí
+                                                                thành viên</label>
+                                                            <label class="checkbox-inline"><input type="checkbox"
+                                                                                                  name="role[]"
+                                                                                                  value="4">Quản lí năm
+                                                                học</label>
                                                         </div>
                                                     </div>
                                                     <div class="control-group">
                                                         <label class="control-label">Admin</label>
                                                         <div class="controls">
-                                                            <label class="radio-inline"><input type="checkbox" name="isAdmin" value="1">Admin</label>
+                                                            <label class="radio-inline"><input type="checkbox"
+                                                                                               name="isAdmin" value="1">Admin</label>
                                                         </div>
                                                     </div>
                                                     <div class="control-group">
@@ -258,7 +274,8 @@
                                     @foreach ( $users as $user )
                                         @if ( $user['is_admin'] != 1 )
                                             <li class="list-group-item">
-                                                <input type="checkbox" class = "check-box-user" form="form-delete" name="id_array[]" value="{{$user['id']}}" />
+                                                <input type="checkbox" class="check-box-user" form="form-delete"
+                                                       name="id_array[]" value="{{$user['id']}}"/>
                                                 <span
                                                     class="user_name">{{ $user['name'] }}</span>
                                                 <span class="email">{{ $user['email'] }}</span>
@@ -267,22 +284,22 @@
                                             </li>
                                         @else
                                             <li class="list-group-item">
-                                                
+
                                                 <span>{{ $user['name'] }}</span>
                                                 <span class="email">{{ $user['email'] }}</span>
                                             </li>
                                         @endif
                                     @endforeach
-                                    {{ Form::open( array( 'url' => 'admin/multi_delete_user', 'id'=>'form-delete' ) ) }}
-                                    <label><input type="checkbox" class="checkAllUser"/> Check all</label>
-                                    {{ Form::submit( 'Xóa' ) }}
-                                    {{ Form::close() }}
                                 </ul>
+                                {{ Form::open( array( 'url' => 'admin/multi_delete_user', 'id'=>'form-delete' ) ) }}
+                                <label><input type="checkbox" class="checkAllUser"/> Check all</label>
+                                {{ Form::submit( 'Xóa', array('class' => 'btn btn-primary') ) }}
+                                {{ Form::close() }}
                             </div>
                         </div>
                     @endif
 
-                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '2') )
+                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '2') &&  App\User::find(Auth::user()->id)->isAdmin() )
                         <div id="class" class="tab-pane fade">
                             <div class="panel panel-default">
                                 <div class="form-group">
@@ -294,7 +311,7 @@
                                 <div id="result"></div>
                             </div>
                             <h3>Chọn năm học và kì học cần hiện thị</h3>
-                            {{ Form::open(array('url' => 'admin/filter', 'method' => 'post')) }}
+                            {{ Form::open(array('url' => 'admin/filter_class', 'method' => 'post')) }}
                             <table class="table custom-table">
                                 <tbody>
                                 <tr>
@@ -333,9 +350,13 @@
                             <ul class="list-group control-group list-classes">
                                 @include('partials._filter')
                             </ul>
+                            {{ Form::open( array( 'url' => 'admin/multi_delete_pdf', 'id'=>'form-delete-class' ) ) }}
+                            <label><input type="checkbox" class="checkAllClass"/> Check all</label>
+                            {{ Form::submit( 'Xóa', array('class' => 'btn btn-primary') ) }}
+                            {{ Form::close() }}
                         </div>
                     @endif
-                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '4') )
+                    @if( App\User::find(Auth::user()->id)->hasRole($user_role, '4') &&  App\User::find(Auth::user()->id)->isAdmin() )
                         <div id="manager_year" class="tab-pane fade">
                             <h3>Danh sách các năm học</h3>
                             {{ Form::open( array( 'url' => 'admin/multi_delete' ) ) }}
@@ -351,7 +372,8 @@
                                     <span id="{{ $index['year_id'] }}"
                                           class="year_delete delete glyphicon glyphicon-trash"></span>
                                         <!-- {{ Form::checkbox( 'id_array[]', $index['year_id'] ) }} -->
-                                        <input type="checkbox" class = "check-box-year" name="id_array[]" value="{{ $index['year_id'] }}" />
+                                        <input type="checkbox" class="check-box-year" name="id_array[]"
+                                               value="{{ $index['year_id'] }}"/>
                                     </li>
                                 @endforeach
                                 <li class="list-group-item">
@@ -359,7 +381,7 @@
                                     <span class="year_name"></span>
                                     <span class="year_modify"></span>
                                     <span class="year_delete delete"></span>
-                                    {{ Form::submit( 'Xóa' ) }}
+                                    {{ Form::submit( 'Xóa', array('class' => 'btn btn-primary') ) }}
                                 </li>
                             </ul>
                             {{ Form::close() }}
@@ -425,6 +447,11 @@
                             @endforeach
                         </div>
                     @endif
+                    {{--@if(  App\User::find(Auth::user()->id)->isAdmin() )--}}
+                        {{--<div id="manager_permission" class="tab-pane fade">--}}
+
+                        {{--</div>--}}
+                    {{--@endif--}}
                 </div>
             </div>
         </div>

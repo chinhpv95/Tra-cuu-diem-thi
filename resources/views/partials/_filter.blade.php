@@ -1,7 +1,8 @@
 @foreach ( $latest_class as $index )
     @if ( ! isset( $index['link'] ) )
-    
-        <li class="list-group-item" data-id="{{ $index['id'] }}">
+
+        <li class="list-group-item no-link" data-id="{{ $index['id'] }}">
+            <input type="hidden">
             <span>{{ $index['class_name'] }} ({{ $index['class_code'] }})</span>
             {{ Form::open( array( 'url' => route( 'upLoad', [ 'class_id' => $index['id'] ] ), 'method' => 'POST', 'files' => true ) ) }}
             <span class="btn-file btn btn-primary">Select File{{ Form::file( 'link' ) }}</span>
@@ -16,7 +17,8 @@
 
     @else
         <li class="list-group-item" data-id="{{ $index['id'] }}">
-            <input type="checkbox" class="check-box-class" form="form-delete" name="id_array[]" value="{{ $index['id'] }}" />
+            <input type="checkbox" class="check-box-class" form="form-delete-class" name="id_array[]"
+                   value="{{ $index['id'] }}"/>
             <a href="{{ url( 'public/storage' ) }}/{{ $index["link"] }}" target="_blank">
                 <span>{{ $index['class_name'] }} ({{ $index['class_code'] }})</span>
             </a>
@@ -33,11 +35,7 @@
             <span class="glyphicon glyphicon-ok"></span>
         </li>
 
-        
+
     @endif
 
 @endforeach
-{{ Form::open( array( 'url' => 'admin/multi_delete_pdf', 'id'=>'form-delete' ) ) }}
-            <label><input type="checkbox" class="checkAllClass"/> Check all</label>
-            {{ Form::submit( 'Xóa' ) }}
-            {{ Form::close() }}
