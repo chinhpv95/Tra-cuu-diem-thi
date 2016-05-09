@@ -361,8 +361,8 @@ class AdminController extends Controller {
 			Mail::raw( 'Phòng Đào Tạo xin thông báo: Giảng Viên nhanh chóng nộp điểm tổng kết lớp môn học ' . $data['class_code'] . ' về PĐT', function ( $arg ) use ( $data ) {
 				$arg->from( 'daitd58@gmail.com', 'Quan Ly' );
 				$arg->to( $data['email'], 'Nguyen Manh Hung2' )->subject( '[Thông báo]Về việc nộp bảng điểm tổng kết' );
-				Storage::append('logs.txt', Carbon::now().' '.Auth::user()->name.' đã gửi email nhắc nhở nộp bảng điểm lớp môn học '.$class['class_code'].' - '.$class['class_name']);
 			} );
+			Storage::append('logs.txt', Carbon::now().' '.Auth::user()->name.' đã gửi email nhắc nhở nộp bảng điểm lớp môn học '.$class['class_code'].' - '.$class['class_name']);
 		}
 
 		
