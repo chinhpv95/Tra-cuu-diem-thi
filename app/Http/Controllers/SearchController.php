@@ -8,6 +8,9 @@ use App\Year;
 use App\Semester;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Storage;
+use Carbon\Carbon;
+use Auth;
 
 class SearchController extends Controller {
 	public function index() {

@@ -154,6 +154,10 @@
                                             <td>{{ Form::label( 'teacher', 'Giáo viên' ) }}</td>
                                             <td>{{ Form::text( 'teacher-input', '', array( 'class' => 'form-control' ) ) }}</td>
                                         </tr>
+                                        tr>
+                                            <td>{{ Form::label( 'email', 'Email của giáo viên' ) }}</td>
+                                            <td>{{ Form::text( 'email-input', '', array( 'class' => 'form-control' ) ) }}</td>
+                                        </tr>
                                         <tr>
                                             <td></td>
                                             <td>

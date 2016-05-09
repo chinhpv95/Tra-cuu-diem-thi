@@ -20,10 +20,12 @@ use Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
 use Mail;
+use Carbon\Carbon;
 
 
 class AdminController extends Controller {
 	public function index() {
+
 		if ( Auth::check() ) {
 			$years           = Year::select( 'year_id', 'year_name' )->get();
 			$semesters       = Semester::select( 'semester_id', 'semester_name' )->get();
@@ -38,6 +40,7 @@ class AdminController extends Controller {
 
 			return view( 'admin', compact( 'years', 'semesters', 'users', 'user_role', 'latest_class' ) );
 		}
+
 		return redirect('login');
 	}
 
@@ -62,7 +65,7 @@ class AdminController extends Controller {
 			}
 		}
 		Session::flash( 'flash_message', 'Tạo thành công tài khoản ' . $user['name'] . ' !' );
-
+		Storage::append('logs.txt', Carbon::now().' '.Auth::user()->name.' đã thêm tài khoản '.$user['name']);
 		return Redirect::to( URL::previous() . "#manager" );
 	}
 
@@ -78,7 +81,7 @@ class AdminController extends Controller {
 
 		$class->save();
 		Session::flash( 'flash_message', 'Lớp môn học đã được thêm thành công!' );
-
+		Storage::append('logs.txt', Carbon::now().' '.Auth::user()->name.' đã thêm lớp môn học '.$class['class_code'].' - '.$class['class_name']);
 		return Redirect::to( URL::previous() . "#home" );
 	}
 
@@ -132,6 +135,7 @@ class AdminController extends Controller {
 			'class-name-input.required'       => 'Bắt buộc nhập tên môn học!',
 			'teacher-input.required'          => 'Bắt buộc nhập tên giáo viên!',
 			'class-code-input.unique:classes' => 'Bắt buộc nhập mã môn học!',
+			'email-input.required'          => 'Bắt buộc nhập email của giáo viên!',
 
 		];
 
@@ -142,11 +146,13 @@ class AdminController extends Controller {
 		$classes['class_code']  = $data['class-code-input'];
 		$classes['class_name']  = $data['class-name-input'];
 		$classes['teacher']     = $data['teacher-input'];
+		$classes['email']		= $data['email-input'];
 
 		$this->validate( $request, [
 			'class-code-input' => 'required',
 			'class-name-input' => 'required',
 			'teacher-input'    => 'required',
+			'email-input'    => 'required',
 
 		], $messages );
 
@@ -171,7 +177,9 @@ class AdminController extends Controller {
 
 
 		Session::flash( 'flash_message', 'File uploaded!' );
-	}
+		}
+		Storage::append('logs.txt', Carbon::now().' '.Auth::user()->name.' đã cập nhật điểm lớp môn học '.$class['class_code'].' - '.$class['class_name']);
+
 		return Redirect::to( URL::previous() . "#class" );
 	}
 
@@ -181,6 +189,7 @@ class AdminController extends Controller {
 		$destinationPath = base_path() . "\\public\\storage\\";
 
 		unlink( $destinationPath . $fileName );
+
 	}
 
 	public function download( $class_id ) {
@@ -193,17 +202,23 @@ class AdminController extends Controller {
 	public function delete( Request $request ) {
 		$user_id = Input::get( 'id' );
 		User::where( 'id', $user_id )->delete();
+		$user=User::where( 'id', $user_id )->first();
 		UserRole::where('user_id', $user_id)->delete();
+		Storage::append('logs.txt', Carbon::now().' '.Auth::user()->name.' đã xóa người dùng '.$user['name']);
 	}
 
 	public function delete_year( Request $request ) {
 		$year_id = Input::get( 'id' );
+		$year = Year::where( 'year_id', $year_id )->first();
 		Year::where( 'year_id', $year_id )->delete();
+		Storage::append('logs.txt', Carbon::now().' '.Auth::user()->name.' đã xóa năm học '.$year['year_name']);
 	}
 
 	public function updateYear( Request $request, $year_id ) {
 		$data = $request->all();
+		$year = Year::where( 'year_id', $year_id )->first();
 		Year::where( 'year_id', $year_id )->update( [ 'year_name' => $data['year_name'] ] );
+		Storage::append('logs.txt', Carbon::now().' '.Auth::user()->name.' đã cập nhật năm học '.$year['year_name']);
 
 		return redirect()->back();
 	}
@@ -265,7 +280,7 @@ class AdminController extends Controller {
 			Year::insert( [ 'year_name' => $year ] );
 		}
 		Session::flash( 'add_message', 'Add year successfully!' );
-
+		Storage::append('logs.txt', Carbon::now().' '.Auth::user()->name.' đã thêm '.$year);
 		return redirect()->back();
 	}
 
@@ -296,6 +311,10 @@ class AdminController extends Controller {
 	public function multi_delete() {
 		$get_data = Input::all();
 		$id_array = $get_data['id_array'];
+		foreach ($id_array as $id) {
+			$year = Year::where('year_id', $id)->first();
+			Storage::append('logs.txt', Carbon::now().' '.Auth::user()->name.' đã xóa năm học '.$year['year_name']);
+		}
 		Year::destroy( $id_array );
 
 		Session::flash('multi_delete', 'Delete Successfully');
@@ -305,6 +324,10 @@ class AdminController extends Controller {
 	public function multi_delete_user() {
 		$get_data = Input::all();
 		$id_array = $get_data['id_array'];
+		foreach ($id_array as $id) {
+			$user = User::where('id', $id)->first();
+			Storage::append('logs.txt', Carbon::now().' '.Auth::user()->name.' đã xóa người dùng '.$user['name']);
+		}
 		User::destroy( $id_array );
 
 		UserRole::whereIn('user_id',$id_array)->delete();
@@ -319,6 +342,7 @@ class AdminController extends Controller {
 		$id_array = $get_data['id_array'];
 		foreach ($id_array as $id) {
 			$class = Classes::where('id',$id)->firstOrFail();
+			Storage::append('logs.txt', Carbon::now().' '.Auth::user()->name.' đã xóa điểm lớp môn học '.$class['class_code'].' - '.$class['class_name']);
 			Storage::delete( $class->link );
 			$class->link = null;
 			$class->save();
@@ -337,9 +361,11 @@ class AdminController extends Controller {
 			Mail::raw( 'Phòng Đào Tạo xin thông báo: Giảng Viên nhanh chóng nộp điểm tổng kết lớp môn học ' . $data['class_code'] . ' về PĐT', function ( $arg ) use ( $data ) {
 				$arg->from( 'daitd58@gmail.com', 'Quan Ly' );
 				$arg->to( $data['email'], 'Nguyen Manh Hung2' )->subject( '[Thông báo]Về việc nộp bảng điểm tổng kết' );
-
+				Storage::append('logs.txt', Carbon::now().' '.Auth::user()->name.' đã gửi email nhắc nhở nộp bảng điểm lớp môn học '.$class['class_code'].' - '.$class['class_name']);
 			} );
 		}
+
+		
 	}
 
 	public function updateAvatar( $user_id ) {
@@ -366,7 +392,8 @@ class AdminController extends Controller {
 			$admin = $data['isAdmin'];
 			User::where('id', $user_id)->update( ['is_admin' => $admin]);
 		}
-
+		$user = User::where('id', $user_id)->first();
+		Storage::append('logs.txt', Carbon::now().' '.Auth::user()->name.' đã cập nhật quyền cho người dùng '.$user['name']);
 		Session::flash('update_permission', 'Update successful');
 
 		return redirect()->back();
