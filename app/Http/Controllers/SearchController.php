@@ -16,7 +16,7 @@ class SearchController extends Controller {
 	public function index() {
 		$years     = Year::select( 'year_id', 'year_name' )->get();
 		$semesters = Semester::select( 'semester_id', 'semester_name' )->get();
-
+		
 		return view( 'search', compact( 'years', 'semesters' ) );
 	}
 

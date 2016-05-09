@@ -62,7 +62,7 @@
                         <li><a data-toggle="tab" href="#manager_year">Quản lí năm học</a></li>
                     @endif
                     @if( App\User::find(Auth::user()->id)->isAdmin() )
-                        <li><a data-toggle="tab" href="#manager_permission">Quản lí vai trò</a></li>
+                        <li><a data-toggle="tab" href="#manager_permission">Phân quyền truy cập</a></li>
                     @endif
                 </ul>
             </div>
@@ -72,7 +72,7 @@
                     @if( App\User::find(Auth::user()->id)->hasRole($user_role, '1') ||  App\User::find(Auth::user()->id)->isAdmin() )
                         <div id="home" class="tab-pane fade in active">
                             <div class="upload-file">
-                                <h3>Import file Excel</h3>
+                                <h3>Thêm danh sách môn học bằng Excel</h3>
                                 {{ Form::open(array('url' => 'admin/getExcel', 'method' => 'POST', 'files' => true)) }}
                                 <table class="table custom-table">
                                     <tbody>
@@ -154,7 +154,7 @@
                                             <td>{{ Form::label( 'teacher', 'Giáo viên' ) }}</td>
                                             <td>{{ Form::text( 'teacher-input', '', array( 'class' => 'form-control' ) ) }}</td>
                                         </tr>
-                                        tr>
+                                        <tr>
                                             <td>{{ Form::label( 'email', 'Email của giáo viên' ) }}</td>
                                             <td>{{ Form::text( 'email-input', '', array( 'class' => 'form-control' ) ) }}</td>
                                         </tr>
@@ -305,7 +305,7 @@
                                     @endforeach
                                 </ul>
                                 {{ Form::open( array( 'url' => 'admin/multi_delete_user', 'id'=>'form-delete' ) ) }}
-                                <label><input type="checkbox" class="checkAllUser"/> Check all</label>
+                                <label><input type="checkbox" class="checkAllUser"/> Check all</label></br>
                                 {{ Form::submit( 'Xóa', array('class' => 'btn btn-primary') ) }}
                                 {{ Form::close() }}
                             </div>
@@ -317,13 +317,13 @@
                             <div class="panel panel-default">
                                 <div class="form-group">
                                     <label>Tìm kiếm :</label>
-                                    <input name="keysearch" value="" placeholder="name" id="keysearch" type="text"
+                                    <input name="keysearch" value="" placeholder="VD: INT2201, Cơ - Nhiệt,..." id="keysearch" type="text"
                                            class="form-control">
                                     <span id="loading">Loading...</span>
                                 </div>
                                 <div id="result"></div>
                             </div>
-                            <h3>Chọn năm học và kì học cần hiện thị</h3>
+                            <h3>Tìm kiếm nâng cao</h3>
                             {{ Form::open(array('url' => 'admin/filter_class', 'method' => 'post')) }}
                             <table class="table custom-table">
                                 <tbody>
@@ -364,7 +364,7 @@
                                 @include('partials._filter')
                             </ul>
                             {{ Form::open( array( 'url' => 'admin/multi_delete_pdf', 'id'=>'form-delete-class' ) ) }}
-                            <label><input type="checkbox" class="checkAllClass"/> Check all</label>
+                            <label><input type="checkbox" class="checkAllClass"/> Check all</label></br>
                             {{ Form::submit( 'Xóa', array('class' => 'btn btn-primary') ) }}
                             {{ Form::close() }}
                         </div>
@@ -404,7 +404,7 @@
                                 <tbody>
                                 <tr>
                                     <td><label class="control-label">Năm học</label></td>
-                                    <td><input class="form-control" id="new_year" placeholder="Nhập năm học" type="text"
+                                    <td><input class="form-control" id="new_year" placeholder="VD: Năm học 2015-2016" type="text"
                                                name="new_year"></td>
                                 </tr>
                                 <tr>
@@ -487,7 +487,7 @@
                                                 <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
                                                     <span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title">Vai trò</h4>
+                                                <h4 class="modal-title">Danh sách các quyền truy cập</h4>
                                             </div>
                                             <div class="modal-body">
                                                 <form class="form-horizontal"
@@ -505,7 +505,7 @@
                                                                     @else
                                                                         <input type="checkbox" name="role[]" value="1">
                                                                     @endif
-                                                                    Cập nhật danh sách
+                                                                    Danh sách môn học
                                                                 </label>
                                                                 <label class="checkbox-inline">
                                                                     @if(App\User::find($user['id'])->hasRole($roles, '2'))

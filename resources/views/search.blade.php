@@ -42,7 +42,7 @@
         </div>
         @if ( isset( $_GET['search'] ) )
             @if ( count( $result ) == 0 )
-                <h1 class="class_error">Không tồn tại môn học</h1>
+                <h4 class="class_error">Môn học không tồn tại, xin thử lại với tìm kiếm nâng cao</h4>
             @endif
         @endif
         @if ( isset( $_GET['search'] ) && count( $result ) != 0 && isset( $input['page'] ) )
