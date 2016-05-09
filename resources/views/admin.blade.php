@@ -46,6 +46,11 @@
                     {{ Session::get('update_permission') }}
                 </div>
             @endif
+            @if(Session::has('set_active'))
+                <div class="alert alert-success">
+                    {{ Session::get('set_active') }}
+                </div>
+            @endif
 
             <div class="col-sm-3">
                 <ul class="nav nav-tabs manager">
@@ -317,7 +322,8 @@
                             <div class="panel panel-default">
                                 <div class="form-group">
                                     <label>Tìm kiếm :</label>
-                                    <input name="keysearch" value="" placeholder="VD: INT2201, Cơ - Nhiệt,..." id="keysearch" type="text"
+                                    <input name="keysearch" value="" placeholder="VD: INT2201, Cơ - Nhiệt,..."
+                                           id="keysearch" type="text"
                                            class="form-control">
                                     <span id="loading">Loading...</span>
                                 </div>
@@ -371,6 +377,8 @@
                     @endif
                     @if( App\User::find(Auth::user()->id)->hasRole($user_role, '4') ||  App\User::find(Auth::user()->id)->isAdmin() )
                         <div id="manager_year" class="tab-pane fade">
+                            <h3>Năm học và kì học mới nhất</h3>
+                            <p>{{ $latest_semester['semester_name'] }} của {{ $latest_year['year_name'] }}</p>
                             <h3>Danh sách các năm học</h3>
                             {{ Form::open( array( 'url' => 'admin/multi_delete' ) ) }}
                             <ul class="list-group list-years">
@@ -404,17 +412,49 @@
                                 <tbody>
                                 <tr>
                                     <td><label class="control-label">Năm học</label></td>
-                                    <td><input class="form-control" id="new_year" placeholder="VD: Năm học 2015-2016" type="text"
+                                    <td><input class="form-control" id="new_year" placeholder="VD: Năm học 2015-2016"
+                                               type="text"
                                                name="new_year"></td>
-                                </tr>
-                                <tr>
-                                    <td><label class="control-label">Mới nhất</label></td>
-                                    <td><input type="checkbox" id="year_active" name="year_active"></td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td>
                                         <button class="btn btn-primary" type="submit">Thêm</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            {{ Form::close() }}
+                            <h3>Chọn năm học và kì học mới nhất</h3>
+                            {{ Form::open( array( 'url' => 'admin/set_active' ) ) }}
+                            <table class="table custom-table">
+                                <tbody>
+                                <tr>
+                                    <td><label class="control-label">Năm học</label></td>
+                                    <td>
+                                        <select class="set_year" name="set_year">
+                                            @foreach ( $years as $year )
+                                                <option
+                                                    value="{{ $year['year_id'] }}">{{ $year['year_name'] }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label class="control-label">Năm học</label></td>
+                                    <td>
+                                        <select class="set_semester" name="set_semester">
+                                            @foreach ( $semesters as $semester )
+                                                <option
+                                                    value="{{ $semester['semester_id'] }}">{{ $semester['semester_name'] }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <button class="btn btn-primary" type="submit">Xác nhận</button>
                                     </td>
                                 </tr>
                                 </tbody>

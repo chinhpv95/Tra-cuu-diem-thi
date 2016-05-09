@@ -53,6 +53,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('admin/multi_delete', ['as' => 'multi_delete', 'uses' => 'AdminController@multi_delete']);
     Route::post('admin/multi_delete_pdf', ['as' => 'multi_delete_pdf', 'uses' => 'AdminController@multi_delete_pdf']);
     Route::post('admin/multi_delete_user', ['as' => 'multi_delete_user', 'uses' => 'AdminController@multi_delete_user']);
+    Route::post('admin/set_active', ['as' => 'set_active', 'uses' => 'AdminController@set_active']);
 
     Route::get('/upload/{class_id}', ['as' => 'upLoad', 'uses' => 'AdminController@upLoad']);
     Route::post('/upload/{class_id}', ['as' => 'upLoad', 'uses' => 'AdminController@upLoad']);
